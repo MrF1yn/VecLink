@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>FalconCloud</artifactId>
+        <groupId>xyz.vectlabs</groupId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+<!--    <packaging>jar</packaging>-->
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>Client-Velocity</artifactId>
+    <repositories>
+        <repository>
+            <id>velocity</id>
+            <url>https://nexus.velocitypowered.com/repository/maven-public/</url>
+        </repository>
+    </repositories>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.udojava</groupId>
+            <artifactId>EvalEx</artifactId>
+            <!-- change to desired version -->
+            <version>2.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.velocitypowered</groupId>
+            <artifactId>velocity-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.0.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>xyz.vectlabs</groupId>
+            <artifactId>Client-Parent</artifactId>
+            <version>1.1-SNAPSHOT</version>
+<!--            <scope>system</scope>-->
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>PlaceholderAPI-2.10.9</groupId>-->
+<!--            <artifactId>PlaceholderAPI-2.10.9</artifactId>-->
+<!--            <scope>system</scope>-->
+<!--            <version>1.0</version>-->
+<!--            <systemPath>H:\projectApisSpigot\PlaceholderAPI-2.10.9.jar</systemPath>-->
+<!--        </dependency>-->
+    </dependencies>
+</project>

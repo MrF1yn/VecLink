@@ -1,0 +1,16 @@
+dev\MrFlyn\FalconServer\Utils\ConsoleSpamHandler.class
+dev\MrFlyn\FalconServer\ServerHandlers\DeAuthTask.class
+dev\MrFlyn\FalconServer\ShutDownHook.class
+dev\MrFlyn\FalconServer\ServerHandlers\ServerHandler.class
+dev\MrFlyn\FalconServer\ServerHandlers\ServerType.class
+dev\MrFlyn\FalconServer\ServerHandlers\PacketFormatter.class
+dev\MrFlyn\FalconServer\Main.class
+dev\MrFlyn\FalconServer\ServerHandlers\ServerInitializer.class
+dev\MrFlyn\FalconServer\ServerHandlers\FalconServer.class
+dev\MrFlyn\FalconServer\Utils\ConsoleSpamHandler$1.class
+dev\MrFlyn\FalconServer\ServerHandlers\FalconClient.class
+dev\MrFlyn\FalconServer\MainConfig.class
+dev\MrFlyn\FalconServer\Utils\Player.class
+dev\MrFlyn\FalconServer\Commands.class
+dev\MrFlyn\FalconServer\ServerHandlers\PayloadHandler.class
+dev\MrFlyn\FalconServer\ServerHandlers\FalconServer$1.class

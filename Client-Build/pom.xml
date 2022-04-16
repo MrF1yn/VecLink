@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>FalconCloud</artifactId>
+        <groupId>xyz.vectlabs</groupId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+<!--    <packaging>pom</packaging>-->
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>Client-Build</artifactId>
+    <build>
+        <finalName>FalconCloudClient-AIO</finalName>
+        <directory>H:\FalconCloud\builds</directory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.3.1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation=
+                                                     "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>dev.MrFlyn.FalconClient.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.google.gson</pattern>
+                                    <shadedPattern>falcon.com.google.gson</shadedPattern>
+                                </relocation>                                <relocation>
+                                    <pattern>org.apache.commons.lang3</pattern>
+                                    <shadedPattern>falcon.commons</shadedPattern>
+                                </relocation>
+                            </relocations>
+<!--                            <artifactSet>-->
+<!--                                <includes>-->
+<!--                                    <include>org.falconstudios:Client-Parent</include>-->
+<!--                                    <include>org.falconstudios:Spigot</include>-->
+<!--                                </includes>-->
+<!--                            </artifactSet>-->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>xyz.vectlabs</groupId>
+            <artifactId>Client-Spigot</artifactId>
+            <version>1.1-SNAPSHOT</version>
+<!--            <type>jar</type>-->
+<!--            <scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>xyz.vectlabs</groupId>
+            <artifactId>Client-Velocity</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <!--<type>jar</type>-->
+            <!--<scope>provided</scope>-->
+        </dependency>
+        <dependency>
+            <groupId>xyz.vectlabs</groupId>
+            <artifactId>Client-Parent</artifactId>
+            <version>1.1-SNAPSHOT</version>
+<!--            <type>jar</type>-->
+<!--            <scope>provided</scope>-->
+        </dependency>
+
+    </dependencies>
+
+</project>

@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/codegen/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/codegen/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/examples/android-proguard-example/src" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/extras/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/extras/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/gson/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/gson/src/main/java-templates" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/gson/src/test/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/metrics/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/proto/src/main/java" />
+      <root url="jar://$PROJECT_DIR$/../ProjectAPIsSpigot/gson-gson-parent-2.8.9.zip!/gson-gson-parent-2.8.9/proto/src/test/java" />
+    </SOURCES>
+  </library>
+</component>

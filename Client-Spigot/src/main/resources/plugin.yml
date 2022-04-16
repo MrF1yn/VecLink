@@ -1,0 +1,14 @@
+main: FalconClientSpigot.FalconMainSpigot
+version: 0.0
+name: FalconCloudClient
+softdepend:
+  - PlaceholderAPI
+commands:
+  falcon:
+    description: parent command.
+    usage: /<command> []
+
+permissions:
+  falcon.admin:
+    default: op
+    description: falcon admin.

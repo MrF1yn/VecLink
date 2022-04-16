@@ -1,0 +1,64 @@
+#This is FalconClouds internal PlaceholderApi which is a super toned down version of Ryan Mcarthy's PlaceholderAPI. It's made to work within velocity and bungeecord.
+#You can use these placeholders anywhere in the config. This also includes the math expansion for easy mathematical calculations.
+#goto this webpage to know about the format of math placeholder https://github.com/Andre601/Math-Expansion
+#list of available placeholder:
+# %fcln_onlineStatus_<client-id>%
+# %fcln_onlineStatusBoolean_<client-id>%
+# %fcln_playerCount_<client-id>%
+
+#This is some additional configurations for each placeholder.
+placeholder-config:
+  onlineStatus:
+    true: "&aONLINE"
+    false: "&cOFFLINE"
+  clientStatus:
+    true: "&aCONNECTED"
+    false: "&cNOT CONNECTED"
+
+modify-player-count:
+  enabled: false
+  #set the value of the online player count.
+  online-value: '%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}%'
+  #set the value of the maximum player count.
+  maximum-value: '%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}+200%'
+
+modify-motd:
+  enabled: true
+  #choose the display option. Can either be random from the values list or you can put the position of the value in the list staring from 0.
+  #For.eg choosing 'random' will display a random motd from the values list.
+  #choosing '0' will display the first element in the list in this case its '&bFalcon&fCloud'.
+  #choosing '1' will display the second element in the list in this case its '&bFalcon&fCloud &bVelocity'.
+  #if the number entered is more than the size of the list then the first value will be displayed.
+  #you can display the next line by using '\n' between the sentences.
+  display-mode: 'random'
+  #define the values color codes can be used.
+  values:
+    - '&bFalcon&fCloud'
+    - '&bFalcon&fCloud &bVelocity'
+    - '&b%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}% &bPlayers Online.'
+
+modify-sampleplayers:
+  #enabling this will allow you to change the text which appears in the server ping list when you hover over the playercount.
+  enabled: true
+  #choose the display option. Can either be random from the values list or you can put the position of the value in the list staring from 0.
+  #For.eg choosing 'random' will display a random sampleplayer from the values list.
+  #choosing 0 will display the first element in the list in this case its '--------------&bFalcon&fCloud &bVelocity--------------'.
+  #choosing 1 will display the second element in the list in this case its '&6The &bExtraordinary &fCloud &6Experience&f.'.
+  #choosing 'all' will display all the values in their respective lines.
+  #if the number entered is more than the size of the list then the first value will be displayed.
+  display-mode: 'all'
+  #define the values color codes can be used.
+  values:
+    - '--------------&bFalcon&fCloud &bVelocity--------------'
+    - '&6The &bExtraordinary &fCloud &6Experience&f.'
+    - '&b%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}% &bPlayers Online.'
+
+Commands:
+  #Shows all the players from all connected clients
+  #command: /glist <client-id(optional)>
+  #permission: falcon.command.glist
+  glist:
+    enabled: true
+    alias:
+      - 'gl'
+
