@@ -126,6 +126,10 @@ public class PacketHandlerVelocity implements PacketHandler {
                     cfc.setCanJoin(canJoin);
                     cfc.setOsName(osName);
                     cfc.setMspt(mspt);
+                    if (cfc.getType().equals("VELOCITY")||cfc.getType().equals("BUNGEE")){
+                        String srv = json.get("backend-servers").getAsString();
+                        cfc.setBackendServers(Arrays.asList(srv.substring(1,srv.length()-1).split(",")));
+                    }
                     return;
                 }
                 break;
@@ -137,6 +141,16 @@ public class PacketHandlerVelocity implements PacketHandler {
                         UUID.fromString(json.get("uuid").getAsString()),
                         json.get("action").getAsString());
                 break;
+            case "PARTY-INVITE-RELAY":
+                String targetPlayerName = json.get("invited").getAsString();
+                String owner = json.get("owner").getAsString();
+                Optional<Player> player = FalconMainVelocity.plugin.server.getPlayer(targetPlayerName);
+                if (!player.isPresent()){
+                    //target player not present
+                    //send error msg back to owner;
+                    return;
+                }
+                //player found send invite message to player.
         }
     }
 

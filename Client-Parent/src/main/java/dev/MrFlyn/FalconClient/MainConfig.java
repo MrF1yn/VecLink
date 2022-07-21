@@ -56,6 +56,10 @@ public class MainConfig {
         }
     }
 
+    public String getClientID(){
+        return mainConfig.getString("client-id");
+    }
+
     public YamlFile getMainConfig() {
         return mainConfig;
     }

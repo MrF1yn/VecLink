@@ -15,7 +15,8 @@ public enum ConfigPath {
     NO_PERM("NO_PERM_MSG", "§7[§bFalcon§fCloud§7]§f➣ §cYou don't have the permission to execute the command."),
     CHAT_GRP_MUTED("CHAT_GRP_MUTED", "§7[§bFalcon§fCloud§7]§f➣ §aChat group muted successfully."),
     CHAT_GRP_UNMUTED("CHAT_GRP_UNMUTED", "§7[§bFalcon§fCloud§7]§f➣ §aChat group un-muted successfully."),
-    RELOAD_RESPONSE("RELOAD_RESPONSE", "§7[§bFalcon§fCloud§7]§f➣ §aReloading...");
+    RELOAD_RESPONSE("RELOAD_RESPONSE", "§7[§bFalcon§fCloud§7]§f➣ §aReloading..."),
+    NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bFalcon§fCloud§7]§f➣ §aOnly players can execute this command.");
 
 
     private String path;

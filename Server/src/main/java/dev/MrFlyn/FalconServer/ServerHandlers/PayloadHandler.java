@@ -75,6 +75,10 @@ public class PayloadHandler {
                     fromClient.setTps15min(tps.get(2));
                     fromClient.setMspt(mspt);
                 }
+                if(fromClient.getType()==ServerType.VELOCITY||fromClient.getType()==ServerType.BUNGEE){
+                    String srv = json.get("backend-servers").getAsString();
+                    fromClient.setBackendServers(Arrays.asList(srv.substring(1,srv.length()-1).split(",")));
+                }
                 for(FalconClient cl : ServerHandler.ClientsByName.values()){
                     if(!cl.getName().equals(fromClient.getName())){
                         Main.debug("Forwarded client info to: "+cl.getName()+".", true);

@@ -3,6 +3,7 @@ package FalconClientSpigot;
 import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconClient.ClientHandlers.ConnectedFalconClient;
 import dev.MrFlyn.FalconClient.ClientHandlers.PacketHandler;
+import dev.MrFlyn.FalconClient.ClientHandlers.RemotePlayer;
 import dev.MrFlyn.FalconClient.Main;
 import io.netty.channel.ChannelHandlerContext;
 import org.bukkit.Bukkit;
@@ -140,6 +141,10 @@ ReentrantLock lock = new ReentrantLock();
                     cfc.setCanJoin(canJoin);
                     cfc.setOsName(osName);
                     cfc.setMspt(mspt);
+                    if (cfc.getType().equals("VELOCITY")||cfc.getType().equals("BUNGEE")){
+                        String srv = json.get("backend-servers").getAsString();
+                        cfc.setBackendServers(Arrays.asList(srv.substring(1,srv.length()-1).split(",")));
+                    }
                     return;
                 }
                 break;

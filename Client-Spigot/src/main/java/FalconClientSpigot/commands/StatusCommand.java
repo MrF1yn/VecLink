@@ -29,23 +29,26 @@ public class StatusCommand implements SubCommand {
             if(ConnectedFalconClient.CFC.containsKey(name)){
                 ConnectedFalconClient c = ConnectedFalconClient.CFC.get(name);
                 sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
-                sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
-                sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
-                sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
-                sender.sendMessage(ChatColor.AQUA+"Is-Joinable: "+ChatColor.WHITE+c.isCanJoin());
-                sender.sendMessage(ChatColor.AQUA+"TotalPlayers: "+ChatColor.WHITE+c.getOnlinePlayerCount());
-                if(c.getType().equals("SPIGOT")) {
-                    sender.sendMessage(ChatColor.AQUA+"Mspt: " + ChatColor.WHITE+decimalFormat.format(c.getMspt()));
-                    sender.sendMessage(ChatColor.AQUA+"Tps 1m,5m,15m: " + ChatColor.WHITE+decimalFormat.format(c.getTps1min())+","+
-                            decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min()));
+//                sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
+//                sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
+//                sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
+//                sender.sendMessage(ChatColor.AQUA+"Is-Joinable: "+ChatColor.WHITE+c.isCanJoin());
+//                sender.sendMessage(ChatColor.AQUA+"TotalPlayers: "+ChatColor.WHITE+c.getOnlinePlayerCount());
+//                if(c.getType().equals("SPIGOT")) {
+//                    sender.sendMessage(ChatColor.AQUA+"Mspt: " + ChatColor.WHITE+decimalFormat.format(c.getMspt()));
+//                    sender.sendMessage(ChatColor.AQUA+"Tps 1m,5m,15m: " + ChatColor.WHITE+decimalFormat.format(c.getTps1min())+","+
+//                            decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min()));
+//                }
+//                sender.sendMessage(ChatColor.AQUA+"OperatingSystem: "+ChatColor.WHITE+c.getOsName());
+//                sender.sendMessage(ChatColor.AQUA+"RunningThreads: "+ChatColor.WHITE+c.getRunningThreads());
+//                sender.sendMessage(ChatColor.AQUA+"No.of CPU cores: "+ChatColor.WHITE+c.getCpuCores());
+//                sender.sendMessage(ChatColor.AQUA+"CpuUsage: "+ChatColor.WHITE+decimalFormat.format(c.getCpuUsagePercent())+"%");
+//                sender.sendMessage(ChatColor.AQUA+"MemoryUsage: "+ChatColor.WHITE+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
+//                        +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)");
+//                sender.sendMessage(ChatColor.AQUA+"AllocatedMemory: "+ChatColor.WHITE+decimalFormat.format(c.getCurrentMemoryUsage())+"MB");
+                for(String s : c.getFormattedClientInfo()){
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
                 }
-                sender.sendMessage(ChatColor.AQUA+"OperatingSystem: "+ChatColor.WHITE+c.getOsName());
-                sender.sendMessage(ChatColor.AQUA+"RunningThreads: "+ChatColor.WHITE+c.getRunningThreads());
-                sender.sendMessage(ChatColor.AQUA+"No.of CPU cores: "+ChatColor.WHITE+c.getCpuCores());
-                sender.sendMessage(ChatColor.AQUA+"CpuUsage: "+ChatColor.WHITE+decimalFormat.format(c.getCpuUsagePercent())+"%");
-                sender.sendMessage(ChatColor.AQUA+"MemoryUsage: "+ChatColor.WHITE+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
-                        +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)");
-                sender.sendMessage(ChatColor.AQUA+"AllocatedMemory: "+ChatColor.WHITE+decimalFormat.format(c.getCurrentMemoryUsage())+"MB");
                 sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
             }
             else if(name.equals(Main.config.getMainConfig().getString("client-id"))){
@@ -77,23 +80,26 @@ public class StatusCommand implements SubCommand {
         }
         for(ConnectedFalconClient c : ConnectedFalconClient.CFC.values()){
             sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
-            sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
-            sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
-            sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
-            sender.sendMessage(ChatColor.AQUA+"Is-Joinable: "+ChatColor.WHITE+c.isCanJoin());
-            sender.sendMessage(ChatColor.AQUA+"TotalPlayers: "+ChatColor.WHITE+c.getOnlinePlayerCount());
-            if(c.getType().equals("SPIGOT")) {
-                sender.sendMessage(ChatColor.AQUA+"Mspt: " + ChatColor.WHITE+decimalFormat.format(c.getMspt()));
-                sender.sendMessage(ChatColor.AQUA+"Tps 1m,5m,15m: " + ChatColor.WHITE+decimalFormat.format(c.getTps1min())+","+
-                        decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min()));
+//            sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
+//            sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
+//            sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
+//            sender.sendMessage(ChatColor.AQUA+"Is-Joinable: "+ChatColor.WHITE+c.isCanJoin());
+//            sender.sendMessage(ChatColor.AQUA+"TotalPlayers: "+ChatColor.WHITE+c.getOnlinePlayerCount());
+//            if(c.getType().equals("SPIGOT")) {
+//                sender.sendMessage(ChatColor.AQUA+"Mspt: " + ChatColor.WHITE+decimalFormat.format(c.getMspt()));
+//                sender.sendMessage(ChatColor.AQUA+"Tps 1m,5m,15m: " + ChatColor.WHITE+decimalFormat.format(c.getTps1min())+","+
+//                        decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min()));
+//            }
+//            sender.sendMessage(ChatColor.AQUA+"OperatingSystem: "+ChatColor.WHITE+c.getOsName());
+//            sender.sendMessage(ChatColor.AQUA+"RunningThreads: "+ChatColor.WHITE+c.getRunningThreads());
+//            sender.sendMessage(ChatColor.AQUA+"No.of CPU cores: "+ChatColor.WHITE+c.getCpuCores());
+//            sender.sendMessage(ChatColor.AQUA+"CpuUsage: "+ChatColor.WHITE+decimalFormat.format(c.getCpuUsagePercent())+"%");
+//            sender.sendMessage(ChatColor.AQUA+"MemoryUsage: "+ChatColor.WHITE+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
+//                    +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)");
+//            sender.sendMessage(ChatColor.AQUA+"AllocatedMemory: "+ChatColor.WHITE+decimalFormat.format(c.getCurrentMemoryUsage())+"MB");
+            for(String s : c.getFormattedClientInfo()){
+                sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
             }
-            sender.sendMessage(ChatColor.AQUA+"OperatingSystem: "+ChatColor.WHITE+c.getOsName());
-            sender.sendMessage(ChatColor.AQUA+"RunningThreads: "+ChatColor.WHITE+c.getRunningThreads());
-            sender.sendMessage(ChatColor.AQUA+"No.of CPU cores: "+ChatColor.WHITE+c.getCpuCores());
-            sender.sendMessage(ChatColor.AQUA+"CpuUsage: "+ChatColor.WHITE+decimalFormat.format(c.getCpuUsagePercent())+"%");
-            sender.sendMessage(ChatColor.AQUA+"MemoryUsage: "+ChatColor.WHITE+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
-                    +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)");
-            sender.sendMessage(ChatColor.AQUA+"AllocatedMemory: "+ChatColor.WHITE+decimalFormat.format(c.getCurrentMemoryUsage())+"MB");
             sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
             sender.sendMessage(" ");
         }

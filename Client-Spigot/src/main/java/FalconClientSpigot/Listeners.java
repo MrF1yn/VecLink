@@ -1,5 +1,6 @@
 package FalconClientSpigot;
 
+import dev.MrFlyn.FalconClient.ClientHandlers.RemotePlayer;
 import dev.MrFlyn.FalconClient.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -19,6 +20,13 @@ public class Listeners implements Listener {
         UUID uuid = e.getPlayer().getUniqueId();
         String name = e.getPlayer().getName();
         int i = Bukkit.getOnlinePlayers().size();
+//        if(RemotePlayer.allRemotePlayers.containsKey(name+":"+uuid.toString())){
+//            RemotePlayer.allRemotePlayers.get(name+":"+uuid.toString()).getConnectedClients().add(Main.config.getClientID());
+//        }else {
+//            RemotePlayer p = new RemotePlayer(name, uuid);
+//            p.getConnectedClients().add(Main.config.getClientID());
+//            RemotePlayer.allRemotePlayers.put(name + ":" + uuid.toString(), p);
+//        }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, ()->{
             Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatPlayerInfoPacket(uuid,name, "ADD", i,
             FalconMainSpigot.plugin.isJoinable())+"\n");
@@ -33,6 +41,13 @@ public class Listeners implements Listener {
         UUID uuid = e.getPlayer().getUniqueId();
         String name = e.getPlayer().getName();
         int i = Bukkit.getOnlinePlayers().size()-1;
+//        if(RemotePlayer.allRemotePlayers.containsKey(name+":"+uuid.toString())){
+//            RemotePlayer p = RemotePlayer.allRemotePlayers.get(name+":"+uuid.toString());
+//            p.getConnectedClients().remove(Main.config.getClientID());
+//            if(p.getConnectedClients().isEmpty()){
+//                RemotePlayer.allRemotePlayers.remove(name+":"+uuid.toString());
+//            }
+//        }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, () -> {
             Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatPlayerInfoPacket(uuid, name, "REMOVE", i,
                     FalconMainSpigot.plugin.isJoinable()) + "\n");

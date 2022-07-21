@@ -3,6 +3,7 @@ package FalconClientVelocity;
 import com.google.gson.JsonObject;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class PacketFormatterVelocity {
@@ -29,13 +30,14 @@ public class PacketFormatterVelocity {
         return json;
     }
 
-    public static JsonObject formatKeepAlivePacket(boolean isJoinable, long[] memory, String osName) {
+    public static JsonObject formatKeepAlivePacket(boolean isJoinable, long[] memory, String osName, List<String> backendServers) {
 
         JsonObject json = new JsonObject();
         json.addProperty("type", "KEEP-ALIVE");
         json.addProperty("joinable-status", isJoinable);
         json.addProperty("memory-info", Arrays.toString(memory));
         json.addProperty("os-name", osName);
+        json.addProperty("backend-servers", backendServers.toString());
         return json;
     }
 
@@ -61,6 +63,16 @@ public class PacketFormatterVelocity {
         json.addProperty("message", msg);
         return json;
     }
+
+    public static JsonObject partyInvite(String ownerName, String invitedName) {
+        JsonObject json = new JsonObject();
+        json.addProperty("type", "PARTY-INVITE");
+        json.addProperty("owner", ownerName);
+        json.addProperty("invited", invitedName);
+        return json;
+    }
+
+
 
 
 }

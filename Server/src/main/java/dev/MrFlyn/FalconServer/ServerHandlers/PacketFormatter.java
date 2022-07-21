@@ -84,6 +84,9 @@ public class PacketFormatter {
                     client.getMemoryUsagePercent(),client.getCurrentMemoryUsage(),client.getMaxMemory(),client.getAllocatedMemory()).toString());
             json.addProperty("mspt", client.getMspt());
             json.addProperty("os-name", client.getOsName());
+            if(client.getType()==ServerType.VELOCITY||client.getType()==ServerType.BUNGEE) {
+                json.addProperty("backend-servers", client.getBackendServers().toString());
+            }
 
         }
 

@@ -13,6 +13,7 @@ public class ConnectedFalconClient {
     private String clientName;
     private String clientType;
     private List<String> clientGroups;
+    private List<String> backendServers;
     private long lastKeepAlive;
     private long runningThreads;
     private long cpuCores;
@@ -46,6 +47,7 @@ public class ConnectedFalconClient {
     public ConnectedFalconClient(String name, String type){
         clientName = name;
         clientType = type;
+        backendServers = Collections.synchronizedList(new ArrayList<>());
         playersByUuid = new ConcurrentHashMap<>();
         playersByName = new ConcurrentHashMap<>();
         decimalFormat = new DecimalFormat("0.00");
@@ -184,24 +186,34 @@ public class ConnectedFalconClient {
         this.canJoin = canJoin;
     }
 
+    public void setBackendServers(List<String> srvs) {
+        this.backendServers = srvs;
+    }
+    
+    public List<String> getBackendServers() {
+        return backendServers;
+    }
+
     public List<String> getFormattedClientInfo(){
         List<String> info = new ArrayList<>();
-        info.add("ClientName: "+getName());
-        info.add("ClientType: "+getType());
-        info.add("BelongingGroups: "+getGroups());
-        info.add("Is-Joinable: "+isCanJoin());
+        info.add("&bClientName: &f"+getName());
+        info.add("&bClientType: &f"+getType());
+        info.add("&bBelongingGroups: &f"+getGroups());
+        info.add("&bIs-Joinable: &f"+isCanJoin());
         if(getType().equals("SPIGOT")) {
-            info.add("TotalPlayers: "+onlinePlayerCount);
-            info.add("Mspt: " + decimalFormat.format(getMspt()));
-            info.add("Tps 1m,5m,15m: " + decimalFormat.format(getTps1min())+","+ decimalFormat.format(getTps5min())+","+ decimalFormat.format(getTps15min()));
+            info.add("&bTotalPlayers: &f"+onlinePlayerCount);
+            info.add("&bMspt: &f" + decimalFormat.format(getMspt()));
+            info.add("&bTps 1m,5m,15m: &f" + decimalFormat.format(getTps1min())+","+ decimalFormat.format(getTps5min())+","+ decimalFormat.format(getTps15min()));
+        }else if(getType().equals("VELOCITY")||getType().equals("BUNGEE")){
+            info.add("&bBackendServers: &f"+backendServers.toString());
         }
-        info.add("OperatingSystem: "+getOsName());
-        info.add("RunningThreads: "+getRunningThreads());
-        info.add("No.of CPU cores: "+getCpuCores());
-        info.add("CpuUsage: "+decimalFormat.format(getCpuUsagePercent())+"%");
-        info.add("MemoryUsage: "+decimalFormat.format(getMemoryUsagePercent())+"% ("
+        info.add("&bOperatingSystem: &f"+getOsName());
+        info.add("&bRunningThreads: &f"+getRunningThreads());
+        info.add("&bNo.of CPU cores: &f"+getCpuCores());
+        info.add("&bCpuUsage: &f"+decimalFormat.format(getCpuUsagePercent())+"%");
+        info.add("&bMemoryUsage: &f"+decimalFormat.format(getMemoryUsagePercent())+"% ("
                 +decimalFormat.format(getAllocatedMemory())+"/"+decimalFormat.format(getMaxMemory())+" MB)");
-        info.add("AllocatedMemory: "+decimalFormat.format(getCurrentMemoryUsage())+"MB");
+        info.add("&bAllocatedMemory: &f"+decimalFormat.format(getCurrentMemoryUsage())+"MB");
         return info;
     }
 
@@ -210,9 +222,18 @@ public class ConnectedFalconClient {
         try {
             if (action.equals("ADD")) {
                 RemotePlayer p = new RemotePlayer(name, uuid);
+//                p.getConnectedClients().add(this.clientName);
+//                RemotePlayer.allRemotePlayers.put(p.getName()+":"+p.getUUID().toString(), p);
                 playersByUuid.put(uuid, p);
                 playersByName.put(name, p);
             } else if (action.equals("REMOVE")) {
+//                if(RemotePlayer.allRemotePlayers.containsKey(name+":"+uuid.toString())){
+//                    RemotePlayer p = RemotePlayer.allRemotePlayers.get(name+":"+uuid.toString());
+//                    p.getConnectedClients().remove(this.clientName);
+//                    if(p.getConnectedClients().isEmpty()){
+//                        RemotePlayer.allRemotePlayers.remove(name+":"+uuid.toString());
+//                    }
+//                }
                 playersByUuid.remove(uuid);
                 playersByName.remove(name);
             }

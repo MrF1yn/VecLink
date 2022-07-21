@@ -12,6 +12,7 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import dev.MrFlyn.FalconClient.GlobalInterface;
 import dev.MrFlyn.FalconClient.Main;
@@ -23,6 +24,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -117,8 +119,12 @@ public class FalconMainVelocity implements GlobalInterface{
 
         keepAliveTask =
                 server.getScheduler().buildTask(FalconMainVelocity.plugin, ()->{
+                    List<String> backendServers = new ArrayList<>();
+                    for(RegisteredServer server: server.getAllServers()){
+                        backendServers.add(server.getServerInfo().getName());
+                    }
                     Main.client.channel.writeAndFlush(PacketFormatterVelocity.formatKeepAlivePacket(isJoinable(),
-                            MemoryUtil.getFormattedMemory(), MemoryUtil.getOsName())+"\n");
+                            MemoryUtil.getFormattedMemory(), MemoryUtil.getOsName(), backendServers)+"\n");
                     Main.gi.debug("Sent keep-alive to FalconCloudServer.");
                 }).repeat(15L, TimeUnit.SECONDS).schedule();
 

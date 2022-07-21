@@ -40,6 +40,7 @@ public class FalconClient {
     private String osName;
     private boolean canJoin;
     private List<String> chatSyncTarget;
+    private List<String> backendServers;
 
     public int getOnlinePlayerCount() {
         return onlinePlayerCount;
@@ -60,6 +61,7 @@ public class FalconClient {
         clientChannel = channel;
         clientType = type;
         clientGroups = new ArrayList<>();
+        backendServers = new ArrayList<>();
         for(String s : Main.config.getMainConfig().getConfigurationSection("groups").getKeys(false)){
             for(String l : Main.config.getMainConfig().getStringList("groups."+s)){
                 if(l.equals(clientName))
@@ -279,6 +281,14 @@ public class FalconClient {
 
     public List<String> getChatSyncTargets() {
         return this.chatSyncTarget;
+    }
+
+    public void setBackendServers(List<String> servers) {
+        this.backendServers = servers;
+    }
+
+    public List<String> getBackendServers() {
+        return this.backendServers;
     }
 
 }

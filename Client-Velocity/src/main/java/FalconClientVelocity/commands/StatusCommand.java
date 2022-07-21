@@ -27,23 +27,26 @@ public class StatusCommand implements SubCommand {
             if(ConnectedFalconClient.CFC.containsKey(name)){
                 ConnectedFalconClient c = ConnectedFalconClient.CFC.get(name);
                 sender.sendMessage(ExtraUtil.color("&f" + "↱"+"&3"+"---------------------------"+"&f"+"↰"));
-                sender.sendMessage(ExtraUtil.color("&b" +"ClientName: "+"&f"+c.getName()));
-                sender.sendMessage(ExtraUtil.color("&b"+"ClientType: "+"&f"+c.getType()));
-                sender.sendMessage(ExtraUtil.color("&b"+"BelongingGroups: "+"&f"+c.getGroups()));
-                sender.sendMessage(ExtraUtil.color("&b"+"Is-Joinable: "+"&f"+c.isCanJoin()));
-                sender.sendMessage(ExtraUtil.color("&b"+"TotalPlayers: "+"&f"+c.getOnlinePlayerCount()));
-                if(c.getType().equals("SPIGOT")) {
-                    sender.sendMessage(ExtraUtil.color("&b"+"Mspt: " + "&f"+decimalFormat.format(c.getMspt())));
-                    sender.sendMessage(ExtraUtil.color("&b"+"Tps 1m,5m,15m: " + "&f"+decimalFormat.format(c.getTps1min())+","+
-                            decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min())));
+//                sender.sendMessage(ExtraUtil.color("&b" +"ClientName: "+"&f"+c.getName()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"ClientType: "+"&f"+c.getType()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"BelongingGroups: "+"&f"+c.getGroups()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"Is-Joinable: "+"&f"+c.isCanJoin()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"TotalPlayers: "+"&f"+c.getOnlinePlayerCount()));
+//                if(c.getType().equals("SPIGOT")) {
+//                    sender.sendMessage(ExtraUtil.color("&b"+"Mspt: " + "&f"+decimalFormat.format(c.getMspt())));
+//                    sender.sendMessage(ExtraUtil.color("&b"+"Tps 1m,5m,15m: " + "&f"+decimalFormat.format(c.getTps1min())+","+
+//                            decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min())));
+//                }
+//                sender.sendMessage(ExtraUtil.color("&b"+"OperatingSystem: "+"&f"+c.getOsName()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"RunningThreads: "+"&f"+c.getRunningThreads()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"No.of CPU cores: "+"&f"+c.getCpuCores()));
+//                sender.sendMessage(ExtraUtil.color("&b"+"CpuUsage: "+"&f"+decimalFormat.format(c.getCpuUsagePercent())+"%"));
+//                sender.sendMessage(ExtraUtil.color("&b"+"MemoryUsage: "+"&f"+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
+//                        +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)"));
+//                sender.sendMessage(ExtraUtil.color("&b"+"AllocatedMemory: "+"&f"+decimalFormat.format(c.getCurrentMemoryUsage())+"MB"));
+                for(String s : c.getFormattedClientInfo()){
+                    sender.sendMessage(ExtraUtil.color(s));
                 }
-                sender.sendMessage(ExtraUtil.color("&b"+"OperatingSystem: "+"&f"+c.getOsName()));
-                sender.sendMessage(ExtraUtil.color("&b"+"RunningThreads: "+"&f"+c.getRunningThreads()));
-                sender.sendMessage(ExtraUtil.color("&b"+"No.of CPU cores: "+"&f"+c.getCpuCores()));
-                sender.sendMessage(ExtraUtil.color("&b"+"CpuUsage: "+"&f"+decimalFormat.format(c.getCpuUsagePercent())+"%"));
-                sender.sendMessage(ExtraUtil.color("&b"+"MemoryUsage: "+"&f"+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
-                        +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)"));
-                sender.sendMessage(ExtraUtil.color("&b"+"AllocatedMemory: "+"&f"+decimalFormat.format(c.getCurrentMemoryUsage())+"MB"));
                 sender.sendMessage(ExtraUtil.color("&f" + "↳"+"&3"+"---------------------------"+"&f"+"↲"));
             }
             else if(name.equals(Main.config.getMainConfig().getString("client-id"))){
@@ -71,23 +74,26 @@ public class StatusCommand implements SubCommand {
         }
         for(ConnectedFalconClient c : ConnectedFalconClient.CFC.values()){
             sender.sendMessage(ExtraUtil.color("&f" + "↱"+"&3"+"---------------------------"+"&f"+"↰"));
-            sender.sendMessage(ExtraUtil.color("&b" +"ClientName: "+"&f"+c.getName()));
-            sender.sendMessage(ExtraUtil.color("&b"+"ClientType: "+"&f"+c.getType()));
-            sender.sendMessage(ExtraUtil.color("&b"+"BelongingGroups: "+"&f"+c.getGroups()));
-            sender.sendMessage(ExtraUtil.color("&b"+"Is-Joinable: "+"&f"+c.isCanJoin()));
-            sender.sendMessage(ExtraUtil.color("&b"+"TotalPlayers: "+"&f"+c.getOnlinePlayerCount()));
-            if(c.getType().equals("SPIGOT")) {
-                sender.sendMessage(ExtraUtil.color("&b"+"Mspt: " + "&f"+decimalFormat.format(c.getMspt())));
-                sender.sendMessage(ExtraUtil.color("&b"+"Tps 1m,5m,15m: " + "&f"+decimalFormat.format(c.getTps1min())+","+
-                        decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min())));
+//            sender.sendMessage(ExtraUtil.color("&b" +"ClientName: "+"&f"+c.getName()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"ClientType: "+"&f"+c.getType()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"BelongingGroups: "+"&f"+c.getGroups()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"Is-Joinable: "+"&f"+c.isCanJoin()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"TotalPlayers: "+"&f"+c.getOnlinePlayerCount()));
+//            if(c.getType().equals("SPIGOT")) {
+//                sender.sendMessage(ExtraUtil.color("&b"+"Mspt: " + "&f"+decimalFormat.format(c.getMspt())));
+//                sender.sendMessage(ExtraUtil.color("&b"+"Tps 1m,5m,15m: " + "&f"+decimalFormat.format(c.getTps1min())+","+
+//                        decimalFormat.format(c.getTps5min())+","+ decimalFormat.format(c.getTps15min())));
+//            }
+//            sender.sendMessage(ExtraUtil.color("&b"+"OperatingSystem: "+"&f"+c.getOsName()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"RunningThreads: "+"&f"+c.getRunningThreads()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"No.of CPU cores: "+"&f"+c.getCpuCores()));
+//            sender.sendMessage(ExtraUtil.color("&b"+"CpuUsage: "+"&f"+decimalFormat.format(c.getCpuUsagePercent())+"%"));
+//            sender.sendMessage(ExtraUtil.color("&b"+"MemoryUsage: "+"&f"+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
+//                    +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)"));
+//            sender.sendMessage(ExtraUtil.color("&b"+"AllocatedMemory: "+"&f"+decimalFormat.format(c.getCurrentMemoryUsage())+"MB"));
+            for(String s : c.getFormattedClientInfo()){
+                sender.sendMessage(ExtraUtil.color(s));
             }
-            sender.sendMessage(ExtraUtil.color("&b"+"OperatingSystem: "+"&f"+c.getOsName()));
-            sender.sendMessage(ExtraUtil.color("&b"+"RunningThreads: "+"&f"+c.getRunningThreads()));
-            sender.sendMessage(ExtraUtil.color("&b"+"No.of CPU cores: "+"&f"+c.getCpuCores()));
-            sender.sendMessage(ExtraUtil.color("&b"+"CpuUsage: "+"&f"+decimalFormat.format(c.getCpuUsagePercent())+"%"));
-            sender.sendMessage(ExtraUtil.color("&b"+"MemoryUsage: "+"&f"+decimalFormat.format(c.getMemoryUsagePercent())+"% ("
-                    +decimalFormat.format(c.getAllocatedMemory())+"/"+decimalFormat.format(c.getMaxMemory())+" MB)"));
-            sender.sendMessage(ExtraUtil.color("&b"+"AllocatedMemory: "+"&f"+decimalFormat.format(c.getCurrentMemoryUsage())+"MB"));
             sender.sendMessage(ExtraUtil.color("&f" + "↳"+"&3"+"---------------------------"+"&f"+"↲"));
             sender.sendMessage(ExtraUtil.color(" "));
         }
