@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.MrFlyn.FalconClient.Main;
+import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
@@ -79,7 +80,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "AUTH");
+        json.addProperty("type", PacketType.C2S_AUTH.name());
         json.addProperty("name", Main.config.getMainConfig().getString("client-id"));
         json.addProperty("code", Main.config.getMainConfig().getString("secret-code"));
         json.addProperty("server-type", Main.gi.getServerType());

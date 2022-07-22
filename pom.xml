@@ -15,6 +15,7 @@
         <module>Client-Spigot</module>
         <module>Client-Velocity</module>
         <module>Server</module>
+        <module>Common</module>
     </modules>
     <dependencies>
         <dependency>

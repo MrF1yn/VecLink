@@ -2,6 +2,7 @@ package dev.MrFlyn.FalconServer.ServerHandlers;
 
 import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconServer.Main;
+import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -14,8 +15,8 @@ public class PayloadHandler {
 
     public static void handlePayload(ChannelHandlerContext ctx, JsonObject json, FalconClient fromClient){
         Channel c = ctx.channel();
-        switch (json.get("type").getAsString()){
-            case "REMOTE-CMD":
+        switch (PacketType.valueOf(json.get("type").getAsString())){
+            case C2S_REMOTE_CMD:
                 String target = json.get("target").getAsString();
                 String executor = json.get("executor").getAsString();
                 String command = json.get("command").getAsString();
@@ -39,7 +40,7 @@ public class PayloadHandler {
                 }
                 Main.log("Received wrong target name from: "+ ServerHandler.NameByChannels.get(c)+".", false);
                 break;
-            case "KEEP-ALIVE":
+            case C2S_KEEP_ALIVE:
                 //Main.log("Received keep-alive from: "+fromClient.getName()+"."+fromClient.getType()+(fromClient.getType()==ServerType.SPIGOT), true);
                 //    arr[0] = Thread.getAllStackTraces().keySet().size(); //running threads;
                 //    arr[1] = i; //no.of cpu cores
@@ -86,7 +87,7 @@ public class PayloadHandler {
                     }
                 }
                 break;
-            case "PLAYER-INFO":
+            case C2S_PLAYER_INFO:
                 String name = json.get("player-name").getAsString();
                 UUID uuid = UUID.fromString(json.get("uuid").getAsString());
                 String action = json.get("action").getAsString();
@@ -102,12 +103,12 @@ public class PayloadHandler {
                     }
                 }
                 break;
-            case "CHAT-SYNC-INSTANTIATE":
+            case C2S_CHAT_SYNC_INIT:
                 String targets = json.get("target-servers").getAsString();
                 List<String> list = Arrays.asList(targets.substring(1,targets.length()-1).split(", "));
                 fromClient.setChatSyncTargets(list);
                 break;
-            case "CHAT":
+            case C2S_CHAT:
                 String msg = json.get("message").getAsString();
                 JsonObject packet = PacketFormatter.formatChatDisplay(msg, fromClient.getName());
                 for(String s : fromClient.getChatSyncTargets()){
@@ -122,7 +123,7 @@ public class PayloadHandler {
                         ServerHandler.ChannelsByGroups.get(grpname).writeAndFlush(packet+"\n");
                 }
                 break;
-            case "CHAT-GRP-MSG":
+            case C2S_CHAT_GRP_MSG:
                 String msg1 = json.get("message").getAsString();
                 String grpName = json.get("group").getAsString();
                 String from = json.get("from").getAsString();

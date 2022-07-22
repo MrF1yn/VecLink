@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Client-Velocity" />
-        <module name="Client-Parent" />
         <module name="Client-Spigot" />
+        <module name="Client-Parent" />
+        <module name="Common" />
       </profile>
       <profile name="Annotation profile for FalconCloud" enabled="true">
         <sourceOutputDir name="../builds/generated-sources/annotations" />

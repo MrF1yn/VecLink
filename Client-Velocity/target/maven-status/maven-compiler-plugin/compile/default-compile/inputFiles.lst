@@ -5,6 +5,7 @@ H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\Reloa
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\API\placeholderapinative\MathExpansion.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\PacketHandlerVelocity.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\utils\PAPISupport.java
+H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\parties\Party.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\ReconnectCommand.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\PacketFormatterVelocity.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\DisconnectCommand.java
@@ -19,4 +20,5 @@ H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\Listeners.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\API\placeholderapinative\PlaceholderExpansion.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\API\placeholderapinative\replacer\CharsReplacer.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\ListCommand.java
+H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\PartyCommand.java
 H:\FalconCloud\Client-Velocity\src\main\java\FalconClientVelocity\commands\StatusCommand.java

@@ -12,5 +12,6 @@ dev\MrFlyn\FalconServer\ServerHandlers\FalconClient.class
 dev\MrFlyn\FalconServer\MainConfig.class
 dev\MrFlyn\FalconServer\Utils\Player.class
 dev\MrFlyn\FalconServer\Commands.class
+dev\MrFlyn\FalconServer\parties\Party.class
 dev\MrFlyn\FalconServer\ServerHandlers\PayloadHandler.class
 dev\MrFlyn\FalconServer\ServerHandlers\FalconServer$1.class

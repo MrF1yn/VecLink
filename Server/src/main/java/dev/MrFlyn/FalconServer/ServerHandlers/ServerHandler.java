@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.MrFlyn.FalconServer.Main;
+import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -45,7 +46,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 return;
             }
             String name = json.get("name").getAsString();
-            if(json.get("type").getAsString().equals("AUTH")){
+            if(PacketType.valueOf(json.get("type").getAsString())==PacketType.C2S_AUTH){
                 if(json.get("code").getAsString().equals(Main.config.getMainConfig().getString("secret-code"))){
                     if(ServerHandler.ClientsByName.containsKey(name)){
                         ctx.close();
