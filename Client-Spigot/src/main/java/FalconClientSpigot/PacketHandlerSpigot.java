@@ -5,6 +5,7 @@ import dev.MrFlyn.FalconClient.ClientHandlers.ConnectedFalconClient;
 import dev.MrFlyn.FalconClient.ClientHandlers.PacketHandler;
 import dev.MrFlyn.FalconClient.ClientHandlers.RemotePlayer;
 import dev.MrFlyn.FalconClient.Main;
+import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -33,8 +34,8 @@ ReentrantLock lock = new ReentrantLock();
 
     @Override
     public void handlePayload(JsonObject json, ChannelHandlerContext ctx) {
-        switch (json.get("type").getAsString()){
-            case "REMOTE-CMD-EXECUTE":
+        switch (PacketType.valueOf(json.get("type").getAsString())){
+            case S2C_REMOTE_CMD:
                 String remoteCmd = json.get("command").getAsString();
                 String executor = json.get("executor").getAsString();
                 Main.gi.log("Received Remote Command Execution request from FalconCloud Server.");
@@ -56,7 +57,7 @@ ReentrantLock lock = new ReentrantLock();
                     Main.gi.log("Remote Command Executor: "+executor+", not found.");
                 });
                 break;
-            case "AUTH-STATUS":
+            case S2C_AUTH:
                 if(json.get("status").getAsBoolean()){
                     Main.gi.startKeepAliveTask();
                     String groupsListStr = json.get("groups").getAsString();
@@ -80,7 +81,7 @@ ReentrantLock lock = new ReentrantLock();
                     }
                 }
                 break;
-            case "CLIENT-INFO":
+            case S2C_CLIENT_INFO:
                 String name = json.get("name").getAsString();
                 String clientType = json.get("client-type").getAsString();
                 Main.gi.log("Received Client Info from FalconCloud Server for Client: "+name+".");
@@ -94,12 +95,12 @@ ReentrantLock lock = new ReentrantLock();
                     ConnectedFalconClient.clients.remove(name);
                 }
                 break;
-            case "GROUP-INFO":
+            case S2C_GROUP_INFO:
                 String listString = json.get("group-list").getAsString();
                 Main.gi.log("Received Group Info from FalconCloud Server.");
                 ConnectedFalconClient.groups = Arrays.asList(listString.substring(1,listString.length()-1).split(","));
                 break;
-            case "CLIENT-INFO-FORWARD":
+            case S2C_CLIENT_INFO_FORWARD:
                 String type = json.get("sub-type").getAsString();
                 String clientName = json.get("name").getAsString();
                 String clType = json.get("client-type").getAsString();
@@ -148,7 +149,7 @@ ReentrantLock lock = new ReentrantLock();
                     return;
                 }
                 break;
-            case "CHAT-GROUP-INSTANTIATE":
+            case S2C_CHAT_GROUP_INIT:
                 String action = json.get("action").getAsString();
                 String groupName = json.get("group-name").getAsString();
                 String chatFormat = json.get("chat-format").getAsString();
@@ -165,7 +166,7 @@ ReentrantLock lock = new ReentrantLock();
                     }
                 }
                 break;
-            case "CHAT-DISPLAY":
+            case S2C_CHAT:
                 String msg = json.get("message").getAsString();
                 String from = json.get("from").getAsString();
                 if(!FalconMainSpigot.plugin.config.getBoolean("chat-module.echo")){
@@ -177,7 +178,7 @@ ReentrantLock lock = new ReentrantLock();
                    }
                 });
                 break;
-            case "CHAT-GRP-DISPLAY":
+            case S2C_CHAT_GRP:
                 String msg1 = json.get("message").getAsString();
                 String from1 = json.get("from").getAsString();
                 String grpName = json.get("group").getAsString();
@@ -191,7 +192,7 @@ ReentrantLock lock = new ReentrantLock();
                     }
                 });
                 break;
-            case "PLAYER-INFO-FORWARD":
+            case S2C_PLAYER_INFO:
                 String clientId = json.get("client-id").getAsString();
                 if(!ConnectedFalconClient.CFC.containsKey(clientId))return;
                 ConnectedFalconClient c = ConnectedFalconClient.CFC.get(clientId);

@@ -16,9 +16,9 @@ import java.util.Timer;
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     public static ChannelGroup unAuthorisedClients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     public static ChannelGroup AuthorisedClients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-    public static HashMap<String, FalconClient> ClientsByName = new HashMap();
-    public static HashMap<Channel, String> NameByChannels = new HashMap();
-    public static HashMap<String, ChannelGroup> ChannelsByGroups = new HashMap();
+    public static HashMap<String, FalconClient> ClientsByName = new HashMap<>();
+    public static HashMap<Channel, String> NameByChannels = new HashMap<>();
+    public static HashMap<String, ChannelGroup> ChannelsByGroups = new HashMap<>();
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {

@@ -3,6 +3,7 @@ package dev.MrFlyn.FalconServer.ServerHandlers;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconServer.Main;
+import dev.mrflyn.falconcommon.PacketType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +14,7 @@ public class PacketFormatter {
 
     public static JsonObject formatRemoteCmdExec(String executor, String command){
         JsonObject json = new JsonObject();
-        json.addProperty("type", "REMOTE-CMD-EXECUTE");
+        json.addProperty("type", PacketType.S2C_REMOTE_CMD.name());
         json.addProperty("executor", executor);
         json.addProperty("command", command);
         return json;
@@ -21,7 +22,7 @@ public class PacketFormatter {
 
     public static JsonObject authStatus(boolean status, List<String> groups) {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "AUTH-STATUS");
+        json.addProperty("type", PacketType.S2C_AUTH.name());
         json.addProperty("status", status);
         json.addProperty("groups", groups.toString());
         return json;
@@ -29,7 +30,7 @@ public class PacketFormatter {
 
     public static JsonObject formatClientInfoPacket(String clientName,ServerType clientType, String action) {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "CLIENT-INFO");
+        json.addProperty("type", PacketType.S2C_CLIENT_INFO.name());
         json.addProperty("action", action);
         json.addProperty("name", clientName);
         json.addProperty("client-type", clientType.name());
@@ -39,14 +40,14 @@ public class PacketFormatter {
     public static JsonObject formatGroupInfoPacket(Collection<String> groups) {
         JsonObject json = new JsonObject();
         List<String> groupList = new ArrayList<>(groups);
-        json.addProperty("type", "GROUP-INFO");
+        json.addProperty("type", PacketType.S2C_GROUP_INFO.name());
         json.addProperty("group-list", groupList.toString());
         return json;
     }
 
     public static JsonObject formatPlayerInfoForward(String name, String uuid, String client, String action) {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "PLAYER-INFO-FORWARD");
+        json.addProperty("type", PacketType.S2C_PLAYER_INFO.name());
         json.addProperty("client-id", client);
         json.addProperty("action", action);
         json.addProperty("name", name);
@@ -56,7 +57,7 @@ public class PacketFormatter {
 
     public static JsonObject formatClientInfoForwardPacket(FalconClient client, String type){
         JsonObject json = new JsonObject();
-        json.addProperty("type","CLIENT-INFO-FORWARD");
+        json.addProperty("type",PacketType.S2C_CLIENT_INFO_FORWARD.name());
         json.addProperty("sub-type", type);
         json.addProperty("client-type", client.getType().name());
         json.addProperty("name", client.getName());
@@ -95,7 +96,7 @@ public class PacketFormatter {
 
     public static JsonObject formatChatGroupInstantiatePacket(String groupName, String chatFormat, String action){
         JsonObject json = new JsonObject();
-        json.addProperty("type","CHAT-GROUP-INSTANTIATE");
+        json.addProperty("type",PacketType.S2C_CHAT_GROUP_INIT.name());
         json.addProperty("action", action);
         json.addProperty("group-name", groupName);
         json.addProperty("chat-format", chatFormat);
@@ -104,7 +105,7 @@ public class PacketFormatter {
 
     public static JsonObject formatChatDisplay(String chat, String from) {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "CHAT-DISPLAY");
+        json.addProperty("type", PacketType.S2C_CHAT.name());
         json.addProperty("from", from);
         json.addProperty("message", chat);
         return json;
@@ -112,7 +113,7 @@ public class PacketFormatter {
 
     public static JsonObject formatChatGrpDisplay(String chat, String from, String grpName, String sender) {
         JsonObject json = new JsonObject();
-        json.addProperty("type", "CHAT-GRP-DISPLAY");
+        json.addProperty("type", PacketType.S2C_CHAT_GRP.name());
         json.addProperty("from", from);
         json.addProperty("sender", sender);
         json.addProperty("group", grpName);

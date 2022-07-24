@@ -5,6 +5,7 @@ import com.velocitypowered.api.proxy.Player;
 import dev.MrFlyn.FalconClient.ClientHandlers.ConnectedFalconClient;
 import dev.MrFlyn.FalconClient.ClientHandlers.PacketHandler;
 import dev.MrFlyn.FalconClient.Main;
+import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.*;
@@ -24,8 +25,8 @@ public class PacketHandlerVelocity implements PacketHandler {
 
     @Override
     public void handlePayload(JsonObject json, ChannelHandlerContext ctx) {
-        switch (json.get("type").getAsString()){
-            case "REMOTE-CMD-EXECUTE":
+        switch (PacketType.valueOf(json.get("type").getAsString())){
+            case S2C_REMOTE_CMD:
                 String remoteCmd = json.get("command").getAsString();
                 String executor = json.get("executor").getAsString();
                 Main.gi.log("Received Remote Command Execution request from FalconCloud Server.");
@@ -43,7 +44,7 @@ public class PacketHandlerVelocity implements PacketHandler {
                     }
                     Main.gi.log("Remote Command Executor: "+executor+", not found.");
                 break;
-            case "AUTH-STATUS":
+            case S2C_AUTH:
                 if(json.get("status").getAsBoolean()){
                     Main.gi.startKeepAliveTask();
                     String groupsListStr = json.get("groups").getAsString();
@@ -65,7 +66,7 @@ public class PacketHandlerVelocity implements PacketHandler {
                     }
                 }
                 break;
-            case "CLIENT-INFO":
+            case S2C_CLIENT_INFO:
                 String name = json.get("name").getAsString();
                 String clientType = json.get("client-type").getAsString();
                 Main.gi.log("Received Client Info from FalconCloud Server for Client: "+name+".");
@@ -79,12 +80,12 @@ public class PacketHandlerVelocity implements PacketHandler {
                     ConnectedFalconClient.clients.remove(name);
                 }
                 break;
-            case "GROUP-INFO":
+            case S2C_GROUP_INFO:
                 String listString = json.get("group-list").getAsString();
                 Main.gi.log("Received Group Info from FalconCloud Server.");
                 ConnectedFalconClient.groups = Arrays.asList(listString.substring(1,listString.length()-1).split(","));
                 break;
-            case "CLIENT-INFO-FORWARD":
+            case S2C_CLIENT_INFO_FORWARD:
                 String type = json.get("sub-type").getAsString();
                 String clientName = json.get("name").getAsString();
                 String clType = json.get("client-type").getAsString();
@@ -133,7 +134,7 @@ public class PacketHandlerVelocity implements PacketHandler {
                     return;
                 }
                 break;
-            case "PLAYER-INFO-FORWARD":
+            case S2C_PLAYER_INFO:
                 String clientId = json.get("client-id").getAsString();
                 if(!ConnectedFalconClient.CFC.containsKey(clientId))return;
                 ConnectedFalconClient c = ConnectedFalconClient.CFC.get(clientId);
@@ -141,7 +142,7 @@ public class PacketHandlerVelocity implements PacketHandler {
                         UUID.fromString(json.get("uuid").getAsString()),
                         json.get("action").getAsString());
                 break;
-            case "PARTY-INVITE-RELAY":
+            case S2C_PARTY_INVITE:
                 String targetPlayerName = json.get("invited").getAsString();
                 String owner = json.get("owner").getAsString();
                 Optional<Player> player = FalconMainVelocity.plugin.server.getPlayer(targetPlayerName);
