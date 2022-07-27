@@ -1,11 +1,9 @@
 package dev.MrFlyn.FalconServer.ServerHandlers;
 
-import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconServer.Main;
 import dev.MrFlyn.FalconServer.Utils.Player;
+import dev.mrflyn.falconcommon.ClientType;
 import io.netty.channel.Channel;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class FalconClient {
 //    arr[6] = Long.parseLong(decimalFormat.format(l8 / 1024L / 1024L)); //allocated memory
     private String clientName;
     private Channel clientChannel;
-    private ServerType clientType;
+    private ClientType clientType;
     private List<String> clientGroups;
     private long lastKeepAlive;
     private long runningThreads;
@@ -55,7 +53,7 @@ public class FalconClient {
         return (System.currentTimeMillis()-lastKeepAlive/1000);
     }
 
-    public FalconClient(String name, Channel channel, ServerType type){
+    public FalconClient(String name, Channel channel, ClientType type){
         chatSyncTarget = new ArrayList<>();
         clientName = name;
         clientChannel = channel;
@@ -76,13 +74,13 @@ public class FalconClient {
         }
         lastKeepAlive = System.currentTimeMillis();
 
-        ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatClientInfoPacket(name,type, "ADD")+"\n");
+        ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatClientInfoPacket(name,type, "ADD"));
         for(FalconClient c : ServerHandler.ClientsByName.values()){
             if(!c.getName().equals(name)){
-                channel.writeAndFlush(PacketFormatter.formatClientInfoPacket(c.getName(),c.getType(), "ADD")+"\n");
+                channel.writeAndFlush(PacketFormatter.formatClientInfoPacket(c.getName(),c.getType(), "ADD"));
             }
         }
-        ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatGroupInfoPacket(ServerHandler.ChannelsByGroups.keySet())+"\n");
+        ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatGroupInfoPacket(ServerHandler.ChannelsByGroups.keySet()));
         decimalFormat = new DecimalFormat("0.00");
         playersByUuid = new HashMap<>();
         playersByName = new HashMap<>();
@@ -90,11 +88,11 @@ public class FalconClient {
 //        ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(this,"BASIC")+"\n");
         for(FalconClient c : ServerHandler.ClientsByName.values()){
             if(!c.getName().equals(this.clientName)){
-                c.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(this,"BASIC")+"\n");
-                channel.writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(c,"BASIC")+"\n");
-                if(c.getType()!=ServerType.TEST) {
+                c.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(this,"BASIC"));
+                channel.writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(c,"BASIC"));
+                if(c.getType()!= ClientType.TEST) {
                     for (Player p : c.playersByName.values()) {
-                        channel.writeAndFlush(PacketFormatter.formatPlayerInfoForward(p.getName(), p.getUUID().toString(), c.getName(), "ADD")+"\n");
+                        channel.writeAndFlush(PacketFormatter.formatPlayerInfoForward(p.getName(), p.getUUID().toString(), c.getName(), "ADD"));
                     }
                 }
             }
@@ -102,7 +100,7 @@ public class FalconClient {
 
         for(String cg: Main.config.getMainConfig().getConfigurationSection("chat-groups").getKeys(false)){
             String format = Main.config.getMainConfig().getString("chat-groups."+cg+".format");
-            channel.writeAndFlush(PacketFormatter.formatChatGroupInstantiatePacket(cg,format,"ADD")+"\n");
+            channel.writeAndFlush(PacketFormatter.formatChatGroupInstantiatePacket(cg,format,"ADD"));
         }
     }
 
@@ -113,9 +111,9 @@ public class FalconClient {
         info.add("\tClientType: "+getType());
         info.add("\tBelongingGroups: "+getGroups());
         info.add("\tIs-Joinable: "+isCanJoin());
-        if(getType()!=ServerType.TEST) {
+        if(getType()!= ClientType.TEST) {
             info.add("\tTotalPlayers: "+onlinePlayerCount);
-            if(getType()==ServerType.SPIGOT) {
+            if(getType()== ClientType.SPIGOT) {
                 info.add("\tMspt: " + decimalFormat.format(getMspt()));
                 info.add("\tTps 1m,5m,15m: " + decimalFormat.format(getTps1min()) + "," + decimalFormat.format(getTps5min()) + "," + decimalFormat.format(getTps15min()));
             }
@@ -131,7 +129,7 @@ public class FalconClient {
     }
 
     public void onPlayerInfoReceive(String name, UUID uuid, String action, int onlinePlayerCount, boolean canJoin){
-        if(clientType==ServerType.SPIGOT||clientType==ServerType.VELOCITY||clientType==ServerType.BUNGEE) {
+        if(clientType== ClientType.SPIGOT||clientType== ClientType.VELOCITY||clientType== ClientType.BUNGEE) {
             this.onlinePlayerCount = onlinePlayerCount;
             this.canJoin = canJoin;
             if (action.equals("ADD")) {
@@ -155,7 +153,7 @@ public class FalconClient {
         lastKeepAlive = time;
     }
 
-    public ServerType getType() {
+    public ClientType getType() {
         return clientType;
     }
 

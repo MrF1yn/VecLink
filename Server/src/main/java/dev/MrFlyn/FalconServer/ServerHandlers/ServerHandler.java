@@ -5,11 +5,13 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.MrFlyn.FalconServer.Main;
 import dev.mrflyn.falconcommon.PacketType;
+import dev.mrflyn.falconcommon.ClientType;
 import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Timer;
 
@@ -23,31 +25,33 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {
 //        System.out.println("READ");
-        JsonObject json;
-        try {
-            json = JsonParser.parseString((String) s).getAsJsonObject();
+        if(!(s instanceof Object[])){
+            Main.log("Received bad data from: "+ctx.channel().remoteAddress(), false);
+            return;
         }
-        catch (JsonSyntaxException e){
+        Object[] packet = (Object[]) s;
+
+        if(!PacketType.validatePacket(packet,null)){
             Main.log("Received bad data from: "+ctx.channel().remoteAddress(), false);
             return;
         }
 
-        if(!json.has("type")){
-            Main.log("Received bad data from: "+ctx.channel().remoteAddress(), false);
-            return;
-        }
-
-        Main.debug(json, false);
+        Main.debug(Arrays.toString(packet), false);
         Channel c = ctx.channel();
         if(ServerHandler.unAuthorisedClients.contains(c)){
-            if(!(json.has("type")&& json.has("name") && json.has("code") && json.has("server-type"))){
-                Main.log("Received bad authorization data from "+c.remoteAddress()+". Closing connection...", false);
-                ctx.close();
-                return;
-            }
-            String name = json.get("name").getAsString();
-            if(PacketType.valueOf(json.get("type").getAsString())==PacketType.C2S_AUTH){
-                if(json.get("code").getAsString().equals(Main.config.getMainConfig().getString("secret-code"))){
+//            if(!(json.has("type")&& json.has("name") && json.has("code") && json.has("server-type"))){
+//                Main.log("Received bad authorization data from "+c.remoteAddress()+". Closing connection...", false);
+//                ctx.close();
+//                return;
+//            }
+//            if(!(json.has("type")&& json.has("name") && json.has("code") && json.has("server-type"))){
+//                Main.log("Received bad authorization data from "+c.remoteAddress()+". Closing connection...", false);
+//                ctx.close();
+//                return;
+//            }
+            String name = (String) packet[1];
+            if(((PacketType) packet[0])==PacketType.C2S_AUTH){
+                if(((String)packet[2]).equals(Main.config.getMainConfig().getString("secret-code"))){
                     if(ServerHandler.ClientsByName.containsKey(name)){
                         ctx.close();
                         Main.log("Name: "+name+" conflicts with already connected client. Closing connection...", false);
@@ -56,10 +60,10 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                     unAuthorisedClients.remove(c);
                     AuthorisedClients.add(c);
 
-                    FalconClient client = new FalconClient(name, c, ServerType.valueOf(json.get("server-type").getAsString()));
+                    FalconClient client = new FalconClient(name, c, ClientType.valueOf(((String)packet[3])));
                     ClientsByName.put(name, client);
                     NameByChannels.put(c, name);
-                    c.writeAndFlush(PacketFormatter.authStatus(true, client.getGroups())+"\n");
+                    c.writeAndFlush(PacketFormatter.authStatus(true, client.getGroups()));
                     Main.log("Successfully authorised: "+c.remoteAddress()+" with name: "+name+".", false);
                     return;
                 }
@@ -71,7 +75,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         }
         else if(AuthorisedClients.contains(c)){
-            PayloadHandler.handlePayload(ctx, json, ClientsByName.get(NameByChannels.get(ctx.channel())));
+            PayloadHandler.handlePayload(ctx, packet, ClientsByName.get(NameByChannels.get(ctx.channel())));
         }
 
     }
@@ -92,7 +96,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         Main.debug("Connection for "+ctx.channel().remoteAddress()+" dropped.", false);
         if(NameByChannels.containsKey(ctx.channel())){
             AuthorisedClients.writeAndFlush(PacketFormatter.formatClientInfoPacket(NameByChannels.get(ctx.channel()),
-                    ClientsByName.get(NameByChannels.get(ctx.channel())).getType(), "REMOVE")+"\n");
+                    ClientsByName.get(NameByChannels.get(ctx.channel())).getType(), "REMOVE"));
             Main.log("Client "+ctx.channel().remoteAddress()+" with name: "+NameByChannels.get(ctx.channel())+" has disconnected.", false);
             ClientsByName.remove(NameByChannels.get(ctx.channel()));
             NameByChannels.remove(ctx.channel());

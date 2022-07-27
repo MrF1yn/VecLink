@@ -3,6 +3,7 @@ package dev.MrFlyn.FalconServer.ServerHandlers;
 import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconServer.Main;
 import dev.mrflyn.falconcommon.PacketType;
+import dev.mrflyn.falconcommon.ClientType;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -13,18 +14,19 @@ import java.util.stream.Collectors;
 
 public class PayloadHandler {
 
-    public static void handlePayload(ChannelHandlerContext ctx, JsonObject json, FalconClient fromClient){
+    public static void handlePayload(ChannelHandlerContext ctx, Object[] packet, FalconClient fromClient){
         Channel c = ctx.channel();
-        switch (PacketType.valueOf(json.get("type").getAsString())){
+        PacketType packetType = (PacketType)packet[0];
+        switch (packetType){
             case C2S_REMOTE_CMD:
-                String target = json.get("target").getAsString();
-                String executor = json.get("executor").getAsString();
-                String command = json.get("command").getAsString();
+                String target = (String) packet[1];
+                String executor = (String) packet[2];
+                String command = (String) packet[3];
                 Main.log("Received Remote Command request from: "+ServerHandler.NameByChannels.get(c)+".", false);
                 if(target.startsWith("group:")){
                     if(ServerHandler.ChannelsByGroups.containsKey(target.substring(6))){
                         ServerHandler.ChannelsByGroups.get(target.substring(6))
-                                .writeAndFlush(PacketFormatter.formatRemoteCmdExec(executor, command)+"\n");
+                                .writeAndFlush(PacketFormatter.formatRemoteCmdExec(executor, command));
                         Main.log("Sent Remote Command execution to: "+target+".", false);
                         return;
                     }
@@ -34,7 +36,7 @@ public class PayloadHandler {
 
                 if(ServerHandler.ClientsByName.containsKey(target)){
                     FalconClient client = ServerHandler.ClientsByName.get(target);
-                    client.getChannel().writeAndFlush(PacketFormatter.formatRemoteCmdExec(executor, command)+"\n");
+                    client.getChannel().writeAndFlush(PacketFormatter.formatRemoteCmdExec(executor, command));
                     Main.log("Sent Remote Command execution to: "+target+".", false);
                     return;
                 }
@@ -49,12 +51,10 @@ public class PayloadHandler {
                 //    arr[4] = Long.parseLong(decimalFormat.format((l7 - l10) / 1024L / 1024L)); // current memory usage
                 //    arr[5] = Long.parseLong(decimalFormat.format(l7 / 1024L / 1024L)); //max memory
                 //    arr[6] = Long.parseLong(decimalFormat.format(l8 / 1024L / 1024L)); //allocated memory
-                boolean joinStatus = json.get("joinable-status").getAsBoolean();
-                String memInfo = json.get("memory-info").getAsString();
-                String osName = json.get("os-name").getAsString();
+                boolean joinStatus = (boolean) packet[1];
+                List<Long> memoryInfo = Arrays.asList((Long[])packet[2]);
+                String osName = (String) packet[3];
 //                    Arrays.asList(string.split(",")).stream().map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
-                List<Long> memoryInfo = Arrays.asList(memInfo.substring(1,memInfo.length()-1).split(",")).stream()
-                        .map(s->Long.parseLong(s.trim())).collect(Collectors.toList());
                 fromClient.setRunningThreads(memoryInfo.get(0));
                 fromClient.setCpuCores(memoryInfo.get(1));
                 fromClient.setCpuUsagePercent(memoryInfo.get(2));
@@ -66,68 +66,66 @@ public class PayloadHandler {
                 fromClient.setOsName(osName);
                 fromClient.setLastKeepAlive(System.currentTimeMillis());
                 Main.debug("Received keep-alive from: "+fromClient.getName()+".", true);
-                if(fromClient.getType()==ServerType.SPIGOT){
-                    String tpsListString = json.get("tps").getAsString();
-                    double mspt = json.get("mspt").getAsDouble();
-                    List<Double> tps = Arrays.asList(tpsListString.substring(1,tpsListString.length()-1).split(",")).stream()
-                            .map(s->Double.parseDouble(s.trim())).collect(Collectors.toList());
+                if(fromClient.getType()== ClientType.SPIGOT){
+                    List<Double> tps = Arrays.asList((Double[])packet[4]);
+                    double mspt = (double) packet[5];
+
                     fromClient.setTps1min(tps.get(0));
                     fromClient.setTps5min(tps.get(1));
                     fromClient.setTps15min(tps.get(2));
                     fromClient.setMspt(mspt);
                 }
-                if(fromClient.getType()==ServerType.VELOCITY||fromClient.getType()==ServerType.BUNGEE){
-                    String srv = json.get("backend-servers").getAsString();
-                    fromClient.setBackendServers(Arrays.asList(srv.substring(1,srv.length()-1).split(",")));
+                if(fromClient.getType()== ClientType.VELOCITY||fromClient.getType()== ClientType.BUNGEE){
+                    List<String> backendServers = (List<String>)packet[4];
+                    fromClient.setBackendServers(backendServers);
                 }
                 for(FalconClient cl : ServerHandler.ClientsByName.values()){
                     if(!cl.getName().equals(fromClient.getName())){
                         Main.debug("Forwarded client info to: "+cl.getName()+".", true);
-                        cl.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(fromClient,"ADVANCED")+"\n");
+                        cl.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(fromClient,"ADVANCED"));
                     }
                 }
                 break;
             case C2S_PLAYER_INFO:
-                String name = json.get("player-name").getAsString();
-                UUID uuid = UUID.fromString(json.get("uuid").getAsString());
-                String action = json.get("action").getAsString();
-                int onlinePlayerCount = json.get("player-count").getAsInt();
-                boolean canJoin = json.get("can-join").getAsBoolean();
+                String action = (String) packet[1];
+                UUID uuid = UUID.fromString((String) packet[2]);
+                String name = (String) packet[3];
+                int onlinePlayerCount = (int) packet[4];
+                boolean canJoin = (boolean) packet[5];
                 fromClient.onPlayerInfoReceive(name, uuid, action, onlinePlayerCount, canJoin);
                 for(FalconClient cl : ServerHandler.ClientsByName.values()){
                     if(!cl.getName().equals(fromClient.getName())){
                         Main.debug("Forwarded client info to: "+cl.getName()+".", true);
-                        cl.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(fromClient,"BASIC")+"\n");
+                        cl.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(fromClient,"BASIC"));
                         Main.debug("Forwarded player-data info to: " + cl.getName() + ".", true);
-                        cl.getChannel().writeAndFlush(PacketFormatter.formatPlayerInfoForward(name, uuid.toString(), fromClient.getName(), action) + "\n");
+                        cl.getChannel().writeAndFlush(PacketFormatter.formatPlayerInfoForward(name, uuid.toString(), fromClient.getName(), action));
                     }
                 }
                 break;
             case C2S_CHAT_SYNC_INIT:
-                String targets = json.get("target-servers").getAsString();
-                List<String> list = Arrays.asList(targets.substring(1,targets.length()-1).split(", "));
-                fromClient.setChatSyncTargets(list);
+                List<String> targets = (List<String>)packet[1];
+                fromClient.setChatSyncTargets(targets);
                 break;
             case C2S_CHAT:
-                String msg = json.get("message").getAsString();
-                JsonObject packet = PacketFormatter.formatChatDisplay(msg, fromClient.getName());
+                String msg = (String) packet[1];
+                Object[] p1 = PacketFormatter.formatChatDisplay(msg, fromClient.getName());
                 for(String s : fromClient.getChatSyncTargets()){
                     if(!s.startsWith("group:")) {
                         FalconClient targetClient = ServerHandler.ClientsByName.get(s);
                         if(targetClient!=null)
-                            targetClient.getChannel().writeAndFlush(packet+"\n");
+                            targetClient.getChannel().writeAndFlush(p1);
                         continue;
                     }
                     String grpname = s.split(":")[1];
                     if(ServerHandler.ChannelsByGroups.containsKey(grpname))
-                        ServerHandler.ChannelsByGroups.get(grpname).writeAndFlush(packet+"\n");
+                        ServerHandler.ChannelsByGroups.get(grpname).writeAndFlush(p1);
                 }
                 break;
             case C2S_CHAT_GRP_MSG:
-                String msg1 = json.get("message").getAsString();
-                String grpName = json.get("group").getAsString();
-                String from = json.get("from").getAsString();
-                ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatChatGrpDisplay(msg1,fromClient.getName(),grpName, from)+"\n");
+                String sender = (String) packet[1];
+                String grpName = (String) packet[2];
+                String msg1 = (String) packet[3];
+                ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatChatGrpDisplay(msg1,fromClient.getName(),grpName, sender));
                 break;
         }
     }

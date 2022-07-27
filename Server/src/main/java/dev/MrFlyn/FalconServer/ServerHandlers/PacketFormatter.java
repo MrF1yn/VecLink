@@ -1,9 +1,7 @@
 package dev.MrFlyn.FalconServer.ServerHandlers;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import dev.MrFlyn.FalconServer.Main;
 import dev.mrflyn.falconcommon.PacketType;
+import dev.mrflyn.falconcommon.ClientType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,59 +10,59 @@ import java.util.List;
 
 public class PacketFormatter {
 
-    public static JsonObject formatRemoteCmdExec(String executor, String command){
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_REMOTE_CMD.name());
-        json.addProperty("executor", executor);
-        json.addProperty("command", command);
-        return json;
+    public static Object[] formatRemoteCmdExec(String executor, String command){
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_REMOTE_CMD,
+                executor,
+                command);
+        return packet.toArray();
     }
 
-    public static JsonObject authStatus(boolean status, List<String> groups) {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_AUTH.name());
-        json.addProperty("status", status);
-        json.addProperty("groups", groups.toString());
-        return json;
+    public static Object[] authStatus(boolean status, List<String> groups) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_AUTH,
+                status,
+                groups.toString());
+        return packet.toArray();
     }
 
-    public static JsonObject formatClientInfoPacket(String clientName,ServerType clientType, String action) {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_CLIENT_INFO.name());
-        json.addProperty("action", action);
-        json.addProperty("name", clientName);
-        json.addProperty("client-type", clientType.name());
-        return json;
+    public static Object[] formatClientInfoPacket(String clientName, ClientType clientType, String action) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_CLIENT_INFO,
+                action,
+                clientName,
+                clientType.name());
+        return packet.toArray();
     }
 
-    public static JsonObject formatGroupInfoPacket(Collection<String> groups) {
-        JsonObject json = new JsonObject();
+    public static Object[] formatGroupInfoPacket(Collection<String> groups) {
         List<String> groupList = new ArrayList<>(groups);
-        json.addProperty("type", PacketType.S2C_GROUP_INFO.name());
-        json.addProperty("group-list", groupList.toString());
-        return json;
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_GROUP_INFO,
+                groupList);
+        return packet.toArray();
     }
 
-    public static JsonObject formatPlayerInfoForward(String name, String uuid, String client, String action) {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_PLAYER_INFO.name());
-        json.addProperty("client-id", client);
-        json.addProperty("action", action);
-        json.addProperty("name", name);
-        json.addProperty("uuid", uuid);
-        return json;
+    public static Object[] formatPlayerInfoForward(String name, String uuid, String client, String action) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_PLAYER_INFO,
+                client,
+                action,
+                name,
+                uuid);
+        return packet.toArray();
     }
 
-    public static JsonObject formatClientInfoForwardPacket(FalconClient client, String type){
-        JsonObject json = new JsonObject();
-        json.addProperty("type",PacketType.S2C_CLIENT_INFO_FORWARD.name());
-        json.addProperty("sub-type", type);
-        json.addProperty("client-type", client.getType().name());
-        json.addProperty("name", client.getName());
-        json.addProperty("groups", client.getGroups().toString());
+    public static Object[] formatClientInfoForwardPacket(FalconClient client, String type){
+        List<Object> packet = new ArrayList<>();
+        packet.add(PacketType.S2C_CLIENT_INFO_FORWARD);
+        packet.add(type);
+        packet.add(client.getType().name());
+        packet.add(client.getName());
+        packet.add(client.getGroups());
         if(type.equals("BASIC")){
-            json.addProperty("player-count", client.getOnlinePlayerCount());
-            json.addProperty("can-join", client.isCanJoin());
+            packet.add(client.getOnlinePlayerCount());
+            packet.add(client.isCanJoin());
         }else if(type.equals("ADVANCED")){
 //            private long lastKeepAlive;
 //            private long runningThreads;
@@ -79,45 +77,45 @@ public class PacketFormatter {
 //            private double tps15min;
 //            private double mspt;
 //            private String osName;
-            json.addProperty("tps", Arrays.asList(client.getTps1min(),client.getTps5min(),client.getTps15min()).toString());
-            json.addProperty("can-join", client.isCanJoin());
-            json.addProperty("memory-info", Arrays.asList(client.getLastKeepAliveInSecs(),client.getRunningThreads(),client.getCpuCores(),client.getCpuUsagePercent(),
-                    client.getMemoryUsagePercent(),client.getCurrentMemoryUsage(),client.getMaxMemory(),client.getAllocatedMemory()).toString());
-            json.addProperty("mspt", client.getMspt());
-            json.addProperty("os-name", client.getOsName());
-            if(client.getType()==ServerType.VELOCITY||client.getType()==ServerType.BUNGEE) {
-                json.addProperty("backend-servers", client.getBackendServers().toString());
+            packet.add(Arrays.asList(client.getTps1min(),client.getTps5min(),client.getTps15min()));
+            packet.add(client.isCanJoin());
+            packet.add(Arrays.asList(client.getLastKeepAliveInSecs(),client.getRunningThreads(),client.getCpuCores(),client.getCpuUsagePercent(),
+                    client.getMemoryUsagePercent(),client.getCurrentMemoryUsage(),client.getMaxMemory(),client.getAllocatedMemory()));
+            packet.add(client.getMspt());
+            packet.add(client.getOsName());
+            if(client.getType()== ClientType.VELOCITY||client.getType()== ClientType.BUNGEE) {
+                packet.add(client.getBackendServers());
             }
 
         }
 
-        return json;
+        return packet.toArray();
     }
 
-    public static JsonObject formatChatGroupInstantiatePacket(String groupName, String chatFormat, String action){
-        JsonObject json = new JsonObject();
-        json.addProperty("type",PacketType.S2C_CHAT_GROUP_INIT.name());
-        json.addProperty("action", action);
-        json.addProperty("group-name", groupName);
-        json.addProperty("chat-format", chatFormat);
-        return json;
+    public static Object[] formatChatGroupInstantiatePacket(String groupName, String chatFormat, String action){
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_CHAT_GROUP_INIT,
+                action,
+                groupName,
+                chatFormat);
+        return packet.toArray();
     }
 
-    public static JsonObject formatChatDisplay(String chat, String from) {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_CHAT.name());
-        json.addProperty("from", from);
-        json.addProperty("message", chat);
-        return json;
+    public static Object[] formatChatDisplay(String chat, String from) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_CHAT,
+                from,
+                chat);
+        return packet.toArray();
     }
 
-    public static JsonObject formatChatGrpDisplay(String chat, String from, String grpName, String sender) {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.S2C_CHAT_GRP.name());
-        json.addProperty("from", from);
-        json.addProperty("sender", sender);
-        json.addProperty("group", grpName);
-        json.addProperty("message", chat);
-        return json;
+    public static Object[] formatChatGrpDisplay(String chat, String from, String grpName, String sender) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_CHAT_GRP,
+                from,
+                sender,
+                grpName,
+                chat);
+        return packet.toArray();
     }
 }

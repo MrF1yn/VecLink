@@ -3,7 +3,6 @@ package FalconClientSpigot;
 import com.google.gson.JsonObject;
 import dev.MrFlyn.FalconClient.ClientHandlers.ConnectedFalconClient;
 import dev.MrFlyn.FalconClient.ClientHandlers.PacketHandler;
-import dev.MrFlyn.FalconClient.ClientHandlers.RemotePlayer;
 import dev.MrFlyn.FalconClient.Main;
 import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;

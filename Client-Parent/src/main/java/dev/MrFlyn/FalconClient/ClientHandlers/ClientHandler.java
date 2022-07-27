@@ -9,6 +9,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ClientHandler extends ChannelInboundHandlerAdapter {
@@ -79,12 +81,13 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        JsonObject json = new JsonObject();
-        json.addProperty("type", PacketType.C2S_AUTH.name());
-        json.addProperty("name", Main.config.getMainConfig().getString("client-id"));
-        json.addProperty("code", Main.config.getMainConfig().getString("secret-code"));
-        json.addProperty("server-type", Main.gi.getServerType());
-        ctx.writeAndFlush(json+"\n");
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_AUTH,
+                Main.config.getMainConfig().getString("client-id"),
+                Main.config.getMainConfig().getString("secret-code"),
+                Main.gi.getServerType()
+        );
+        ctx.writeAndFlush(packet.toArray());
         Main.gi.log("Sent Authentication details to FalconCloud Server.");
     }
 
