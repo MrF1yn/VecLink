@@ -22,7 +22,7 @@ public class PacketFormatter {
         List<Object> packet = Arrays.asList(
                 PacketType.S2C_AUTH,
                 status,
-                groups.toString());
+                groups);
         return packet.toArray();
     }
 

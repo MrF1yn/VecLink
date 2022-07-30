@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import dev.MrFlyn.FalconClient.Main;
+import dev.mrflyn.falconcommon.ClientType;
 import dev.mrflyn.falconcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -22,25 +23,20 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {
-        JsonObject json;
-
-        try {
-
-            json = JsonParser.parseString((String) s).getAsJsonObject();
-
+        if(!(s instanceof Object[])){
+            Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
+            return;
         }
-        catch (JsonSyntaxException e){
+        Object[] packet = (Object[]) s;
+        Main.gi.debug(Arrays.toString(packet));
+
+        if(!PacketType.validatePacket(packet, ClientType.SERVER)){
             Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
             return;
         }
 
-        Main.gi.debug(json);
 
-        if(!json.has("type")){
-            Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
-        }
-
-        Main.pi.handlePayload(json, ctx);
+        Main.pi.handlePayload(packet, ctx);
 
     }
 

@@ -4,5 +4,6 @@ public enum ClientType {
     BUNGEE,
     SPIGOT,
     TEST,
+    SERVER,
     VELOCITY;
 }

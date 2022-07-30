@@ -5,7 +5,7 @@ import io.netty.channel.ChannelHandlerContext;
 
 public interface PacketHandler {
 
-     void handlePayload(JsonObject json, ChannelHandlerContext ctx);
+     void handlePayload(Object[] packet, ChannelHandlerContext ctx);
 
      void clearCaches();
 

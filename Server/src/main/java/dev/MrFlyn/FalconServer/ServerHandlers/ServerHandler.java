@@ -75,6 +75,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         }
         else if(AuthorisedClients.contains(c)){
+            FalconClient client = ClientsByName.get(NameByChannels.get(c));
+            if(!PacketType.validatePacket(packet, client.getType())){
+                Main.log("Received bad data from ip: "+ctx.channel().remoteAddress()+" Name: "+client.getName(), false);
+                return;
+            }
             PayloadHandler.handlePayload(ctx, packet, ClientsByName.get(NameByChannels.get(ctx.channel())));
         }
 
