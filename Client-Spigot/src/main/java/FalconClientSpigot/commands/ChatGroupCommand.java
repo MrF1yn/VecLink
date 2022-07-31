@@ -59,7 +59,7 @@ public class ChatGroupCommand implements SubCommand {
                             Main.config.getMainConfig().getString("client-id"));
         }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, ()->{
-            Main.client.channel.writeAndFlush(PacketFormatterSpigot.chatGroupMessage(finalmsg, sender.getName(),grpName)+"\n");
+            Main.client.channel.writeAndFlush(PacketFormatterSpigot.chatGroupMessage(finalmsg, sender.getName(),grpName));
         });
         return true;
     }

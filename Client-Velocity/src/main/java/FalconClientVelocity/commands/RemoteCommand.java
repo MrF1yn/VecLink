@@ -49,7 +49,7 @@ public class RemoteCommand implements SubCommand {
             command.append(args[i]).append(" ");
         }
         FalconMainVelocity.plugin.server.getScheduler().buildTask(FalconMainVelocity.plugin, ()->{
-            Main.client.channel.writeAndFlush(PacketFormatterVelocity.formatRemoteCommandPacket(targetSrv,executor,command.toString())+"\n");
+            Main.client.channel.writeAndFlush(PacketFormatterVelocity.formatRemoteCommandPacket(targetSrv,executor,command.toString()));
         }).delay(0, TimeUnit.MILLISECONDS).schedule();
         sender.sendMessage(ExtraUtil.color(Main.config.getLanguageConfig().getString(ConfigPath.REMOTE_CMD_SENT.toString())));
         return true;

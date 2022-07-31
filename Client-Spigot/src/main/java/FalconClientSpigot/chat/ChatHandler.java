@@ -21,7 +21,7 @@ public class ChatHandler {
         chatSyncTask =
                 Bukkit.getScheduler().runTaskTimerAsynchronously(FalconMainSpigot.plugin, ()->{
                     if(pendingChats.size()>0)
-                        Main.client.channel.writeAndFlush(PacketFormatterSpigot.chatPacket(pendingChats.remove())+"\n");
+                        Main.client.channel.writeAndFlush(PacketFormatterSpigot.chatPacket(pendingChats.remove()));
                 },0L, 10L);
     }
 

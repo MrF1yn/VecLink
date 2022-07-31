@@ -5,6 +5,7 @@ import FalconClientVelocity.utils.MemoryUtil;
 import FalconClientVelocity.API.placeholderapinative.MathExpansion;
 import FalconClientVelocity.API.placeholderapinative.PlaceholderAPI;
 import FalconClientVelocity.utils.PAPISupport;
+import FalconClientVelocity.utils.PingHandler;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
@@ -16,6 +17,8 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.scheduler.ScheduledTask;
 import dev.MrFlyn.FalconClient.GlobalInterface;
 import dev.MrFlyn.FalconClient.Main;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.simpleyaml.configuration.file.FileConfiguration;
 import org.simpleyaml.configuration.file.YamlConfiguration;
 import org.slf4j.Logger;
@@ -40,6 +43,9 @@ public class FalconMainVelocity implements GlobalInterface{
     public static FalconMainVelocity plugin;
     public List<String> groups;
     public FileConfiguration config;
+    public MiniMessage miniMessage;
+    public LegacyComponentSerializer lcs;
+    public PingHandler pingHandler;
     @Inject
     public FalconMainVelocity(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory) {
         this.server = server;
@@ -55,6 +61,9 @@ public class FalconMainVelocity implements GlobalInterface{
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        miniMessage = MiniMessage.miniMessage();
+         lcs = LegacyComponentSerializer.legacyAmpersand();
+         pingHandler = new PingHandler();
         plugin = this;
         papi = PlaceholderAPI.createPAPI();
         if(papi!=null) {
@@ -125,7 +134,7 @@ public class FalconMainVelocity implements GlobalInterface{
                         backendServers.add(server.getServerInfo().getName());
                     }
                     Main.client.channel.writeAndFlush(PacketFormatterVelocity.formatKeepAlivePacket(isJoinable(),
-                            MemoryUtil.getFormattedMemory(), MemoryUtil.getOsName(), backendServers)+"\n");
+                            MemoryUtil.getFormattedMemory(), MemoryUtil.getOsName(), backendServers));
                     Main.gi.debug("Sent keep-alive to FalconCloudServer.");
                 }).repeat(15L, TimeUnit.SECONDS).schedule();
 
@@ -194,6 +203,18 @@ public class FalconMainVelocity implements GlobalInterface{
         } else {
             throw new IllegalArgumentException("ResourcePath cannot be null or empty");
         }
+    }
+
+    public static MiniMessage getMiniMessage(){
+        return FalconMainVelocity.plugin.miniMessage;
+    }
+
+    public static LegacyComponentSerializer getLCS() {
+        return FalconMainVelocity.plugin.lcs;
+    }
+
+    public static PingHandler getPingHandler() {
+        return FalconMainVelocity.plugin.pingHandler;
     }
 
 }

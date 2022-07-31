@@ -149,7 +149,7 @@ public class FalconMainSpigot extends JavaPlugin implements GlobalInterface{
         keepAliveTask =
                 Bukkit.getScheduler().runTaskTimerAsynchronously(FalconMainSpigot.plugin, ()->{
                     Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatKeepAlivePacket(SpigotReflection.get().recentTps(),isJoinable(),
-                            MemoryUtil.getFormattedMemory(), SpigotReflection.get().averageTickTime(),MemoryUtil.getOsName())+"\n");
+                            MemoryUtil.getFormattedMemory(), SpigotReflection.get().averageTickTime(),MemoryUtil.getOsName()));
                     Main.gi.debug("Sent keep-alive to FalconCloudServer.");
                 },0L, 300L);
 

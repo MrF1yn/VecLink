@@ -29,7 +29,7 @@ public class Listeners implements Listener {
 //        }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, ()->{
             Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatPlayerInfoPacket(uuid,name, "ADD", i,
-            FalconMainSpigot.plugin.isJoinable())+"\n");
+            FalconMainSpigot.plugin.isJoinable()));
             Main.gi.debug("Sent player-info packet to FalconCloudServer.");
         });
     }
@@ -50,7 +50,7 @@ public class Listeners implements Listener {
 //        }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, () -> {
             Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatPlayerInfoPacket(uuid, name, "REMOVE", i,
-                    FalconMainSpigot.plugin.isJoinable()) + "\n");
+                    FalconMainSpigot.plugin.isJoinable()) );
             Main.gi.debug("Sent player-info packet to FalconCloudServer.");
         });
     }

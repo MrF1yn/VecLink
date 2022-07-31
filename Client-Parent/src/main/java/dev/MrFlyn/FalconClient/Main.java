@@ -43,6 +43,7 @@ public class Main implements GlobalInterface{
 
     }
 
+
     @Override
     public String getServerType() {
         return "TEST";

@@ -42,7 +42,7 @@ public class PartyCommand implements SubCommand {
                     return true;
                 }
                 //send invite packets to falcon server.
-                Main.client.channel.writeAndFlush(PacketFormatterVelocity.partyInvite(p.getUsername(), args[1])+"\n");
+                Main.client.channel.writeAndFlush(PacketFormatterVelocity.partyInvite(p.getUsername(), args[1]));
 
                 break;
         }

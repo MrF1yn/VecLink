@@ -48,7 +48,7 @@ public class RemoteCommand implements SubCommand {
             command.append(args[i]).append(" ");
         }
         Bukkit.getScheduler().runTaskAsynchronously(FalconMainSpigot.plugin, ()->{
-            Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatRemoteCommandPacket(targetSrv,executor,command.toString())+"\n");
+            Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatRemoteCommandPacket(targetSrv,executor,command.toString()));
         });
         sender.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.REMOTE_CMD_SENT.toString()));
         return true;
