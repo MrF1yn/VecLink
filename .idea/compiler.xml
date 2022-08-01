@@ -11,7 +11,7 @@
         <module name="Client-Parent" />
         <module name="Common" />
       </profile>
-      <profile name="Annotation profile for FalconCloud" enabled="true">
+      <profile name="Annotation profile for VecLink" enabled="true">
         <sourceOutputDir name="../builds/generated-sources/annotations" />
         <sourceTestOutputDir name="../builds/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
-    <artifactId>FalconCloud</artifactId>
+    <artifactId>VecLink</artifactId>
     <groupId>xyz.vectlabs</groupId>
     <version>1.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>Server</artifactId>
   <build>
-    <directory>H:\FalconCloud\builds</directory>
-    <finalName>FalconCloudServer</finalName>
+    <directory>H:\VecLink\builds</directory>
+    <finalName>VecLinkServer</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -23,13 +23,13 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>dev.MrFlyn.FalconServer.Main</mainClass>
+                  <mainClass>dev.MrFlyn.veclinkserver.Main</mainClass>
                 </transformer>
               </transformers>
               <relocations>
                 <relocation>
                   <pattern>com.google.gson</pattern>
-                  <shadedPattern>falcon.com.google.gson</shadedPattern>
+                  <shadedPattern>veclink.com.google.gson</shadedPattern>
                 </relocation>
               </relocations>
             </configuration>

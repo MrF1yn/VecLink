@@ -1,0 +1,17 @@
+dev\MrFlyn\veclinkserver\parties\Party.class
+dev\MrFlyn\veclinkserver\Utils\Player.class
+dev\MrFlyn\veclinkserver\ServerHandlers\VecLinkClient.class
+dev\MrFlyn\veclinkserver\ServerHandlers\VecLinkServer$1.class
+dev\MrFlyn\veclinkserver\ShutDownHook.class
+dev\MrFlyn\veclinkserver\ServerHandlers\ServerInitializer.class
+dev\MrFlyn\veclinkserver\Main.class
+dev\MrFlyn\veclinkserver\ServerHandlers\PacketFormatter.class
+dev\MrFlyn\veclinkserver\ServerHandlers\PayloadHandler$1.class
+dev\MrFlyn\veclinkserver\ServerHandlers\ServerHandler.class
+dev\MrFlyn\veclinkserver\ServerHandlers\DeAuthTask.class
+dev\MrFlyn\veclinkserver\ServerHandlers\PayloadHandler.class
+dev\MrFlyn\veclinkserver\ServerHandlers\VecLinkServer.class
+dev\MrFlyn\veclinkserver\Commands.class
+dev\MrFlyn\veclinkserver\Utils\ConsoleSpamHandler$1.class
+dev\MrFlyn\veclinkserver\Utils\ConsoleSpamHandler.class
+dev\MrFlyn\veclinkserver\MainConfig.class

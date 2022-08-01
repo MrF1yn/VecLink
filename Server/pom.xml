@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>FalconCloud</artifactId>
+        <artifactId>VecLink</artifactId>
         <groupId>xyz.vectlabs</groupId>
         <version>1.1-SNAPSHOT</version>
     </parent>
@@ -12,8 +12,8 @@
     <artifactId>Server</artifactId>
 <!--    <packaging>pom</packaging>-->
     <build>
-        <finalName>FalconCloudServer</finalName>
-        <directory>H:\FalconCloud\builds</directory>
+        <finalName>VecLinkServer</finalName>
+        <directory>H:\VecLink\builds</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -29,13 +29,13 @@
                             <transformers>
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>dev.MrFlyn.FalconServer.Main</mainClass>
+                                    <mainClass>dev.MrFlyn.veclinkserver.Main</mainClass>
                                 </transformer>
                             </transformers>
                             <relocations>
                                 <relocation>
                                     <pattern>com.google.gson</pattern>
-                                    <shadedPattern>falcon.com.google.gson</shadedPattern>
+                                    <shadedPattern>veclink.com.google.gson</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
