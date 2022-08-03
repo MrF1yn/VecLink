@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclink.ClientHandlers;
+package dev.mrflyn.veclink.ClientHandlers;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -20,8 +20,8 @@ public class ClientInitializer extends ChannelInitializer<SocketChannel> {
         ChannelPipeline pipeline = arg0.pipeline();
 
 //        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(20000, Delimiters.lineDelimiter()));
-        pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
         pipeline.addLast("encoder", new ObjectEncoder());
+        pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
         pipeline.addLast("handler", new ClientHandler(client));
 
 

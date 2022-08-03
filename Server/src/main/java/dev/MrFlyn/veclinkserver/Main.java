@@ -1,8 +1,8 @@
-package dev.MrFlyn.veclinkserver;
+package dev.mrflyn.veclinkserver;
 
-import dev.MrFlyn.veclinkserver.ServerHandlers.VecLinkServer;
-import dev.MrFlyn.veclinkserver.ServerHandlers.ServerHandler;
-import dev.MrFlyn.veclinkserver.Utils.ConsoleSpamHandler;
+import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkServer;
+import dev.mrflyn.veclinkserver.ServerHandlers.ServerHandler;
+import dev.mrflyn.veclinkserver.Utils.ConsoleSpamHandler;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.simpleyaml.configuration.file.YamlFile;

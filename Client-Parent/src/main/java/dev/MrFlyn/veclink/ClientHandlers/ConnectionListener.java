@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclink.ClientHandlers;
+package dev.mrflyn.veclink.ClientHandlers;
 
-import dev.MrFlyn.veclink.Main;
+import dev.mrflyn.veclink.Main;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoop;

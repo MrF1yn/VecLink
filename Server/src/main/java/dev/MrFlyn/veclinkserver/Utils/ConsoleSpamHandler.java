@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.Utils;
+package dev.mrflyn.veclinkserver.Utils;
 
-import dev.MrFlyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Main;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
-import dev.MrFlyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Main;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -39,8 +39,8 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         Main.log("Incoming connection from allowed ip: "+ip+".", false);
 
 //        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(20000, Delimiters.lineDelimiter()));
-            pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
             pipeline.addLast("encoder", new ObjectEncoder());
+            pipeline.addLast("decoder", new ObjectDecoder(ClassResolvers.cacheDisabled(null)));
             pipeline.addLast("handler", new ServerHandler());
 
 

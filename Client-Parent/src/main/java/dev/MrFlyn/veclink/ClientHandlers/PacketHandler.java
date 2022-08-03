@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclink.ClientHandlers;
+package dev.mrflyn.veclink.ClientHandlers;
 
 import com.google.gson.JsonObject;
 import io.netty.channel.ChannelHandlerContext;

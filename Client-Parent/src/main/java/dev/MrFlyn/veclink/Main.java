@@ -1,9 +1,9 @@
-package dev.MrFlyn.veclink;
+package dev.mrflyn.veclink;
 
 
 
-import dev.MrFlyn.veclink.ClientHandlers.PacketHandler;
-import dev.MrFlyn.veclink.ClientHandlers.VecLinkClient;
+import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
+import dev.mrflyn.veclink.ClientHandlers.VecLinkClient;
 import org.simpleyaml.configuration.file.YamlFile;
 
 

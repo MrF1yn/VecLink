@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
-import dev.MrFlyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import dev.mrflyn.veclinkcommon.ClientType;
 import io.netty.channel.*;
@@ -47,7 +47,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 //                return;
 //            }
             String name = (String) packet[1];
-            if(((PacketType) packet[0])==PacketType.C2S_AUTH){
+            if(PacketType.values()[(int) packet[0]]==PacketType.C2S_AUTH){
                 if(((String)packet[2]).equals(Main.config.getMainConfig().getString("secret-code"))){
                     if(ServerHandler.ClientsByName.containsKey(name)){
                         ctx.close();
@@ -80,6 +80,12 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             PayloadHandler.handlePayload(ctx, packet, ClientsByName.get(NameByChannels.get(ctx.channel())));
         }
 
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("ReadComplete");
+//        ctx.flush();
     }
 
     @Override

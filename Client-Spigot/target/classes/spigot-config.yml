@@ -31,8 +31,8 @@ chat-module:
 #This is some additional configurations for each placeholder.
 placeholder-config:
   onlineStatus:
-    true: "&aONLINE"
-    false: "&cOFFLINE"
+    true: "<green>ONLINE"
+    false: "<red>OFFLINE"
   clientStatus:
-    true: "&aCONNECTED"
-    false: "&cNOT CONNECTED"
+    true: "<green>CONNECTED"
+    false: "<red>NOT CONNECTED"

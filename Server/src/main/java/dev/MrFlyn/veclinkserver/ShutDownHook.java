@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclinkserver;
+package dev.mrflyn.veclinkserver;
 
 public class ShutDownHook extends Thread{
 

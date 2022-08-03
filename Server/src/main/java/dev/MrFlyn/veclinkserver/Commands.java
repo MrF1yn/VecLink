@@ -1,7 +1,7 @@
-package dev.MrFlyn.veclinkserver;
+package dev.mrflyn.veclinkserver;
 
-import dev.MrFlyn.veclinkserver.ServerHandlers.VecLinkClient;
-import dev.MrFlyn.veclinkserver.ServerHandlers.ServerHandler;
+import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkClient;
+import dev.mrflyn.veclinkserver.ServerHandlers.ServerHandler;
 
 import java.util.Scanner;
 

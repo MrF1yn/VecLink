@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
 import dev.mrflyn.veclinkcommon.PacketType;
 import dev.mrflyn.veclinkcommon.ClientType;
@@ -12,7 +12,7 @@ public class PacketFormatter {
 
     public static Object[] formatRemoteCmdExec(String executor, String command){
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_REMOTE_CMD,
+                PacketType.S2C_REMOTE_CMD.ordinal(),
                 executor,
                 command);
         return packet.toArray();
@@ -20,7 +20,7 @@ public class PacketFormatter {
 
     public static Object[] authStatus(boolean status, List<String> groups) {
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_AUTH,
+                PacketType.S2C_AUTH.ordinal(),
                 status,
                 groups);
         return packet.toArray();
@@ -28,7 +28,7 @@ public class PacketFormatter {
 
     public static Object[] formatClientInfoPacket(String clientName, ClientType clientType, String action) {
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_CLIENT_INFO,
+                PacketType.S2C_CLIENT_INFO.ordinal(),
                 action,
                 clientName,
                 clientType.name());
@@ -38,14 +38,14 @@ public class PacketFormatter {
     public static Object[] formatGroupInfoPacket(Collection<String> groups) {
         List<String> groupList = new ArrayList<>(groups);
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_GROUP_INFO,
+                PacketType.S2C_GROUP_INFO.ordinal(),
                 groupList);
         return packet.toArray();
     }
 
     public static Object[] formatPlayerInfoForward(String name, String uuid, String client, String action) {
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_PLAYER_INFO,
+                PacketType.S2C_PLAYER_INFO.ordinal(),
                 client,
                 action,
                 name,
@@ -55,7 +55,7 @@ public class PacketFormatter {
 
     public static Object[] formatClientInfoForwardPacket(VecLinkClient client, String type){
         List<Object> packet = new ArrayList<>();
-        packet.add(PacketType.S2C_CLIENT_INFO_FORWARD);
+        packet.add(PacketType.S2C_CLIENT_INFO_FORWARD.ordinal());
         packet.add(type);
         packet.add(client.getType().name());
         packet.add(client.getName());
@@ -94,7 +94,7 @@ public class PacketFormatter {
 
     public static Object[] formatChatGroupInstantiatePacket(String groupName, String chatFormat, String action){
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_CHAT_GROUP_INIT,
+                PacketType.S2C_CHAT_GROUP_INIT.ordinal(),
                 action,
                 groupName,
                 chatFormat);
@@ -103,7 +103,7 @@ public class PacketFormatter {
 
     public static Object[] formatChatDisplay(String chat, String from) {
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_CHAT,
+                PacketType.S2C_CHAT.ordinal(),
                 from,
                 chat);
         return packet.toArray();
@@ -111,7 +111,7 @@ public class PacketFormatter {
 
     public static Object[] formatChatGrpDisplay(String chat, String from, String grpName, String sender) {
         List<Object> packet = Arrays.asList(
-                PacketType.S2C_CHAT_GRP,
+                PacketType.S2C_CHAT_GRP.ordinal(),
                 from,
                 sender,
                 grpName,

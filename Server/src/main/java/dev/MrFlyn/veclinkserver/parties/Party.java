@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.parties;
+package dev.mrflyn.veclinkserver.parties;
 
-import dev.MrFlyn.veclinkserver.Utils.Player;
+import dev.mrflyn.veclinkserver.Utils.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclink;
+package dev.mrflyn.veclink;
 
 public enum ConfigPath {
 

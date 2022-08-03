@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclinkserver.Utils;
+package dev.mrflyn.veclinkserver.Utils;
 
 import java.util.UUID;
 

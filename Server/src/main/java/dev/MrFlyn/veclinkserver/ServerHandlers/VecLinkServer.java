@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
-import dev.MrFlyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Main;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;

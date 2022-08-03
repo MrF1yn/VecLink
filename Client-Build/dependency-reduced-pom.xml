@@ -23,7 +23,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>dev.MrFlyn.veclink.Main</mainClass>
+                  <mainClass>dev.mrflyn.veclink.Main</mainClass>
                 </transformer>
               </transformers>
               <relocations>

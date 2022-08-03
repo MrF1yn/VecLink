@@ -1,7 +1,7 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
-import dev.MrFlyn.veclinkserver.Main;
-import dev.MrFlyn.veclinkserver.Utils.Player;
+import dev.mrflyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Utils.Player;
 import dev.mrflyn.veclinkcommon.ClientType;
 import io.netty.channel.Channel;
 

@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclink.ClientHandlers;
+package dev.mrflyn.veclink.ClientHandlers;
 
-import dev.MrFlyn.veclink.Main;
+import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.ClientType;
 import dev.mrflyn.veclinkcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,6 +20,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {
+        System.out.println("Received!");
+        System.out.println(s.toString());
         if(!(s instanceof Object[])){
             Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
             return;
@@ -31,10 +33,17 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
             return;
         }
+        Main.gi.debug(PacketType.values()[(int)packet[0]].name());
 
 
         Main.pi.handlePayload(packet, ctx);
 
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("ReadComplete");
+//        ctx.flush();
     }
 
     @Override
@@ -50,7 +59,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause){
-
+        cause.printStackTrace();
     }
 
     @Override
@@ -75,7 +84,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         List<Object> packet = Arrays.asList(
-                PacketType.C2S_AUTH,
+                PacketType.C2S_AUTH.ordinal(),
                 Main.config.getMainConfig().getString("client-id"),
                 Main.config.getMainConfig().getString("secret-code"),
                 Main.gi.getServerType()

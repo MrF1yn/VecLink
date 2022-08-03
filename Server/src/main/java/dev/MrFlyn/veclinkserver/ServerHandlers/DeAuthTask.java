@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
 import io.netty.channel.Channel;
 

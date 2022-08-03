@@ -1,6 +1,6 @@
-package dev.MrFlyn.veclinkserver.ServerHandlers;
+package dev.mrflyn.veclinkserver.ServerHandlers;
 
-import dev.MrFlyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import dev.mrflyn.veclinkcommon.ClientType;
 import io.netty.channel.Channel;
@@ -14,7 +14,7 @@ public class PayloadHandler {
 
     public static void handlePayload(ChannelHandlerContext ctx, Object[] packet, VecLinkClient fromClient){
         Channel c = ctx.channel();
-        PacketType packetType = (PacketType)packet[0];
+        PacketType packetType = PacketType.values()[(int)packet[0]];
         switch (packetType){
             case C2S_REMOTE_CMD:
                 String target = (String) packet[1];
@@ -50,27 +50,27 @@ public class PayloadHandler {
                 //    arr[5] = Long.parseLong(decimalFormat.format(l7 / 1024L / 1024L)); //max memory
                 //    arr[6] = Long.parseLong(decimalFormat.format(l8 / 1024L / 1024L)); //allocated memory
                 boolean joinStatus = (boolean) packet[1];
-                List<Long> memoryInfo = Arrays.asList((Long[])packet[2]);
+                long[] memoryInfo = (long[])packet[2];
                 String osName = (String) packet[3];
 //                    Arrays.asList(string.split(",")).stream().map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
-                fromClient.setRunningThreads(memoryInfo.get(0));
-                fromClient.setCpuCores(memoryInfo.get(1));
-                fromClient.setCpuUsagePercent(memoryInfo.get(2));
-                fromClient.setMemoryUsagePercent(memoryInfo.get(3));
-                fromClient.setCurrentMemoryUsage(memoryInfo.get(4));
-                fromClient.setMaxMemory(memoryInfo.get(5));
-                fromClient.setAllocatedMemory(memoryInfo.get(6));
+                fromClient.setRunningThreads(memoryInfo[0]);
+                fromClient.setCpuCores(memoryInfo[1]);
+                fromClient.setCpuUsagePercent(memoryInfo[2]);
+                fromClient.setMemoryUsagePercent(memoryInfo[3]);
+                fromClient.setCurrentMemoryUsage(memoryInfo[4]);
+                fromClient.setMaxMemory(memoryInfo[5]);
+                fromClient.setAllocatedMemory(memoryInfo[6]);
                 fromClient.setCanJoin(joinStatus);
                 fromClient.setOsName(osName);
                 fromClient.setLastKeepAlive(System.currentTimeMillis());
                 Main.debug("Received keep-alive from: "+fromClient.getName()+".", true);
                 if(fromClient.getType()== ClientType.SPIGOT){
-                    List<Double> tps = Arrays.asList((Double[])packet[4]);
+                    double[] tps = (double[]) packet[4];
                     double mspt = (double) packet[5];
 
-                    fromClient.setTps1min(tps.get(0));
-                    fromClient.setTps5min(tps.get(1));
-                    fromClient.setTps15min(tps.get(2));
+                    fromClient.setTps1min(tps[0]);
+                    fromClient.setTps5min(tps[1]);
+                    fromClient.setTps15min(tps[2]);
                     fromClient.setMspt(mspt);
                 }
                 if(fromClient.getType()== ClientType.VELOCITY||fromClient.getType()== ClientType.BUNGEE){

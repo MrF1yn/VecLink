@@ -1,4 +1,4 @@
-main: VecLinkClientSpigot.FalconMainSpigot
+main: dev.mrflyn.veclinkspigot.VecLinkMainSpigot
 version: 0.0
 name: VecLinkClient
 softdepend:

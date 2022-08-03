@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclink.ClientHandlers;
+package dev.mrflyn.veclink.ClientHandlers;
 
 import java.text.DecimalFormat;
 import java.util.*;

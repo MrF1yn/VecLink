@@ -1,4 +1,4 @@
-package dev.MrFlyn.veclink;
+package dev.mrflyn.veclink;
 
 import org.simpleyaml.configuration.file.YamlFile;
 
