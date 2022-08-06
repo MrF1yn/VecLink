@@ -1,5 +1,6 @@
 package dev.mrflyn.veclinkserver;
 
+import dev.mrflyn.veclinkcommon.CommonValues;
 import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkServer;
 import dev.mrflyn.veclinkserver.ServerHandlers.ServerHandler;
 import dev.mrflyn.veclinkserver.Utils.ConsoleSpamHandler;
@@ -14,6 +15,7 @@ public class Main {
     public static Commands commands;
 
     public static void main(String[] args){
+        log(CommonValues.LOGO, true);
         config = new MainConfig(new YamlFile("veclinkServer.yml"));
         config.init();
         if(config.getMainConfig().getBoolean("console-spam-detection.prevent-console-spam"))

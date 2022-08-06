@@ -28,7 +28,7 @@ public class StatusCommand implements SubCommand {
             String name = args[0];
             if(ConnectedVecLinkClient.CFC.containsKey(name)){
                 ConnectedVecLinkClient c = ConnectedVecLinkClient.CFC.get(name);
-                sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
+                sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
 //                sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
 //                sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
 //                sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
@@ -49,10 +49,10 @@ public class StatusCommand implements SubCommand {
                 for(String s : c.getFormattedClientInfo()){
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
                 }
-                sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
+                sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
             }
             else if(name.equals(Main.config.getMainConfig().getString("client-id"))){
-                sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
+                sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
                 sender.sendMessage(ChatColor.AQUA + "ClientName: " + ChatColor.WHITE + Main.config.getMainConfig().getString("client-id"));
                 sender.sendMessage(ChatColor.AQUA + "ClientType: " + ChatColor.WHITE + "SPIGOT");
                 sender.sendMessage(ChatColor.AQUA + "BelongingGroups: " + ChatColor.WHITE + VecLinkMainSpigot.plugin.groups);
@@ -70,7 +70,7 @@ public class StatusCommand implements SubCommand {
                 sender.sendMessage(ChatColor.AQUA + "MemoryUsage: " + ChatColor.WHITE + decimalFormat.format(MemoryUtil.getFormattedMemory()[3]) + "% ("
                         + decimalFormat.format(MemoryUtil.getFormattedMemory()[6]) + "/" + decimalFormat.format(MemoryUtil.getFormattedMemory()[5]) + " MB)");
                 sender.sendMessage(ChatColor.AQUA + "AllocatedMemory: " + ChatColor.WHITE + decimalFormat.format(MemoryUtil.getFormattedMemory()[4]) + "MB");
-                sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
+                sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
                 sender.sendMessage(" ");
             }
             else {
@@ -79,7 +79,7 @@ public class StatusCommand implements SubCommand {
             return true;
         }
         for(ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()){
-            sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
+            sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
 //            sender.sendMessage(ChatColor.AQUA +"ClientName: "+ChatColor.WHITE+c.getName());
 //            sender.sendMessage(ChatColor.AQUA+"ClientType: "+ChatColor.WHITE+c.getType());
 //            sender.sendMessage(ChatColor.AQUA+"BelongingGroups: "+ChatColor.WHITE+c.getGroups());
@@ -100,10 +100,10 @@ public class StatusCommand implements SubCommand {
             for(String s : c.getFormattedClientInfo()){
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
             }
-            sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
+            sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
             sender.sendMessage(" ");
         }
-        sender.sendMessage(ChatColor.WHITE + "↱"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↰");
+        sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
         sender.sendMessage(ChatColor.AQUA + "ClientName: " + ChatColor.WHITE + Main.config.getMainConfig().getString("client-id"));
         sender.sendMessage(ChatColor.AQUA + "ClientType: " + ChatColor.WHITE + "SPIGOT");
         sender.sendMessage(ChatColor.AQUA + "BelongingGroups: " + ChatColor.WHITE + VecLinkMainSpigot.plugin.groups);
@@ -121,7 +121,7 @@ public class StatusCommand implements SubCommand {
         sender.sendMessage(ChatColor.AQUA + "MemoryUsage: " + ChatColor.WHITE + decimalFormat.format(MemoryUtil.getFormattedMemory()[3]) + "% ("
                 + decimalFormat.format(MemoryUtil.getFormattedMemory()[6]) + "/" + decimalFormat.format(MemoryUtil.getFormattedMemory()[5]) + " MB)");
         sender.sendMessage(ChatColor.AQUA + "AllocatedMemory: " + ChatColor.WHITE + decimalFormat.format(MemoryUtil.getFormattedMemory()[4]) + "MB");
-        sender.sendMessage(ChatColor.WHITE + "↳"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+"↲");
+        sender.sendMessage(ChatColor.WHITE + "<"+ChatColor.DARK_AQUA+"---------------------------"+ChatColor.WHITE+">");
         sender.sendMessage(" ");
         return true;
     }

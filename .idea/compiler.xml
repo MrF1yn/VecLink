@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Client-Velocity" />
         <module name="Client-Spigot" />
+        <module name="Client-DiscordSurveillance" />
         <module name="Client-Parent" />
         <module name="Common" />
       </profile>

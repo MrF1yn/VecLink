@@ -120,7 +120,7 @@ public class VecLinkMainVelocity implements GlobalInterface{
 
     @Override
     public String getConfigLocation() {
-        return "plugins/VecLinkclient/";
+        return "plugins/VecLinkClient/";
     }
 
     @Override

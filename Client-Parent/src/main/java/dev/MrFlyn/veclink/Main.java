@@ -4,6 +4,7 @@ package dev.mrflyn.veclink;
 
 import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
 import dev.mrflyn.veclink.ClientHandlers.VecLinkClient;
+import dev.mrflyn.veclinkcommon.CommonValues;
 import org.simpleyaml.configuration.file.YamlFile;
 
 
@@ -22,12 +23,14 @@ public class Main implements GlobalInterface{
     }
 
     public static void enable(){
+        Main.gi.log(CommonValues.LOGO);
         config = new MainConfig(new YamlFile(gi.getConfigLocation()+"VecLinkClient.yml"), new YamlFile(gi.getConfigLocation()+"messages.yml"));
         config.init();
         String ip = config.getMainConfig().getString("host").split(":")[0];
         int port = Integer.parseInt(config.getMainConfig().getString("host").split(":")[1]);
         client = new VecLinkClient(ip, port);
         client.start();
+
     }
 
     @Override
@@ -63,4 +66,6 @@ public class Main implements GlobalInterface{
     public void stopKeepAliveTask() {
 
     }
+
+
 }

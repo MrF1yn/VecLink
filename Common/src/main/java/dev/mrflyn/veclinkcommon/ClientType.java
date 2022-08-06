@@ -5,5 +5,6 @@ public enum ClientType {
     SPIGOT,
     TEST,
     SERVER,
+    DISCORD_SRV,
     VELOCITY;
 }

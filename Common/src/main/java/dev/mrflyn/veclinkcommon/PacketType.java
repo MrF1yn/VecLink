@@ -29,7 +29,7 @@ public enum PacketType {
     S2C_AUTH(new PacketFormat(Integer.class,Boolean.class,List.class)
             ,"This packet contains the auth status of the client."),
     S2C_REMOTE_CMD(new PacketFormat(Integer.class,String.class,String.class)
-            ,"This packet is forwarded from the FalconServer to the target VecLinkClient."),
+            ,"This packet is forwarded from the VecLinkServer to the target VecLinkClient."),
     S2C_CLIENT_INFO(new PacketFormat(Integer.class,String.class,String.class,String.class)
             ,"This packet is forwarded to all clients when a client connects to the veclinkServer."),
     S2C_GROUP_INFO(new PacketFormat(Integer.class,List.class)

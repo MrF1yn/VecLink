@@ -19,6 +19,7 @@ public enum ConfigPath {
     NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bVec§fLink§7]§f➣ §aOnly players can execute this command.");
 
 
+
     private String path;
     private String value;
     private ConfigPath(String path, String defaultValue){

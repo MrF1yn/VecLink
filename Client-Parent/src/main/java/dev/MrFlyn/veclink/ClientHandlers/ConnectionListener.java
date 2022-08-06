@@ -29,7 +29,7 @@ public class ConnectionListener implements ChannelFutureListener {
             }, 3L, TimeUnit.SECONDS);
         }
         else if ((channelFuture.isSuccess())){
-            Main.gi.log("Connected to Falcon cloud at: " + client.ip + ":" + client.port + ".");
+            Main.gi.log("Connected to VecLink Server at: " + client.ip + ":" + client.port + ".");
             client.channel = channelFuture.channel();
         }
     }
