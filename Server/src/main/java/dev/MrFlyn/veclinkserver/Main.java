@@ -15,14 +15,13 @@ public class Main {
     public static Commands commands;
 
     public static void main(String[] args){
-        log(CommonValues.LOGO, true);
         config = new MainConfig(new YamlFile("veclinkServer.yml"));
         config.init();
         if(config.getMainConfig().getBoolean("console-spam-detection.prevent-console-spam"))
             new ConsoleSpamHandler(config.getMainConfig().getInt("console-spam-detection.max-violations"),
                     config.getMainConfig().getLong("console-spam-detection.reset-violations-after"));
+        log(CommonValues.LOGO, true);
         server = new VecLinkServer(config.getMainConfig().getInt("port"));
-
         server.start();
         commands = new Commands();
         commands.start();

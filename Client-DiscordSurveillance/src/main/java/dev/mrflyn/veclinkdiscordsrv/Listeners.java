@@ -31,6 +31,10 @@ public class Listeners extends ListenerAdapter {
         if(!event.getMember().hasPermission(Permission.ADMINISTRATOR))return;
         switch (event.getName()){
             case "status":
+                if (ConnectedVecLinkClient.CFC.values().isEmpty()) {
+                    event.reply("No Clients are connected to the VecLink Server.").queue();
+                    return;
+                }
                 if (event.getOptions().isEmpty()) {
                     for (ConnectedVecLinkClient client : ConnectedVecLinkClient.CFC.values()) {
                         event.replyEmbeds(getStatusEmbed(client)).queue();
@@ -55,10 +59,19 @@ public class Listeners extends ListenerAdapter {
     public MessageEmbed getStatusEmbed(ConnectedVecLinkClient client) {
         
         try {
-            String json = JsonParser.parseReader(new FileReader(Main.gi.getConfigLocation()+"status_embed.json")).getAsString();
+            String json = JsonParser.parseReader(new FileReader(Main.gi.getConfigLocation()+"status_embed.json")).toString();
             json = json.replace("%clientName%", client.getName())
-                    .replace("%clientType%", client.getType());
-            return (jsonToEmbed( JsonParser.parseString(json).getAsJsonObject() ));
+                    .replace("%clientType%", client.getType())
+                    .replace("%clientTps%", client.getTps1min()+", "+client.getTps5min()+", "+client.getTps15min())
+                    .replace("%clientMspt%", client.getMspt()+"")
+                    .replace("%clientGroups%", client.getGroups().toString())
+                    .replace("%clientBackendServers%", client.getBackendServers().toString())
+                    .replace("%clientCpuCores%", client.getCpuCores()+"")
+                    .replace("%clientCpuUsage%", client.getCpuUsagePercent()+"%")
+                    .replace("%clientMemUsage%", client.getCurrentMemoryUsage()+"/"+client.getMaxMemory()+" ("+client.getMemoryUsagePercent()+"%"+")")
+                    .replace("%clientOS%", client.getOsName())
+                    .replace("%clientJoinable%", client.isCanJoin()+"");
+            return (jsonToEmbed( JsonParser.parseString(json).getAsJsonObject()));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

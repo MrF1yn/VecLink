@@ -75,9 +75,13 @@ public class ExtraUtil {
             });
         }
 
-        JsonPrimitive thumbnailObj = json.getAsJsonPrimitive("thumbnail");
+        JsonObject thumbnailObj = json.getAsJsonObject("thumbnail");
         if (thumbnailObj != null){
-            embedBuilder.setThumbnail(thumbnailObj.getAsString());
+            embedBuilder.setThumbnail(thumbnailObj.get("url").getAsString());
+        }
+        JsonObject imageObj = json.getAsJsonObject("image");
+        if (imageObj != null) {
+            embedBuilder.setImage(imageObj.get("url").getAsString());
         }
 
         JsonObject footerObj = json.getAsJsonObject("footer");

@@ -23,6 +23,12 @@ public enum PacketType {
             ,"This packet contains chat message for syncing."),
     C2S_CHAT_GRP_MSG(new PacketFormat(Integer.class,String.class,String.class,String.class)
             ,"This packet is similar to C2S_CHAT packet but only for particular chat groups."),
+    C2S_DC_VERIFY_INIT(new PacketFormat(),
+            "This packet is sent when a player executes /veclink dcverify command ingame. It initiates the minecraft-discord linking process."),
+    C2S_DC_VERIFY_REQ(new PacketFormat(),
+            "This packet is sent from veclink srv when the user inputs the received token for the final verification."),
+
+
     PC2S_PARTY_INVITE("Only for proxy clients, This packet is sent when someone invites someone to a party."),
 
     //Server->Client
@@ -46,6 +52,11 @@ public enum PacketType {
             ,"This packet is sent to all clients when the server receives a chat sync packet from a client."),
     S2C_CHAT_GRP(new PacketFormat(Integer.class,String.class,String.class,String.class,String.class)
             ,"This packet is sent to all clients when the server receives a chat group sync packet from a client."),
+    S2C_DC_VERIFY_INIT(new PacketFormat(),
+            "This packet is sent to the client and contains the verification token."),
+    S2C_DC_VERIFY_ACK(new PacketFormat(),
+            "This packet is sent to the client and veclink srv after the token verification is complete and contains the status of the verification procedure."),
+
     S2C_PARTY_INVITE("This packet is sent to the client which contains player who is invited to a party.")
 
 
@@ -77,9 +88,9 @@ public enum PacketType {
         if (packetID>=PacketType.values().length||packetID<0)return false;
         PacketType type = PacketType.values()[packetID];
         if(type != C2S_AUTH) {
-            boolean isProxy = (clientType == ClientType.BUNGEE || clientType == ClientType.VELOCITY);
+            boolean isNotSpigot = (clientType == ClientType.BUNGEE || clientType == ClientType.VELOCITY || clientType == ClientType.DISCORD_SRV);
             //exception cases start
-            if (type == PacketType.C2S_KEEP_ALIVE && isProxy) {
+            if (type == PacketType.C2S_KEEP_ALIVE && isNotSpigot) {
                 if (packet.length != 5) return false; //invalid size
                 if (!(packet[1] instanceof Boolean)) return false;
                 if (!(packet[2] instanceof List||packet[2].getClass().isArray())) return false;

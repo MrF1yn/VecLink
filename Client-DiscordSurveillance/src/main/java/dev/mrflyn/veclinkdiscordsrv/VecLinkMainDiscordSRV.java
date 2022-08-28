@@ -19,19 +19,17 @@ import java.io.*;
 import java.lang.management.MemoryManagerMXBean;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 public class VecLinkMainDiscordSRV implements GlobalInterface {
     public List<String> groups;
     public FileConfiguration config;
     private TimerTask keepAliveTask;
-    public static String configLocation = "";
+    public static String configLocation = "configs/";
     public List<String> backendServers;
     Timer timer = new Timer("0");
-
+    public static VecLinkMainDiscordSRV plugin;
     public static JDA jda;
 
     public static void main(String[] args){
@@ -40,30 +38,43 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
     }
 
     public void enable(){
-
+        plugin = this;
+        backendServers = new ArrayList<>();
+        Main.gi = this;
+        Main.pi = new PacketHandlerDiscordSRV();
         saveResource("config.yml",false);
         saveResource("status_embed.json", false);
         config = YamlConfiguration.loadConfiguration(new File(getConfigLocation(), "config.yml"));
-
-        try {
-            jda = JDABuilder.createLight(config.getString("bot_token"), GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MEMBERS)
-                    .addEventListeners(new Listeners())
-                    .setActivity(Activity.playing("VecLink"))
-                    .setChunkingFilter(ChunkingFilter.ALL)
-                    .setMemberCachePolicy(MemberCachePolicy.ALL)
-                    .build();
-            jda.awaitReady();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        String token = config.getString("bot_token");
+        if (token==null || token.isEmpty()){
+            Main.gi.log("Invalid Bot Token.");
+            System.exit(0);
         }
-        jda.upsertCommand("status","Get the status of a server.")
-                .addOptions(
-                        new OptionData(OptionType.STRING,
-                                "server-name",
-                                "Optional Name of the server.",
-                                false)
-                ).queue();
+        Main.enable();
+        new Thread(() -> {
+            try {
+                Main.gi.log("Starting JDA instance!");
+                jda = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGES, GatewayIntent.GUILD_MEMBERS)
+                        .addEventListeners(new Listeners())
+                        .setActivity(Activity.playing("VecLink"))
+                        .setChunkingFilter(ChunkingFilter.ALL)
+                        .setMemberCachePolicy(MemberCachePolicy.ALL)
+                        .build();
+                jda.awaitReady();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Main.gi.log("Registering slash-commands!");
+            jda.upsertCommand("status","Get the status of a server.")
+                    .addOptions(
+                            new OptionData(OptionType.STRING,
+                                    "server-name",
+                                    "Optional Name of the server.",
+                                    false)
+                    ).queue();
+        }).start();
+
     }
 
 
@@ -98,7 +109,7 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
     @Override
     public void startKeepAliveTask() {
             if (keepAliveTask != null) return;
-
+            backendServers = Arrays.asList("TEST");
             keepAliveTask = new TimerTask() {
                 @Override
                 public void run() {
@@ -107,7 +118,7 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
                     Main.gi.debug("Sent keep-alive to VecLinkServer.");
                 }
             };
-
+            Main.gi.debug("Started keep-alive task.");
             timer.scheduleAtFixedRate(keepAliveTask,0L, 15000L);
 
 

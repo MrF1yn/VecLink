@@ -23,19 +23,19 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {
 //        System.out.println("READ");
         if(!(s instanceof Object[])){
-            Main.log("Received bad data from: "+ctx.channel().remoteAddress(), false);
+            Main.log("Received bad data from: "+ctx.channel().remoteAddress()+" Not an Object[].", false);
             return;
         }
         Object[] packet = (Object[]) s;
 
-        if(!PacketType.validatePacket(packet,null)){
-            Main.log("Received bad data from: "+ctx.channel().remoteAddress(), false);
-            return;
-        }
 
         Main.debug(Arrays.toString(packet), false);
         Channel c = ctx.channel();
         if(ServerHandler.unAuthorisedClients.contains(c)){
+            if(!PacketType.validatePacket(packet,null)){
+                Main.log("Received bad data from: "+ctx.channel().remoteAddress()+" UnAuthorised.", false);
+                return;
+            }
 //            if(!(json.has("type")&& json.has("name") && json.has("code") && json.has("server-type"))){
 //                Main.log("Received bad authorization data from "+c.remoteAddress()+". Closing connection...", false);
 //                ctx.close();
@@ -74,7 +74,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         else if(AuthorisedClients.contains(c)){
             VecLinkClient client = ClientsByName.get(NameByChannels.get(c));
             if(!PacketType.validatePacket(packet, client.getType())){
-                Main.log("Received bad data from ip: "+ctx.channel().remoteAddress()+" Name: "+client.getName(), false);
+                Main.log("Received bad data from ip: "+ctx.channel().remoteAddress()+" Name: "+client.getName()+" Authorised.", false);
                 return;
             }
             PayloadHandler.handlePayload(ctx, packet, ClientsByName.get(NameByChannels.get(ctx.channel())));
