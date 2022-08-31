@@ -1,11 +1,21 @@
 package dev.mrflyn.veclink.ClientHandlers;
 
+import dev.mrflyn.veclinkcommon.ClientType;
+
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class ConnectedVecLinkClient {
+
+    public static boolean containsType(ClientType clientType){
+        for(ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()){
+            if(c.getType().equals(clientType.name()))return true;
+        }
+        return false;
+    }
+
     public static List<String> clients = Collections.synchronizedList(new ArrayList<>());
     public static ConcurrentHashMap<String, ConnectedVecLinkClient> CFC = new ConcurrentHashMap<>();
     public static List<String> groups = Collections.synchronizedList(new ArrayList<>());

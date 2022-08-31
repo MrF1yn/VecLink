@@ -1,7 +1,7 @@
 package dev.mrflyn.veclinkserver.ServerHandlers;
 
 import dev.mrflyn.veclinkserver.Main;
-import dev.mrflyn.veclinkserver.Utils.Player;
+import dev.mrflyn.veclinkcommon.VLPlayer;
 import dev.mrflyn.veclinkcommon.ClientType;
 import io.netty.channel.Channel;
 
@@ -45,8 +45,8 @@ public class VecLinkClient {
     }
 
     private int onlinePlayerCount;
-    public HashMap<UUID, Player> playersByUuid;
-    public HashMap<String, Player> playersByName;
+    public HashMap<UUID, VLPlayer> playersByUuid;
+    public HashMap<String, VLPlayer> playersByName;
     DecimalFormat decimalFormat;
 
     public long getLastKeepAliveInSecs(){
@@ -91,7 +91,7 @@ public class VecLinkClient {
                 c.getChannel().writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(this,"BASIC"));
                 channel.writeAndFlush(PacketFormatter.formatClientInfoForwardPacket(c,"BASIC"));
                 if(c.getType()!= ClientType.TEST) {
-                    for (Player p : c.playersByName.values()) {
+                    for (VLPlayer p : c.playersByName.values()) {
                         channel.writeAndFlush(PacketFormatter.formatPlayerInfoForward(p.getName(), p.getUUID().toString(), c.getName(), "ADD"));
                     }
                 }
@@ -133,7 +133,7 @@ public class VecLinkClient {
             this.onlinePlayerCount = onlinePlayerCount;
             this.canJoin = canJoin;
             if (action.equals("ADD")) {
-                Player p = new Player(name, uuid);
+                VLPlayer p = new VLPlayer(name, uuid);
                 playersByUuid.put(uuid, p);
                 playersByName.put(name, p);
             } else if (action.equals("REMOVE")) {

@@ -16,7 +16,8 @@ public enum ConfigPath {
     CHAT_GRP_MUTED("CHAT_GRP_MUTED", "§7[§bVec§fLink§7]§f➣ §aChat group muted successfully."),
     CHAT_GRP_UNMUTED("CHAT_GRP_UNMUTED", "§7[§bVec§fLink§7]§f➣ §aChat group un-muted successfully."),
     RELOAD_RESPONSE("RELOAD_RESPONSE", "§7[§bVec§fLink§7]§f➣ §aReloading..."),
-    NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bVec§fLink§7]§f➣ §aOnly players can execute this command.");
+    NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bVec§fLink§7]§f➣ §aOnly players can execute this command."),
+    VECLINK_SRV_NOT_CONNECTED("VECLINK_SRV_NOT_CONNECTED", "§7[§bVec§fLink§7]§f➣ §cNo VecLinkSRVs are connected to the VecLink server.");
 
 
 

@@ -24,7 +24,7 @@ public enum PacketType {
     C2S_CHAT_GRP_MSG(new PacketFormat(Integer.class,String.class,String.class,String.class)
             ,"This packet is similar to C2S_CHAT packet but only for particular chat groups."),
     C2S_DC_VERIFY_INIT(new PacketFormat(),
-            "This packet is sent when a player executes /veclink dcverify command ingame. It initiates the minecraft-discord linking process."),
+            "This packet is sent when a player executes /veclink dcVerify command in game. It initiates the minecraft-discord linking process."),
     C2S_DC_VERIFY_REQ(new PacketFormat(),
             "This packet is sent from veclink srv when the user inputs the received token for the final verification."),
 
@@ -56,6 +56,8 @@ public enum PacketType {
             "This packet is sent to the client and contains the verification token."),
     S2C_DC_VERIFY_ACK(new PacketFormat(),
             "This packet is sent to the client and veclink srv after the token verification is complete and contains the status of the verification procedure."),
+    S2C_DATABASE_INFO(new PacketFormat(),
+            "This packet is sent to all the clients and contains the database credentials for them to connect to."),
 
     S2C_PARTY_INVITE("This packet is sent to the client which contains player who is invited to a party.")
 

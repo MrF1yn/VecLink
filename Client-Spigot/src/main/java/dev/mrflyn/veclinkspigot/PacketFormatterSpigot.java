@@ -66,5 +66,13 @@ public class PacketFormatterSpigot {
         return packet.toArray();
     }
 
+    public static Object[] dcVerifyInit(String playerName, UUID playerUUID) {
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_DC_VERIFY_INIT.ordinal(),
+                playerName,
+                playerUUID.toString());
+        return packet.toArray();
+    }
+
 
 }

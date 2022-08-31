@@ -1,6 +1,6 @@
 package dev.mrflyn.veclinkserver.parties;
 
-import dev.mrflyn.veclinkserver.Utils.Player;
+import dev.mrflyn.veclinkcommon.VLPlayer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,24 +11,24 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Party {
     ReentrantLock lock = new ReentrantLock();
-    private Player owner;
-    private List<Player> members;
+    private VLPlayer owner;
+    private List<VLPlayer> members;
     private int limit;
 
-    public static ConcurrentHashMap<Player , Party> getAllParties(){
+    public static ConcurrentHashMap<VLPlayer, Party> getAllParties(){
         return allParties;
     }
 
-    public Player getOwner() {
+    public VLPlayer getOwner() {
         return owner;
     }
 
-    public List<Player> getMembers() {
+    public List<VLPlayer> getMembers() {
         return members;
     }
 
-    public List<Player> getAllPlayers() {
-        List<Player> l = new ArrayList<>(members);
+    public List<VLPlayer> getAllPlayers() {
+        List<VLPlayer> l = new ArrayList<>(members);
         l.add(owner);
         return l;
     }
@@ -37,9 +37,9 @@ public class Party {
         return limit;
     }
 
-    private static ConcurrentHashMap<Player, Party> allParties = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<VLPlayer, Party> allParties = new ConcurrentHashMap<>();
 
-    public Party (Player owner){
+    public Party (VLPlayer owner){
         lock.lock();
         try {
             this.owner = owner;
@@ -51,7 +51,7 @@ public class Party {
             lock.unlock();
         }
     }
-    public Party(Player owner, List<Player> members) {
+    public Party(VLPlayer owner, List<VLPlayer> members) {
         lock.lock();
         try {
             this.owner = owner;
@@ -70,7 +70,7 @@ public class Party {
             lock.unlock();
         }
     }
-    public void setOwner(Player owner){
+    public void setOwner(VLPlayer owner){
         lock.lock();
         try {
             allParties.remove(this.owner);
@@ -80,7 +80,7 @@ public class Party {
             lock.unlock();
         }
     }
-    public void setMembers(List<Player> members) {
+    public void setMembers(List<VLPlayer> members) {
         lock.lock();
         try {
             this.members = Collections.synchronizedList(members);
@@ -88,7 +88,7 @@ public class Party {
             lock.unlock();
         }
     }
-    public void addMembers(Player... members){
+    public void addMembers(VLPlayer... members){
         lock.lock();
         try {
             this.members.addAll(Arrays.asList(members));
@@ -96,7 +96,7 @@ public class Party {
             lock.unlock();
         }
     }
-    public void removeMembers(Player... members){
+    public void removeMembers(VLPlayer... members){
         lock.lock();
         try {
             this.members.removeAll(Arrays.asList(members));
