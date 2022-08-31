@@ -118,4 +118,22 @@ public class PacketFormatter {
                 chat);
         return packet.toArray();
     }
+
+    public static Object[] formatDatabaseInfo(String dbType,String host, String database, String user, String password, int port,
+                                              boolean ssl, boolean certificateVerification, int poolSize, int maxLifeTime) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_DATABASE_INFO.ordinal(),
+                dbType,
+                host,
+                database,
+                user,
+                password,
+                port,
+                ssl,
+                certificateVerification,
+                poolSize,
+                maxLifeTime
+                );
+        return packet.toArray();
+    }
 }

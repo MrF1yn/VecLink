@@ -95,6 +95,16 @@ public class PostgreSQL implements IDatabase {
         }
         return true;
     }
+
+    @Override
+    public boolean isConnected(){
+        return dataSource.isRunning();
+    }
+
+    @Override
+    public void disconnect() {
+        dataSource.close();
+    }
     @Override
     public void init() {
         try (Connection connection = dataSource.getConnection()) {

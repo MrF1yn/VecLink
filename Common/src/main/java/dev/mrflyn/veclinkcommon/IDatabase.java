@@ -10,6 +10,9 @@ public interface IDatabase {
 
     boolean connect();
 
+    boolean isConnected();
+    void disconnect();
+
     void init();
 
     void saveUser(String userID, String userName, UUID minecraftUUID, String minecraftName);

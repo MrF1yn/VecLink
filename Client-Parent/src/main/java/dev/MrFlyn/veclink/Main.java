@@ -5,6 +5,7 @@ package dev.mrflyn.veclink;
 import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
 import dev.mrflyn.veclink.ClientHandlers.VecLinkClient;
 import dev.mrflyn.veclinkcommon.CommonValues;
+import dev.mrflyn.veclinkcommon.IDatabase;
 import org.simpleyaml.configuration.file.YamlFile;
 
 
@@ -15,6 +16,7 @@ public class Main implements GlobalInterface{
     public static VecLinkClient client;
     public static GlobalInterface gi;
     public static PacketHandler pi;
+    public static IDatabase db;
 
     public static void main(String[] args){
         gi = new Main();
@@ -32,6 +34,7 @@ public class Main implements GlobalInterface{
         client.start();
 
     }
+
 
     @Override
     public <T> void log(T message) {

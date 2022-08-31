@@ -56,11 +56,10 @@ public enum PacketType {
             "This packet is sent to the client and contains the verification token."),
     S2C_DC_VERIFY_ACK(new PacketFormat(),
             "This packet is sent to the client and veclink srv after the token verification is complete and contains the status of the verification procedure."),
-    S2C_DATABASE_INFO(new PacketFormat(),
+    S2C_DATABASE_INFO(null,
             "This packet is sent to all the clients and contains the database credentials for them to connect to."),
 
     S2C_PARTY_INVITE("This packet is sent to the client which contains player who is invited to a party.")
-
 
     ;
 
@@ -89,6 +88,7 @@ public enum PacketType {
         int packetID = (int) packet[0];
         if (packetID>=PacketType.values().length||packetID<0)return false;
         PacketType type = PacketType.values()[packetID];
+        if (type.format == null)return true;
         if(type != C2S_AUTH) {
             boolean isNotSpigot = (clientType == ClientType.BUNGEE || clientType == ClientType.VELOCITY || clientType == ClientType.DISCORD_SRV);
             //exception cases start

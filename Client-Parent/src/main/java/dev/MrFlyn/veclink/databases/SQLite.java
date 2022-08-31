@@ -57,6 +57,20 @@ public class SQLite implements IDatabase {
     }
 
     @Override
+    public boolean isConnected(){
+        return true;
+    }
+
+    @Override
+    public void disconnect() {
+        try {
+            connection.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void init() {
         try  {
             String sql = "CREATE TABLE IF NOT EXISTS discord_data (id INTEGER PRIMARY KEY AUTO_INCREMENT, " +

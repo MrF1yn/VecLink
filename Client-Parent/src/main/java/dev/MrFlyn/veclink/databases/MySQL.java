@@ -93,6 +93,16 @@ public class MySQL implements IDatabase {
         return true;
     }
     @Override
+    public boolean isConnected(){
+        return dataSource.isRunning();
+    }
+
+    @Override
+    public void disconnect() {
+        dataSource.close();
+    }
+
+    @Override
     public void init() {
         try (Connection connection = dataSource.getConnection()) {
             String sql = "CREATE TABLE IF NOT EXISTS discord_data (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
