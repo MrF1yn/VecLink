@@ -3,6 +3,8 @@ package dev.mrflyn.veclinkdiscordsrv;
 import dev.mrflyn.veclink.GlobalInterface;
 
 import dev.mrflyn.veclink.Main;
+import dev.mrflyn.veclinkdiscordsrv.commands.AddRole;
+import dev.mrflyn.veclinkdiscordsrv.commands.handler.VecLinkCommand;
 import dev.mrflyn.veclinkdiscordsrv.utils.MemoryUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -31,6 +33,7 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
     Timer timer = new Timer("0");
     public static VecLinkMainDiscordSRV plugin;
     public static JDA jda;
+    public VecLinkCommand cmdHandler;
 
     public static void main(String[] args){
         VecLinkMainDiscordSRV main = new VecLinkMainDiscordSRV();
@@ -50,6 +53,7 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
             Main.gi.log("Invalid Bot Token.");
             System.exit(0);
         }
+        cmdHandler = new VecLinkCommand(new AddRole());
         Main.enable();
         new Thread(() -> {
             try {

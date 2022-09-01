@@ -55,12 +55,20 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             switch (dbType) {
                 case "MySQL":
                     Main.db = new MySQL(host,database,user,pass,port,ssl,certificateVerification,poolSize,maxLifetime);
-                    Main.db.connect();
+                    Main.gi.log("Connecting to the MySQL database.");
                     break;
                 case "PostgreSQL":
                     Main.db = new PostgreSQL(host,database,user,pass,port,ssl,certificateVerification,poolSize,maxLifetime);
-                    Main.db.connect();
+                    Main.gi.log("Connecting to the PostgreSQL database.");
                     break;
+            }
+            if(Main.db!=null){
+                if(Main.db.connect()){
+                    Main.gi.log("Successfully connected to "+ Main.db.name()+ " database.");
+                }
+                else{
+                    Main.gi.log(Main.db.name()+ " database connection failed.");
+                }
             }
 
         }
