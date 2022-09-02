@@ -17,7 +17,8 @@ public enum ConfigPath {
     CHAT_GRP_UNMUTED("CHAT_GRP_UNMUTED", "§7[§bVec§fLink§7]§f➣ §aChat group un-muted successfully."),
     RELOAD_RESPONSE("RELOAD_RESPONSE", "§7[§bVec§fLink§7]§f➣ §aReloading..."),
     NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bVec§fLink§7]§f➣ §aOnly players can execute this command."),
-    VECLINK_SRV_NOT_CONNECTED("VECLINK_SRV_NOT_CONNECTED", "§7[§bVec§fLink§7]§f➣ §cNo VecLinkSRVs are connected to the VecLink server.");
+    VECLINK_SRV_NOT_CONNECTED("VECLINK_SRV_NOT_CONNECTED", "§7[§bVec§fLink§7]§f➣ §cNo VecLinkSRVs are connected to the VecLink server."),
+    DC_VERIFY_TOKEN("DC_VERIFY_TOKEN", "§7[§bVec§fLink§7]§f➣ Your verification token is: <red><click:copy_to_clipboard:%token%> Click to copy the token. </click></red>");
 
 
 

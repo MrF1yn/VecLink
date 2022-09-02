@@ -2,6 +2,7 @@ package dev.mrflyn.veclinkspigot;
 
 import dev.mrflyn.veclink.ClientHandlers.ConnectedVecLinkClient;
 import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
+import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,6 +12,9 @@ import org.bukkit.entity.Player;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
+
+import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getLCS;
+import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getMiniMessage;
 
 public class PacketHandlerSpigot implements PacketHandler {
 ReentrantLock lock = new ReentrantLock();
@@ -198,6 +202,17 @@ ReentrantLock lock = new ReentrantLock();
                 c.onPlayerInfoReceive(pName,
                         UUID.fromString(pUuid),
                         pAction);
+                break;
+            case S2C_DC_VERIFY_INIT:
+                String token = (String) packet[1];
+                String plName = (String) packet[2];
+                String plUUID = (String) packet[3];
+                Bukkit.getScheduler().runTask(VecLinkMainSpigot.plugin, () -> {
+                    Player p = Bukkit.getServer().getPlayer(UUID.fromString(plUUID));
+                    if(p==null)return;
+                    p.sendMessage(getLCS().serialize(getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN.toString())
+                            .replace("%token%", token))));
+                });
                 break;
         }
     }

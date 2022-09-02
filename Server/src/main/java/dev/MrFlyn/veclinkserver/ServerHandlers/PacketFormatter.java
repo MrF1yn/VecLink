@@ -136,4 +136,14 @@ public class PacketFormatter {
                 );
         return packet.toArray();
     }
+
+    public static Object[] formatDcVerifyInit(String token, String playerName, String uuid) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_DC_VERIFY_INIT.ordinal(),
+                token,
+                playerName,
+                uuid
+                );
+        return packet.toArray();
+    }
 }

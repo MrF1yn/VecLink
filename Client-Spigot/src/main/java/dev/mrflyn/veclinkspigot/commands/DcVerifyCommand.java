@@ -4,9 +4,11 @@ import dev.mrflyn.veclink.ClientHandlers.ConnectedVecLinkClient;
 import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.ClientType;
+import dev.mrflyn.veclinkspigot.PacketFormatterSpigot;
 import dev.mrflyn.veclinkspigot.VecLinkMainSpigot;
 import dev.mrflyn.veclinkspigot.commands.handler.SubCommand;
 import dev.mrflyn.veclinkspigot.commands.handler.VecLinkCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,15 +30,14 @@ public class DcVerifyCommand implements SubCommand {
             sender.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.CLIENT_NOT_CONNECTED.toString()));
             return true;
         }
-        for(ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()){
-        }
         if (!ConnectedVecLinkClient.containsType(ClientType.DISCORD_SRV)) {
             sender.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.VECLINK_SRV_NOT_CONNECTED.toString()));
             return true;
         }
-
-
-
+        Bukkit.getScheduler().runTaskAsynchronously(VecLinkMainSpigot.plugin, ()->{
+            Main.client.channel.writeAndFlush(PacketFormatterSpigot.dcVerifyInit(p.getName(), p.getUniqueId()));
+        });
+        p.sendMessage("Verification request sent!.");
         return true;
     }
 

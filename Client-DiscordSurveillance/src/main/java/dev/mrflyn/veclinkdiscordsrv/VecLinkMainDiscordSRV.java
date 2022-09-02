@@ -4,6 +4,7 @@ import dev.mrflyn.veclink.GlobalInterface;
 
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkdiscordsrv.commands.AddRole;
+import dev.mrflyn.veclinkdiscordsrv.commands.RemRole;
 import dev.mrflyn.veclinkdiscordsrv.commands.handler.VecLinkCommand;
 import dev.mrflyn.veclinkdiscordsrv.utils.MemoryUtil;
 import net.dv8tion.jda.api.JDA;
@@ -53,7 +54,6 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
             Main.gi.log("Invalid Bot Token.");
             System.exit(0);
         }
-        cmdHandler = new VecLinkCommand(new AddRole());
         Main.enable();
         new Thread(() -> {
             try {
@@ -65,6 +65,10 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
                         .setMemberCachePolicy(MemberCachePolicy.ALL)
                         .build();
                 jda.awaitReady();
+                cmdHandler = new VecLinkCommand(
+                        new AddRole(),
+                        new RemRole()
+                        );
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -76,6 +80,13 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
                                     "server-name",
                                     "Optional Name of the server.",
                                     false)
+                    ).queue();
+            jda.upsertCommand("dcverify", "Link your minecraft account to your discord.")
+                    .addOptions(
+                            new OptionData(OptionType.STRING,
+                                    "token",
+                                    "The token.",
+                                    true)
                     ).queue();
         }).start();
 

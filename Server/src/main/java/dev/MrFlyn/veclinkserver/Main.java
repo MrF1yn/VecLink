@@ -5,6 +5,7 @@ import dev.mrflyn.veclinkcommon.IDatabase;
 import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkServer;
 import dev.mrflyn.veclinkserver.ServerHandlers.ServerHandler;
 import dev.mrflyn.veclinkserver.Utils.ConsoleSpamHandler;
+import dev.mrflyn.veclinkserver.Utils.DiscordVerificationHandler;
 import dev.mrflyn.veclinkserver.databases.MySQL;
 import dev.mrflyn.veclinkserver.databases.PostgreSQL;
 import dev.mrflyn.veclinkserver.databases.SQLite;
@@ -18,6 +19,7 @@ public class Main {
     public static VecLinkServer server;
     public static Commands commands;
     public static IDatabase db;
+    public static DiscordVerificationHandler dvh;
 
     public static void main(String[] args){
         config = new MainConfig(new YamlFile("veclinkServer.yml"));
@@ -38,6 +40,7 @@ public class Main {
             new ConsoleSpamHandler(config.getMainConfig().getInt("console-spam-detection.max-violations"),
                     config.getMainConfig().getLong("console-spam-detection.reset-violations-after"));
         log(CommonValues.LOGO, true);
+        dvh = new DiscordVerificationHandler();
         server = new VecLinkServer(config.getMainConfig().getInt("port"));
         server.start();
         commands = new Commands();

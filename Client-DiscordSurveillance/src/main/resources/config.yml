@@ -1,5 +1,9 @@
 bot_token: 'test'
-guild_ids:
-  - '980140597115514980'
+guild_id: '980140597115514980'
+
+on_verify_success:
+  - 'addRole <roleID> %user_id%'
+on_verify_fail:
+  - 'remRole <roleID> %user_id%'
 
 

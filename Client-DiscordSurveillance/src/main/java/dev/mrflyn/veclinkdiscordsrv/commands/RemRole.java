@@ -7,10 +7,10 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 
-public class AddRole implements SubCommand {
+public class RemRole implements SubCommand {
     @Override
     public boolean onSubCommand(String sender, String cmd, String[] args) {
-        // /addRole <roleID> <userID>
+        // /remRole <roleID> <userID>
         if(args.length<2)return true;
         String roleID = args[0];
         String userID = args[1];
@@ -30,19 +30,19 @@ public class AddRole implements SubCommand {
             Main.gi.log("The user doesn't exists in the guild.");
             return true;
         }
-        if(user.getRoles().contains(role)){
-            Main.gi.log("The user already has the role.");
+        if(!user.getRoles().contains(role)){
+            Main.gi.log("The user doesn't have the role.");
             return true;
         }
-        guild.addRoleToMember(user, role).queue((s)->{
-            Main.gi.log("Added role: "+role.getName()+" to "+ user.getEffectiveName());
+        guild.removeRoleFromMember(user, role).queue((s)->{
+            Main.gi.log("Removed role: "+role.getName()+" to "+ user.getEffectiveName());
         }, Throwable::printStackTrace);
         return true;
     }
 
     @Override
     public String getName() {
-        return "addRole";
+        return "remRole";
     }
 
     @Override

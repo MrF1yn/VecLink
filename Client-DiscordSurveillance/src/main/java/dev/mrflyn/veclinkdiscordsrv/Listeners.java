@@ -6,6 +6,7 @@ package dev.mrflyn.veclinkdiscordsrv;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.mrflyn.veclink.ClientHandlers.ConnectedVecLinkClient;
+import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -31,6 +32,10 @@ public class Listeners extends ListenerAdapter {
         if(!event.getMember().hasPermission(Permission.ADMINISTRATOR))return;
         switch (event.getName()){
             case "status":
+                if(Main.client.channel==null||!(Main.client.channel.isActive())){
+                    event.reply("Not connected to VecLink Server. Please try again later.").queue();
+                    return;
+                }
                 if (ConnectedVecLinkClient.CFC.values().isEmpty()) {
                     event.reply("No Clients are connected to the VecLink Server.").queue();
                     return;
@@ -51,7 +56,15 @@ public class Listeners extends ListenerAdapter {
 
                 event.replyEmbeds(getStatusEmbed(client)).queue();
                 break;
-
+            case "dcverify":
+                if(Main.client.channel==null||!(Main.client.channel.isActive())){
+                    event.reply("Not connected to VecLink Server. Please try again later.").queue();
+                    return;
+                }
+                if(Main.db==null||!Main.db.isConnected()){
+                    event.reply("Database offline please try again later.").queue();
+                    return;
+                }
         }
 
     }

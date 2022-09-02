@@ -3,6 +3,7 @@ package dev.mrflyn.veclinkserver.ServerHandlers;
 import dev.mrflyn.veclinkserver.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import dev.mrflyn.veclinkcommon.ClientType;
+import dev.mrflyn.veclinkserver.Utils.DiscordVerificationHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 
@@ -124,6 +125,12 @@ public class PayloadHandler {
                 String grpName = (String) packet[2];
                 String msg1 = (String) packet[3];
                 ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatChatGrpDisplay(msg1,fromClient.getName(),grpName, sender));
+                break;
+            case C2S_DC_VERIFY_INIT:
+                String pName = (String) packet[1];
+                String pUUID = (String) packet[2];
+                String token = Main.dvh.submitData(new DiscordVerificationHandler.VerificationData(pName, pUUID));
+                fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyInit(token,pName,pUUID));
                 break;
         }
     }
