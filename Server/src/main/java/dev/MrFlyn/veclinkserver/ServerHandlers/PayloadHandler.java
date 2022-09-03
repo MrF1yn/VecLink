@@ -144,7 +144,7 @@ public class PayloadHandler {
                         }
                     }
                 }else{
-                    fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyAck(false,null,null,null,null));
+                    fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyAck(false,null,null,userID,userName));
                 }
                 break;
         }

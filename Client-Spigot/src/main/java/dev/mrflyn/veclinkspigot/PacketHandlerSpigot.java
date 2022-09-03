@@ -214,6 +214,18 @@ ReentrantLock lock = new ReentrantLock();
                             .replace("%token%", token))));
                 });
                 break;
+            case S2C_DC_VERIFY_ACK:
+                boolean success = (boolean) packet[1];
+                if(!success)return;
+                String iName = (String) packet[2];
+                String iUUID = (String) packet[3];
+                String iuserID = (String) packet[4];
+                String iuserName = (String) packet[5];
+                Bukkit.getScheduler().runTask(VecLinkMainSpigot.plugin, () -> {
+                    Player p = Bukkit.getServer().getPlayer(UUID.fromString(iUUID));
+                    if(p==null)return;
+                    p.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString()).replace("%userName%", iuserName));
+                });
         }
     }
 

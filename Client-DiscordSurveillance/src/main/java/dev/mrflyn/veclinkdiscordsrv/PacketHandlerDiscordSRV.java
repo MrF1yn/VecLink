@@ -3,9 +3,12 @@ package dev.mrflyn.veclinkdiscordsrv;
 
 import dev.mrflyn.veclink.ClientHandlers.ConnectedVecLinkClient;
 import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
+import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageChannel;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -118,6 +121,23 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                         UUID.fromString(pUuid),
                         pAction);
                 break;
+            case S2C_DC_VERIFY_ACK:
+                boolean success = (boolean) packet[1];
+                String iName = (String) packet[2];
+                String iUUID = (String) packet[3];
+                String iuserID = (String) packet[4];
+                String iuserName = (String) packet[5];
+                Guild guild = VecLinkMainDiscordSRV.jda.getGuildById(VecLinkMainDiscordSRV.plugin.config.getString("guild_id"));
+                if(guild==null)return;
+                MessageChannel messageChannel = guild.getTextChannelById(VecLinkMainDiscordSRV.plugin.config.getString("verification_channel_id"));
+                if (messageChannel==null)return;
+                if(!success) {
+                    messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " Invalid Verification.").queue();
+                    return;
+                }
+                messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " You have been successfully verified with ign: "+iName+".").queue();
+                break;
+        }
 //            case S2C_PARTY_INVITE:
 //                String targetPlayerName = json.get("invited").getAsString();
 //                String owner = json.get("owner").getAsString();
@@ -128,7 +148,7 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
 //                    return;
 //                }
 //                //player found send invite message to player.
-        }
+        
     }
 
     public void test(String test){
