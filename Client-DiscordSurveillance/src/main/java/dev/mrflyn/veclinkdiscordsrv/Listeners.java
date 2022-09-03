@@ -28,6 +28,7 @@ public class Listeners extends ListenerAdapter {
     @Override
     public void onSlashCommandInteraction(@Nonnull SlashCommandInteractionEvent event) {
         if(event.getGuild()==null)return;
+        if(!event.getGuild().getId().equals(VecLinkMainDiscordSRV.plugin.config.getString("guild_id")))return;
         if (event.getMember()==null)return;
         if(!event.getMember().hasPermission(Permission.ADMINISTRATOR))return;
         switch (event.getName()){
@@ -57,6 +58,7 @@ public class Listeners extends ListenerAdapter {
                 event.replyEmbeds(getStatusEmbed(client)).queue();
                 break;
             case "dcverify":
+                if(!event.getChannel().getId().equals(VecLinkMainDiscordSRV.plugin.config.getString("verification_channel_id")))return;
                 if(Main.client.channel==null||!(Main.client.channel.isActive())){
                     event.reply("Not connected to VecLink Server. Please try again later.").queue();
                     return;
@@ -65,6 +67,9 @@ public class Listeners extends ListenerAdapter {
                     event.reply("Database offline please try again later.").queue();
                     return;
                 }
+                String token = event.getOptions().get(0).getAsString();
+                event.reply("Processing...").setEphemeral(true).queue();
+                Main.client.channel.writeAndFlush(PacketFormatterDiscordSRV.dcVerifyReq(token,event.getMember().getId(), event.getMember().getEffectiveName()));
         }
 
     }

@@ -146,4 +146,16 @@ public class PacketFormatter {
                 );
         return packet.toArray();
     }
+
+    public static Object[] formatDcVerifyAck(boolean success,String playerName, String uuid, String userID, String userName) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_DC_VERIFY_ACK.ordinal(),
+                success,
+                playerName,
+                uuid,
+                userID,
+                userName
+        );
+        return packet.toArray();
+    }
 }

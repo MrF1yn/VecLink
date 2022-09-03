@@ -132,6 +132,21 @@ public class PayloadHandler {
                 String token = Main.dvh.submitData(new DiscordVerificationHandler.VerificationData(pName, pUUID));
                 fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyInit(token,pName,pUUID));
                 break;
+            case C2S_DC_VERIFY_REQ:
+                String uToken = (String) packet[1];
+                String userID = (String) packet[2];
+                String userName= (String) packet[3];
+                DiscordVerificationHandler.VerificationData data= Main.dvh.verify(uToken, userName, userID);
+                if(data!=null){
+                    for(VecLinkClient vc : ServerHandler.ClientsByName.values()){
+                        if(vc.getType()==ClientType.SPIGOT||vc.getType()==ClientType.DISCORD_SRV){
+                            vc.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyAck(true,data.playerName,data.playerUUID,data.userID,data.userName));
+                        }
+                    }
+                }else{
+                    fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyAck(false,null,null,null,null));
+                }
+                break;
         }
     }
 }

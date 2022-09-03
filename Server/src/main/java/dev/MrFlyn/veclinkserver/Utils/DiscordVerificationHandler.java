@@ -27,8 +27,8 @@ public class DiscordVerificationHandler {
         return token;
     }
 
-    public boolean verify(String token, String userName, String userID){
-        if(!tokenToData.containsKey(token))return false;
+    public VerificationData verify(String token, String userName, String userID){
+        if(!tokenToData.containsKey(token))return null;
         VerificationData data = tokenToData.get(token);
         data.userID = userID;
         data.userName = userName;
@@ -37,7 +37,7 @@ public class DiscordVerificationHandler {
             Main.db.deletePlayerInfoFromUserID(userID);
         }
         Main.db.saveUser(userID, userName, UUID.fromString(data.playerUUID), data.playerName);
-        return true;
+        return data;
     }
 
 

@@ -72,5 +72,14 @@ public class PacketFormatterDiscordSRV {
         return packet.toArray();
     }
 
+    public static Object[] dcVerifyReq(String token, String userID, String userName) {
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_DC_VERIFY_REQ.ordinal(),
+                token,
+                userID,
+                userName);
+        return packet.toArray();
+    }
+
 
 }

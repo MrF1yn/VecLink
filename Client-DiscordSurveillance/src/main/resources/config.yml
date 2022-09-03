@@ -1,6 +1,7 @@
 bot_token: 'test'
 guild_id: '980140597115514980'
 
+verification_channel_id: ''
 on_verify_success:
   - 'addRole <roleID> %user_id%'
 on_verify_fail:
