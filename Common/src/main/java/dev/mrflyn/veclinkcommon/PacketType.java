@@ -3,8 +3,8 @@ package dev.mrflyn.veclinkcommon;
 import java.util.List;
 
 public enum PacketType {
-//C2S means the packet is sent from VecLinkClient to FalconServer.
-//S2C means the packet is sent from FalconServer to VecLinkClient.
+//C2S means the packet is sent from VecLinkClient to VecLinkServer.
+//S2C means the packet is sent from VecLinkServer to VecLinkClient.
 //PC2S means the packet is only sent from a proxyVecLinkClient like Velocity or Bungee.
 
     C2S_AUTH(new PacketFormat(Integer.class,String.class,String.class,String.class)
