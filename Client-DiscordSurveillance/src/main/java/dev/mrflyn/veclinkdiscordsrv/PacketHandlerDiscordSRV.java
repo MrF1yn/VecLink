@@ -6,6 +6,7 @@ import dev.mrflyn.veclink.ClientHandlers.PacketHandler;
 import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
+import dev.mrflyn.veclinkdiscordsrv.commands.handler.VecLinkCommand;
 import io.netty.channel.ChannelHandlerContext;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageChannel;
@@ -133,9 +134,15 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                 if (messageChannel==null)return;
                 if(!success) {
                     messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " Invalid Verification.").queue();
+                    for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList("on_verify_fail")){
+                        VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID));
+                    }
                     return;
                 }
                 messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " You have been successfully verified with ign: "+iName+".").queue();
+                for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList("on_verify_success")){
+                    VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID));
+                }
                 break;
         }
 //            case S2C_PARTY_INVITE:
@@ -148,7 +155,7 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
 //                    return;
 //                }
 //                //player found send invite message to player.
-        
+
     }
 
     public void test(String test){
