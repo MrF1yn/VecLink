@@ -10,6 +10,7 @@ dev\mrflyn\veclinkspigot\PacketHandlerSpigot$1.class
 dev\mrflyn\veclinkspigot\commands\handler\VecLinkCommand.class
 dev\mrflyn\veclinkspigot\chat\ChatHandler.class
 dev\mrflyn\veclinkspigot\TabComplete.class
+dev\mrflyn\veclinkspigot\commands\PlayerInfoCommand.class
 dev\mrflyn\veclinkspigot\commands\ReloadCommand.class
 dev\mrflyn\veclinkspigot\Listeners.class
 dev\mrflyn\veclinkspigot\PacketFormatterSpigot.class
@@ -21,4 +22,5 @@ dev\mrflyn\veclinkspigot\utils\Crafty.class
 dev\mrflyn\veclinkspigot\PacketHandlerSpigot.class
 dev\mrflyn\veclinkspigot\VecLinkMainSpigot.class
 dev\mrflyn\veclinkspigot\support\PAPISupport.class
+dev\mrflyn\veclinkspigot\commands\DcVerifyCommand.class
 dev\mrflyn\veclinkspigot\commands\ChatGroupCommand.class

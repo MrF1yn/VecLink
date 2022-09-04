@@ -30,9 +30,9 @@ public class Listeners extends ListenerAdapter {
         if(event.getGuild()==null)return;
         if(!event.getGuild().getId().equals(VecLinkMainDiscordSRV.plugin.config.getString("guild_id")))return;
         if (event.getMember()==null)return;
-        if(!event.getMember().hasPermission(Permission.ADMINISTRATOR))return;
         switch (event.getName()){
             case "status":
+                if(!event.getMember().hasPermission(Permission.ADMINISTRATOR))return;
                 if(Main.client.channel==null||!(Main.client.channel.isActive())){
                     event.reply("Not connected to VecLink Server. Please try again later.").queue();
                     return;

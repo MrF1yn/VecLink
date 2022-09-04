@@ -1,4 +1,6 @@
+dev\mrflyn\veclinkcommon\VLPlayer.class
 dev\mrflyn\veclinkcommon\CommonValues.class
+dev\mrflyn\veclinkcommon\IDatabase.class
 dev\mrflyn\veclinkcommon\PacketFormat.class
 dev\mrflyn\veclinkcommon\ClientType.class
 dev\mrflyn\veclinkcommon\PacketType.class

@@ -1,0 +1,25 @@
+#Configure the storage type (mysql,postgresql is compulsory if using vecLinkSRV)
+#uses sqlite by default.
+storage:
+  mysql:
+    enabled: false
+    host: 'localhost'
+    port: 25567
+    database: 'database_name'
+    username: 'root'
+    password: '12345'
+    ssl: false
+    verify-certificate: true
+    max-lifetime: 1800
+    pool-size: 10
+  postgresql:
+    enabled: false
+    host: 'localhost'
+    port: 25567
+    database: 'database_name'
+    username: 'root'
+    password: '12345'
+    ssl: false
+    verify-certificate: true
+    max-lifetime: 1800
+    pool-size: 10

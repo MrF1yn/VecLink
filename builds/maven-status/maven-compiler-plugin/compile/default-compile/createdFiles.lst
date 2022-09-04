@@ -1,8 +1,12 @@
 dev\mrflyn\veclinkdiscordsrv\PacketFormatterDiscordSRV.class
 dev\mrflyn\veclinkdiscordsrv\VecLinkMainDiscordSRV$1.class
+dev\mrflyn\veclinkdiscordsrv\commands\handler\SubCommand.class
 dev\mrflyn\veclinkdiscordsrv\utils\MemoryUtil.class
 dev\mrflyn\veclinkdiscordsrv\VecLinkMainDiscordSRV.class
 dev\mrflyn\veclinkdiscordsrv\Listeners.class
-dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV$1.class
 dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV.class
+dev\mrflyn\veclinkdiscordsrv\commands\AddRole.class
+dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV$1.class
+dev\mrflyn\veclinkdiscordsrv\commands\RemRole.class
+dev\mrflyn\veclinkdiscordsrv\commands\handler\VecLinkCommand.class
 dev\mrflyn\veclinkdiscordsrv\utils\ExtraUtil.class

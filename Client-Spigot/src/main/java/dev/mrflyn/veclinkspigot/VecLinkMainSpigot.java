@@ -93,7 +93,9 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
                 new DisconnectCommand(),
                 new ChatGroupCommand(),
                 new ReloadCommand(),
-                new ListCommand()
+                new ListCommand(),
+                new PlayerInfoCommand(),
+                new DcVerifyCommand()
         );
         getCommand("veclink").setExecutor(veclinkCommand);
         getCommand("veclink").setTabCompleter(veclinkCommand);
