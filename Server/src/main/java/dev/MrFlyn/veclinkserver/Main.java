@@ -24,6 +24,9 @@ public class Main {
     public static void main(String[] args){
         config = new MainConfig(new YamlFile("veclinkServer.yml"));
         config.init();
+        if(config.getMainConfig().getBoolean("console-spam-detection.prevent-console-spam"))
+            new ConsoleSpamHandler(config.getMainConfig().getInt("console-spam-detection.max-violations"),
+                    config.getMainConfig().getLong("console-spam-detection.reset-violations-after"));
         if(config.getDbConfig().getBoolean("storage.mysql.enabled")){
             db = new MySQL();
         }else if(config.getDbConfig().getBoolean("storage.postgresql.enabled")){
@@ -35,10 +38,9 @@ public class Main {
             log(db.name()+" database connection unsuccessful.", true);
             return;
         }
+        db.init();
         log("Successfully connected to the "+ db.name()+ " database.", true);
-        if(config.getMainConfig().getBoolean("console-spam-detection.prevent-console-spam"))
-            new ConsoleSpamHandler(config.getMainConfig().getInt("console-spam-detection.max-violations"),
-                    config.getMainConfig().getLong("console-spam-detection.reset-violations-after"));
+
         log(CommonValues.LOGO, true);
         dvh = new DiscordVerificationHandler();
         server = new VecLinkServer(config.getMainConfig().getInt("port"));

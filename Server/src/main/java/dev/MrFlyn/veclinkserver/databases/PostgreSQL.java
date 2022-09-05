@@ -6,6 +6,8 @@ import com.zaxxer.hikari.HikariDataSource;
 import dev.mrflyn.veclinkcommon.IDatabase;
 import dev.mrflyn.veclinkcommon.VLPlayer;
 import dev.mrflyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.ServerHandlers.PacketFormatter;
+import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkClient;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,6 +45,10 @@ public class PostgreSQL implements IDatabase {
         this.maxLifetime = Main.config.getDbConfig().getInt("storage.postgresql.max-lifetime", 1800);
     }
 
+    public void sendDbInfo(VecLinkClient client){
+        client.getChannel().writeAndFlush(PacketFormatter.formatDatabaseInfo(name(), host, database, user, pass, port, ssl, certificateVerification, poolSize, maxLifetime));
+    }
+
     @Override
     public String name() {
         return "PostgreSQL";
@@ -62,7 +68,7 @@ public class PostgreSQL implements IDatabase {
         hikariConfig.setMaxLifetime(maxLifetime * 1000L);
 
         hikariConfig.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/" + database);
-
+        hikariConfig.setDriverClassName("org.postgresql.Driver");
         hikariConfig.setUsername(user);
         hikariConfig.setPassword(pass);
 

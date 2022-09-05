@@ -60,7 +60,7 @@ public class MySQL implements IDatabase {
         hikariConfig.setMaxLifetime(maxLifetime * 1000L);
 
         hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
-
+        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
         hikariConfig.setUsername(user);
         hikariConfig.setPassword(pass);
 

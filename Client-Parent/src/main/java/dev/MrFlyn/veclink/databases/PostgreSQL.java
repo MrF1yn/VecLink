@@ -55,7 +55,7 @@ public class PostgreSQL implements IDatabase {
         hikariConfig.setMaxLifetime(maxLifetime * 1000L);
 
         hikariConfig.setJdbcUrl("jdbc:postgresql://" + host + ":" + port + "/" + database);
-
+        hikariConfig.setDriverClassName("org.postgresql.Driver");
         hikariConfig.setUsername(user);
         hikariConfig.setPassword(pass);
 

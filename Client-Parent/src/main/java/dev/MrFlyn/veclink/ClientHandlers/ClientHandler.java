@@ -65,6 +65,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             if(Main.db!=null){
                 if(Main.db.connect()){
                     Main.gi.log("Successfully connected to "+ Main.db.name()+ " database.");
+                    Main.db.init();
                 }
                 else{
                     Main.gi.log(Main.db.name()+ " database connection failed.");

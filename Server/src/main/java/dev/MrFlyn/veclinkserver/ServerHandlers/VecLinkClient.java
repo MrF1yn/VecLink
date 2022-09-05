@@ -3,6 +3,8 @@ package dev.mrflyn.veclinkserver.ServerHandlers;
 import dev.mrflyn.veclinkserver.Main;
 import dev.mrflyn.veclinkcommon.VLPlayer;
 import dev.mrflyn.veclinkcommon.ClientType;
+import dev.mrflyn.veclinkserver.databases.MySQL;
+import dev.mrflyn.veclinkserver.databases.PostgreSQL;
 import io.netty.channel.Channel;
 
 import java.text.DecimalFormat;
@@ -60,6 +62,16 @@ public class VecLinkClient {
         clientType = type;
         clientGroups = new ArrayList<>();
         backendServers = new ArrayList<>();
+
+        if(Main.db.isConnected()){
+            if(Main.db instanceof MySQL){
+                ((MySQL) Main.db).sendDbInfo(this);
+            }
+            if (Main.db instanceof PostgreSQL) {
+                ((PostgreSQL) Main.db).sendDbInfo(this);
+            }
+        }
+
         for(String s : Main.config.getMainConfig().getConfigurationSection("groups").getKeys(false)){
             for(String l : Main.config.getMainConfig().getStringList("groups."+s)){
                 if(l.equals(clientName))

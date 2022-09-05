@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import dev.mrflyn.veclinkcommon.IDatabase;
 import dev.mrflyn.veclinkcommon.VLPlayer;
 import dev.mrflyn.veclinkserver.Main;
+import dev.mrflyn.veclinkserver.ServerHandlers.PacketFormatter;
+import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkClient;
 
 
 import java.io.File;
@@ -54,6 +56,10 @@ public class SQLite implements IDatabase {
             return false;
         }
         return true;
+    }
+
+    public void sendDbInfo(VecLinkClient client){
+
     }
 
     @Override

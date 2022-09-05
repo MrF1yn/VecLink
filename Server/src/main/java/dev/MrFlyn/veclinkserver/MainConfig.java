@@ -95,7 +95,7 @@ public class MainConfig {
 
                 try {
                     if (outFile.exists() && !replace) {
-                        Main.log("Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.", true);
+                        System.out.println("Could not save " + outFile.getName() + " to " + outFile + " because " + outFile.getName() + " already exists.");
                     } else {
                         OutputStream out = new FileOutputStream(outFile);
                         byte[] buf = new byte[1024];
@@ -109,7 +109,7 @@ public class MainConfig {
                         in.close();
                     }
                 } catch (IOException var10) {
-                    Main.log("Could not save " + outFile.getName() + " to " + outFile+"\n"+var10.getMessage(), true);
+                    System.out.println("Could not save " + outFile.getName() + " to " + outFile+"\n"+var10.getMessage());
                 }
 
             }

@@ -1,11 +1,14 @@
 package dev.mrflyn.veclinkserver.databases;
 
 import com.google.gson.Gson;
+
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import dev.mrflyn.veclinkcommon.IDatabase;
 import dev.mrflyn.veclinkserver.Main;
 import dev.mrflyn.veclinkcommon.VLPlayer;
+import dev.mrflyn.veclinkserver.ServerHandlers.PacketFormatter;
+import dev.mrflyn.veclinkserver.ServerHandlers.VecLinkClient;
 
 
 import java.sql.*;
@@ -43,6 +46,10 @@ public class MySQL implements IDatabase {
         this.maxLifetime = Main.config.getDbConfig().getInt("storage.mysql.max-lifetime", 1800);
     }
 
+    public void sendDbInfo(VecLinkClient client){
+        client.getChannel().writeAndFlush(PacketFormatter.formatDatabaseInfo(name(), host, database, user, pass, port, ssl, certificateVerification, poolSize, maxLifetime));
+    }
+
     @Override
     public String name() {
         return "MySQL";
@@ -63,7 +70,7 @@ public class MySQL implements IDatabase {
         hikariConfig.setMaxLifetime(maxLifetime * 1000L);
 
         hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
-
+        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
         hikariConfig.setUsername(user);
         hikariConfig.setPassword(pass);
 

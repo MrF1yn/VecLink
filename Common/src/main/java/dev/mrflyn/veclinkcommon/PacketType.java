@@ -23,9 +23,9 @@ public enum PacketType {
             ,"This packet contains chat message for syncing."),
     C2S_CHAT_GRP_MSG(new PacketFormat(Integer.class,String.class,String.class,String.class)
             ,"This packet is similar to C2S_CHAT packet but only for particular chat groups."),
-    C2S_DC_VERIFY_INIT(new PacketFormat(),
+    C2S_DC_VERIFY_INIT(null,
             "This packet is sent when a player executes /veclink dcVerify command in game. It initiates the minecraft-discord linking process."),
-    C2S_DC_VERIFY_REQ(new PacketFormat(),
+    C2S_DC_VERIFY_REQ(null,
             "This packet is sent from veclink srv when the user inputs the received token for the final verification."),
 
 
@@ -52,9 +52,9 @@ public enum PacketType {
             ,"This packet is sent to all clients when the server receives a chat sync packet from a client."),
     S2C_CHAT_GRP(new PacketFormat(Integer.class,String.class,String.class,String.class,String.class)
             ,"This packet is sent to all clients when the server receives a chat group sync packet from a client."),
-    S2C_DC_VERIFY_INIT(new PacketFormat(),
+    S2C_DC_VERIFY_INIT(null,
             "This packet is sent to the client and contains the verification token."),
-    S2C_DC_VERIFY_ACK(new PacketFormat(),
+    S2C_DC_VERIFY_ACK(null,
             "This packet is sent to the client and veclink srv after the token verification is complete and contains the status of the verification procedure."),
     S2C_DATABASE_INFO(null,
             "This packet is sent to all the clients and contains the database credentials for them to connect to."),
