@@ -6,6 +6,7 @@ import dev.mrflyn.veclink.ConfigPath;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkcommon.PacketType;
 import io.netty.channel.ChannelHandlerContext;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -210,7 +211,9 @@ ReentrantLock lock = new ReentrantLock();
                 Bukkit.getScheduler().runTask(VecLinkMainSpigot.plugin, () -> {
                     Player p = Bukkit.getServer().getPlayer(UUID.fromString(plUUID));
                     if(p==null)return;
-                    p.sendMessage(getLCS().serialize(getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN.toString())
+                    VecLinkMainSpigot.plugin.adventure().player(p)
+                            .sendMessage(getLCS().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN_PREFIX.toString())+
+                                    getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN.toString())
                             .replace("%token%", token))));
                 });
                 break;
@@ -224,7 +227,9 @@ ReentrantLock lock = new ReentrantLock();
                 Bukkit.getScheduler().runTask(VecLinkMainSpigot.plugin, () -> {
                     Player p = Bukkit.getServer().getPlayer(UUID.fromString(iUUID));
                     if(p==null)return;
-                    p.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString()).replace("%userName%", iuserName));
+                    VecLinkMainSpigot.plugin.adventure().player(p)
+                     .sendMessage(getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString())
+                             .replace("%userName%", iuserName)));
                 });
         }
     }

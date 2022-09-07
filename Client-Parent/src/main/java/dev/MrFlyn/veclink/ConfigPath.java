@@ -19,7 +19,8 @@ public enum ConfigPath {
     NOT_A_PLAYER("NOT_A_PLAYER", "§7[§bVec§fLink§7]§f➣ §aOnly players can execute this command."),
     VECLINK_SRV_NOT_CONNECTED("VECLINK_SRV_NOT_CONNECTED", "§7[§bVec§fLink§7]§f➣ §cNo VecLinkSRVs are connected to the VecLink server."),
     DC_VERIFY_SUCCESS("DC_VERIFY_SUCCESS", "§7[§bVec§fLink§7]§f➣ §aYour discord ID: %userName% is successfully linked with your in game ID."),
-    DC_VERIFY_TOKEN("DC_VERIFY_TOKEN", "§7[§bVec§fLink§7]§f➣ Your verification token is: <red><click:copy_to_clipboard:%token%> Click to copy the token. </click></red>");
+    DC_VERIFY_TOKEN_PREFIX("DC_VERIFY_TOKEN_PREFIX", "§7[§bVec§fLink§7]§f➣ Your verification token is:"),
+    DC_VERIFY_TOKEN("DC_VERIFY_TOKEN", " <red><click:copy_to_clipboard:%token%> Click to copy the token. </click></red>");
 
 
 

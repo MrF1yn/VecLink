@@ -5,6 +5,7 @@ import dev.mrflyn.veclinkspigot.chat.ChatListener;
 import dev.mrflyn.veclinkspigot.commands.*;
 import dev.mrflyn.veclinkspigot.commands.handler.VecLinkCommand;
 import dev.mrflyn.veclinkspigot.support.PAPISupport;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
@@ -39,8 +40,18 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
     public LegacyComponentSerializer lcs;
     public MiniMessage miniMessage;
 
+    private BukkitAudiences adventure;
+
+    public BukkitAudiences adventure() {
+        if(this.adventure == null) {
+            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        }
+        return this.adventure;
+    }
+
     public void onEnable(){
         plugin = this;
+        this.adventure = BukkitAudiences.create(this);
         lcs = LegacyComponentSerializer.legacySection();
         miniMessage = MiniMessage.miniMessage();
         playerChatGroupStatus = new ConcurrentHashMap<>();
@@ -124,6 +135,10 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
     public void onDisable(){
         Main.gi.stopKeepAliveTask();
         chatHandler.stopChatSyncTask();
+        if(this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
 

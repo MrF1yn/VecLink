@@ -8,6 +8,8 @@ import dev.mrflyn.veclinkcommon.VLPlayer;
 import dev.mrflyn.veclinkspigot.PacketFormatterSpigot;
 import dev.mrflyn.veclinkspigot.VecLinkMainSpigot;
 import dev.mrflyn.veclinkspigot.commands.handler.SubCommand;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -49,12 +51,14 @@ public class PlayerInfoCommand implements SubCommand {
                 sender.sendMessage("Player not Found");
                 return;
             }
-            sender.sendMessage(getLCS().serialize(getMiniMessage().deserialize(format
+            String msg = format
                     .replace("%playerName%", p.getName())
                     .replace("%playerUUID%", p.getUUID().toString())
                     .replace("%discordID%", p.getUserID()==null?"N/A":p.getUserID())
-                    .replace("%discordName%", p.getUserName()==null?"N/A":p.getUserName())
-            )));
+                    .replace("%discordName%", p.getUserName()==null?"N/A":p.getUserName());
+
+                Audience audience = VecLinkMainSpigot.plugin.adventure().sender(sender);
+                audience.sendMessage(getMiniMessage().deserialize(msg));
         });
         return true;
     }

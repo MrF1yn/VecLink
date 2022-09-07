@@ -69,7 +69,7 @@ public class Listeners extends ListenerAdapter {
                 }
                 String token = event.getOptions().get(0).getAsString();
                 event.reply("Processing...").setEphemeral(true).queue();
-                Main.client.channel.writeAndFlush(PacketFormatterDiscordSRV.dcVerifyReq(token,event.getMember().getId(), event.getMember().getEffectiveName()));
+                Main.client.channel.writeAndFlush(PacketFormatterDiscordSRV.dcVerifyReq(token,event.getMember().getId(), event.getMember().getUser().getAsTag()));
         }
 
     }
