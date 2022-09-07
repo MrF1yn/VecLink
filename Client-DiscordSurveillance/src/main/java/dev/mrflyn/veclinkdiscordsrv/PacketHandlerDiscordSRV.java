@@ -135,7 +135,10 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                 if(!success) {
                     messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " Invalid Verification.").queue();
                     for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList("on_verify_fail")){
-                        VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID));
+                        VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID)
+                                .replace("%user_name%", guild.getMemberById(iuserID).getEffectiveName())
+                                .replace("%player_name%", iName)
+                        );
                     }
                     return;
                 }
