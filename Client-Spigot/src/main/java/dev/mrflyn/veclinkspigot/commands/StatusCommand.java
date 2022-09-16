@@ -59,9 +59,9 @@ public class StatusCommand implements SubCommand {
                 sender.sendMessage(ChatColor.AQUA + "Is-Joinable: " + ChatColor.WHITE + VecLinkMainSpigot.plugin.isJoinable());
 
                 sender.sendMessage(ChatColor.AQUA + "TotalPlayers: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size());
-                sender.sendMessage(ChatColor.AQUA + "Mspt: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.get().averageTickTime()));
-                sender.sendMessage(ChatColor.AQUA + "Tps 1m,5m,15m: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.get().recentTps()[0]) + "," +
-                        decimalFormat.format(SpigotReflection.get().recentTps()[1]) + "," + decimalFormat.format(SpigotReflection.get().recentTps()[2]));
+                sender.sendMessage(ChatColor.AQUA + "Mspt: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.spigotReflection().averageTickTime()));
+                sender.sendMessage(ChatColor.AQUA + "Tps 1m,5m,15m: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[0]) + "," +
+                        decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[1]) + "," + decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[2]));
 
                 sender.sendMessage(ChatColor.AQUA + "OperatingSystem: " + ChatColor.WHITE + MemoryUtil.getOsName());
                 sender.sendMessage(ChatColor.AQUA + "RunningThreads: " + ChatColor.WHITE + MemoryUtil.getFormattedMemory()[0]);
@@ -110,9 +110,9 @@ public class StatusCommand implements SubCommand {
         sender.sendMessage(ChatColor.AQUA + "Is-Joinable: " + ChatColor.WHITE + VecLinkMainSpigot.plugin.isJoinable());
 
         sender.sendMessage(ChatColor.AQUA + "TotalPlayers: " + ChatColor.WHITE + Bukkit.getOnlinePlayers().size());
-        sender.sendMessage(ChatColor.AQUA + "Mspt: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.get().averageTickTime()));
-        sender.sendMessage(ChatColor.AQUA + "Tps 1m,5m,15m: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.get().recentTps()[0]) + "," +
-                decimalFormat.format(SpigotReflection.get().recentTps()[1]) + "," + decimalFormat.format(SpigotReflection.get().recentTps()[2]));
+        sender.sendMessage(ChatColor.AQUA + "Mspt: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.spigotReflection().averageTickTime()));
+        sender.sendMessage(ChatColor.AQUA + "Tps 1m,5m,15m: " + ChatColor.WHITE + decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[0]) + "," +
+                decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[1]) + "," + decimalFormat.format(SpigotReflection.spigotReflection().recentTps()[2]));
 
         sender.sendMessage(ChatColor.AQUA + "OperatingSystem: " + ChatColor.WHITE + MemoryUtil.getOsName());
         sender.sendMessage(ChatColor.AQUA + "RunningThreads: " + ChatColor.WHITE + MemoryUtil.getFormattedMemory()[0]);

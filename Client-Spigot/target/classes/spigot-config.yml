@@ -20,13 +20,12 @@ chat-module:
     - 'clientTest'
     - 'TestClient1'
     - 'group:default'
-    -
 #You can use these placeholders anywhere in the config. This also includes the math expansion for easy mathematical calculations.
 #goto this webpage to know about the format of math placeholder https://github.com/Andre601/Math-Expansion
 #list of available placeholder:
-# %fcln_onlineStatus_<client-id>%
-# %fcln_onlineStatusBoolean_<client-id>%
-# %fcln_playerCount_<client-id>%
+# %vcl_onlineStatus_<client-id>%
+# %vcl_onlineStatusBoolean_<client-id>%
+# %vcl_playerCount_<client-id>%
 
 #This is some additional configurations for each placeholder.
 placeholder-config:
@@ -36,3 +35,7 @@ placeholder-config:
   clientStatus:
     true: "<green>CONNECTED"
     false: "<red>NOT CONNECTED"
+
+#Enable this to use the discord economy bridge feature. Requires Vault to be installed in the server.
+vault-integration:
+  enabled: false

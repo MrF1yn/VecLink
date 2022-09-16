@@ -38,7 +38,7 @@ public class PAPISupport extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "fcln";
+        return "vcl";
     }
 
 

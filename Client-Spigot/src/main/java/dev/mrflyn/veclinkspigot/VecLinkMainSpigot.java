@@ -172,8 +172,8 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
 
         keepAliveTask =
                 Bukkit.getScheduler().runTaskTimerAsynchronously(VecLinkMainSpigot.plugin, ()->{
-                    Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatKeepAlivePacket(SpigotReflection.get().recentTps(),isJoinable(),
-                            MemoryUtil.getFormattedMemory(), SpigotReflection.get().averageTickTime(),MemoryUtil.getOsName()));
+                    Main.client.channel.writeAndFlush(PacketFormatterSpigot.formatKeepAlivePacket(SpigotReflection.spigotReflection().recentTps(),isJoinable(),
+                            MemoryUtil.getFormattedMemory(), SpigotReflection.spigotReflection().averageTickTime(),MemoryUtil.getOsName()));
                     Main.gi.debug("Sent keep-alive to VecLinkServer.");
                 },0L, 300L);
 
