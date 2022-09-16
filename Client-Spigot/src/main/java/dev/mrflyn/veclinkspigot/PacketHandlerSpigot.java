@@ -212,7 +212,7 @@ ReentrantLock lock = new ReentrantLock();
                     Player p = Bukkit.getServer().getPlayer(UUID.fromString(plUUID));
                     if(p==null)return;
                     VecLinkMainSpigot.plugin.adventure().player(p)
-                            .sendMessage(getLCS().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN_PREFIX.toString())+
+                            .sendMessage(getLCS().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN_PREFIX.toString())).append(
                                     getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_TOKEN.toString())
                             .replace("%token%", token))));
                 });
@@ -228,7 +228,7 @@ ReentrantLock lock = new ReentrantLock();
                     Player p = Bukkit.getServer().getPlayer(UUID.fromString(iUUID));
                     if(p==null)return;
                     VecLinkMainSpigot.plugin.adventure().player(p)
-                     .sendMessage(getMiniMessage().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString())
+                     .sendMessage(getLCS().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString())
                              .replace("%userName%", iuserName)));
                 });
         }

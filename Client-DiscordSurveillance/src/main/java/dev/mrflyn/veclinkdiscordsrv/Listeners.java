@@ -15,9 +15,11 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static dev.mrflyn.veclinkdiscordsrv.utils.ExtraUtil.jsonToEmbed;
@@ -42,9 +44,12 @@ public class Listeners extends ListenerAdapter {
                     return;
                 }
                 if (event.getOptions().isEmpty()) {
+                    List<MessageEmbed> embeds = new ArrayList<>();
                     for (ConnectedVecLinkClient client : ConnectedVecLinkClient.CFC.values()) {
-                        event.replyEmbeds(getStatusEmbed(client)).queue();
+                        embeds.add(getStatusEmbed(client));
                     }
+                    event.replyEmbeds(embeds).queue();
+                    embeds.clear();
                     return;
                 }
                 String option = event.getOptions().get(0).getAsString();

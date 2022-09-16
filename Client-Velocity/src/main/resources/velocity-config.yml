@@ -2,9 +2,9 @@
 #You can use these placeholders anywhere in the config. This also includes the math expansion for easy mathematical calculations.
 #goto this webpage to know about the format of math placeholder https://github.com/Andre601/Math-Expansion
 #list of available placeholder:
-# %fcln_onlineStatus_<client-id>%
-# %fcln_onlineStatusBoolean_<client-id>%
-# %fcln_playerCount_<client-id>%
+# %vcl_onlineStatus_<client-id>%
+# %vcl_onlineStatusBoolean_<client-id>%
+# %vcl_playerCount_<client-id>%
 
 #This is some additional configurations for each placeholder.
 placeholder-config:
@@ -18,9 +18,9 @@ placeholder-config:
 modify-player-count:
   enabled: false
   #set the value of the online player count.
-  online-value: '%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}%'
+  online-value: '%math_{vcl_playerCount_backend1}+{vcl_playerCount_backend2}%'
   #set the value of the maximum player count.
-  maximum-value: '%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}+200%'
+  maximum-value: '%math_{vcl_playerCount_backend1}+{vcl_playerCount_backend2}+200%'
 
 modify-motd:
   enabled: true
@@ -35,7 +35,7 @@ modify-motd:
   values:
     - '<aqua>Vec<white>Link'
     - '<aqua>Vec<white>Link <aqua>Velocity'
-    - '<aqua>%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}% <aqua>Players Online.'
+    - '<aqua>%math_{vcl_playerCount_backend1}+{vcl_playerCount_backend2}% <aqua>Players Online.'
 
 modify-sampleplayers:
   #enabling this will allow you to change the text which appears in the server ping list when you hover over the playercount.
@@ -51,7 +51,7 @@ modify-sampleplayers:
   values:
     - '--------------<aqua>Vec<white>Link <aqua>Velocity--------------'
     - '<gold>The <aqua>Extraordinary <white>Link <gold>Experience<white>.'
-    - '<aqua>%math_{fcln_playerCount_backend1}+{fcln_playerCount_backend2}% <aqua>Players Online.'
+    - '<aqua>%math_{vcl_playerCount_backend1}+{vcl_playerCount_backend2}% <aqua>Players Online.'
 
 Commands:
   #Shows all the players from all connected clients

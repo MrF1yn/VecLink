@@ -61,19 +61,19 @@ public class VecLinkMainVelocity implements GlobalInterface{
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        Main.gi = this;
+        Main.pi = new PacketHandlerVelocity();
+        saveResource("velocity-config.yml",false);
+        config = YamlConfiguration.loadConfiguration(new File(dataDirectory.toFile(), "velocity-config.yml"));
         miniMessage = MiniMessage.miniMessage();
          lcs = LegacyComponentSerializer.legacySection();
-         pingHandler = new PingHandler();
         plugin = this;
         papi = PlaceholderAPI.createPAPI();
         if(papi!=null) {
             papi.registerPlaceholder(new MathExpansion());
             papi.registerPlaceholder(new PAPISupport());
         }
-        Main.gi = this;
-        Main.pi = new PacketHandlerVelocity();
-        saveResource("velocity-config.yml",false);
-        config = YamlConfiguration.loadConfiguration(new File(dataDirectory.toFile(), "velocity-config.yml"));
+        pingHandler = new PingHandler();
         Main.enable();
         VecLinkCommand command = new VecLinkCommand(
                 new StatusCommand(),
@@ -120,7 +120,7 @@ public class VecLinkMainVelocity implements GlobalInterface{
 
     @Override
     public String getConfigLocation() {
-        return "plugins/VecLinkClient/";
+        return "plugins/veclinkclient/";
     }
 
     @Override

@@ -62,9 +62,9 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
         config = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "spigot-config.yml"));
         Main.enable();
         getServer().getPluginManager().registerEvents(new Listeners(), this);
+        chatHandler = new ChatHandler();
         if(config.getBoolean("chat-module.enabled")){
             getServer().getPluginManager().registerEvents(new ChatListener(), this);
-            chatHandler = new ChatHandler();
             if(VecLinkMainSpigot.plugin.config.getBoolean("chat-module.sync-chats")){
                 chatHandler.startChatSyncTask();
             }

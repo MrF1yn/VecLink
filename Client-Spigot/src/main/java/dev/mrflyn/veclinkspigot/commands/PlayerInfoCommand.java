@@ -24,10 +24,10 @@ public class PlayerInfoCommand implements SubCommand {
     String format;
     public PlayerInfoCommand(){
         format = "<aqua>------------------</aqua>\n" +
-                "<green><hover:show_text:'<red>Click to Copy'>PlayerName</hover>: <gold><insert:%playerName%>%playerName%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Click to Copy'>PlayerUUID</hover>: <gold><insert:%playerUUID%>%playerUUID%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Click to Copy'>DiscordID</hover>: <gold><insert:%discordID%>%discordID%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Click to Copy'>DiscordName</hover>: <gold><insert:@%discordName%>%discordName%</insert></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'>PlayerName</hover>: <gold><insert:%playerName%>%playerName%</insert></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'>PlayerUUID</hover>: <gold><insert:%playerUUID%>%playerUUID%</insert></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'>DiscordID</hover>: <gold><insert:%discordID%>%discordID%</insert></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'>DiscordName</hover>: <gold><insert:@%discordName%>%discordName%</insert></gold></green>\n" +
                 "<aqua>------------------</aqua>";
     }
 
