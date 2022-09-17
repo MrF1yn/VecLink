@@ -1,11 +1,16 @@
 package dev.mrflyn.veclink.ClientHandlers;
 
 import dev.mrflyn.veclink.Main;
+import dev.mrflyn.veclink.api.Monitor;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class VecLinkClient extends Thread {
     public int port;
@@ -13,6 +18,7 @@ public class VecLinkClient extends Thread {
     public EventLoopGroup group;
     public Channel channel;
     private boolean reconnect;
+    private List<Monitor> monitors;
 
     public boolean shouldReconnect(){
         return reconnect;
@@ -23,10 +29,21 @@ public class VecLinkClient extends Thread {
     }
 
     public VecLinkClient(String ip, int port) {
+        monitors = Collections.synchronizedList(new ArrayList<>());
         this.ip = ip;
         this.port = port;
         group = new NioEventLoopGroup();
         this.reconnect = true;
+    }
+
+    public void registerMonitors(Monitor m){
+        monitors.add(m);
+    }
+
+    public void callMonitors(String clientName){
+        for(Monitor m : monitors){
+            m.onUpdate(clientName);
+        }
     }
 
     @Override

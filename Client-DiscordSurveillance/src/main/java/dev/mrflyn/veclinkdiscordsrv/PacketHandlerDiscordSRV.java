@@ -60,6 +60,11 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                     ConnectedVecLinkClient.CFC.remove(name);
                     ConnectedVecLinkClient.clients.remove(name);
                 }
+                Main.client.callMonitors(name);
+                for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList(action.equals("ADD")?"on_client_connect":"on_client_disconnect")){
+                    VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s
+                            .replace("%clientName%", name));
+                }
                 break;
             case S2C_GROUP_INFO:
                 List<String> groups = (List<String>) packet[1];
@@ -80,6 +85,7 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                     boolean canJoin = (boolean) packet[6];
                     cfc.setOnlinePlayerCount(playerCount);
                     cfc.setCanJoin(canJoin);
+                    Main.client.callMonitors(clientName);
                     return;
                 }
                 else if(type.equals("ADVANCED")){
@@ -108,8 +114,10 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                         List<String> srv = (List<String>) packet[10];
                         cfc.setBackendServers(srv);
                     }
+                    Main.client.callMonitors(clientName);
                     return;
                 }
+                Main.client.callMonitors(clientName);
                 break;
             case S2C_PLAYER_INFO:
                 String clientId = (String) packet[1];
@@ -121,6 +129,12 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                 c.onPlayerInfoReceive(pName,
                         UUID.fromString(pUuid),
                         pAction);
+                Main.client.callMonitors(clientId);
+                for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList(pAction.equals("ADD")?"on_player_join":"on_player_leave")){
+                    VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s
+                            .replace("%clientName%", clientId)
+                            .replace("%playerName%", pName));
+                }
                 break;
             case S2C_DC_VERIFY_ACK:
                 boolean success = (boolean) packet[1];
@@ -135,16 +149,18 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                 if(!success) {
                     messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " Invalid Verification.").queue();
                     for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList("on_verify_fail")){
-                        VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID)
-                                .replace("%user_name%", guild.getMemberById(iuserID).getEffectiveName())
-                                .replace("%player_name%", iName)
+                        VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%userId%", iuserID)
+                                .replace("%userName%", guild.getMemberById(iuserID).getEffectiveName())
+                                .replace("%playerName%", iName)
                         );
                     }
                     return;
                 }
                 messageChannel.sendMessage(guild.getMemberById(iuserID).getAsMention()+ " You have been successfully verified with ign: "+iName+".").queue();
                 for(String s : VecLinkMainDiscordSRV.plugin.config.getStringList("on_verify_success")){
-                    VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%user_id%", iuserID));
+                    VecLinkCommand.processCommand(VecLinkMainDiscordSRV.plugin.cmdHandler, "CONSOLE", s.replace("%userId%", iuserID)
+                            .replace("%userName%", guild.getMemberById(iuserID).getEffectiveName())
+                            .replace("%playerName%", iName));
                 }
                 break;
         }

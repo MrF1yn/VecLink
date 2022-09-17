@@ -1,6 +1,7 @@
 package dev.mrflyn.veclink.ClientHandlers;
 
 import dev.mrflyn.veclink.Main;
+import dev.mrflyn.veclink.api.Monitor;
 import dev.mrflyn.veclink.databases.MySQL;
 import dev.mrflyn.veclink.databases.PostgreSQL;
 import dev.mrflyn.veclinkcommon.ClientType;
@@ -9,11 +10,14 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.EventLoop;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ClientHandler extends ChannelInboundHandlerAdapter {
+
+
 
     private VecLinkClient client;
     public ClientHandler(VecLinkClient client){

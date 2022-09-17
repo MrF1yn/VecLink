@@ -41,6 +41,11 @@
       "inline": true
     },
     {
+      "name": "Total-Players",
+      "value": "```%totalPlayers%```",
+      "inline": true
+    },
+    {
       "name": "Client-Groups",
       "value": "%clientGroups%",
       "inline": true

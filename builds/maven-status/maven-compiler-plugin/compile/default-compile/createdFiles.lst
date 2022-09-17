@@ -3,9 +3,12 @@ dev\mrflyn\veclinkdiscordsrv\VecLinkMainDiscordSRV$1.class
 dev\mrflyn\veclinkdiscordsrv\commands\handler\SubCommand.class
 dev\mrflyn\veclinkdiscordsrv\utils\MemoryUtil.class
 dev\mrflyn\veclinkdiscordsrv\VecLinkMainDiscordSRV.class
+dev\mrflyn\veclinkdiscordsrv\livestatus\LiveStatus.class
 dev\mrflyn\veclinkdiscordsrv\Listeners.class
+dev\mrflyn\veclinkdiscordsrv\livestatus\LiveStatusHandler.class
 dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV.class
 dev\mrflyn\veclinkdiscordsrv\commands\changeNick.class
+dev\mrflyn\veclinkdiscordsrv\commands\sendMsg.class
 dev\mrflyn\veclinkdiscordsrv\commands\AddRole.class
 dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV$1.class
 dev\mrflyn\veclinkdiscordsrv\commands\RemRole.class

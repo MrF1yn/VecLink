@@ -33,6 +33,10 @@ public class VecLinkCommand {
 
     public boolean onCommand(String sender, String cmd, String[] args) {
         SubCommand subCommand = registeredSubCommands.get(cmd);
+        if (subCommand==null){
+            Main.gi.log("Command: "+cmd+" NOT FOUND!");
+            return true;
+        }
         List<String> fargs = new ArrayList<>(Arrays.asList(args));
         return subCommand.onSubCommand(sender,cmd,fargs.toArray(new String[0]));
     }

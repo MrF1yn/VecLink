@@ -5,7 +5,10 @@ import dev.mrflyn.veclink.GlobalInterface;
 import dev.mrflyn.veclink.Main;
 import dev.mrflyn.veclinkdiscordsrv.commands.AddRole;
 import dev.mrflyn.veclinkdiscordsrv.commands.RemRole;
+import dev.mrflyn.veclinkdiscordsrv.commands.changeNick;
 import dev.mrflyn.veclinkdiscordsrv.commands.handler.VecLinkCommand;
+import dev.mrflyn.veclinkdiscordsrv.commands.sendMsg;
+import dev.mrflyn.veclinkdiscordsrv.livestatus.LiveStatusHandler;
 import dev.mrflyn.veclinkdiscordsrv.utils.MemoryUtil;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -48,13 +51,15 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
         Main.pi = new PacketHandlerDiscordSRV();
         saveResource("config.yml",false);
         saveResource("status_embed.json", false);
+        saveResource("live_status_embed.json", false);
+        saveResource("offline_status_embed.json", false);
         config = YamlConfiguration.loadConfiguration(new File(getConfigLocation(), "config.yml"));
         String token = config.getString("bot_token");
         if (token==null || token.isEmpty()){
             Main.gi.log("Invalid Bot Token.");
             System.exit(0);
         }
-        Main.enable();
+        Object obj = new Object();
         new Thread(() -> {
             try {
                 Main.gi.log("Starting JDA instance!");
@@ -65,10 +70,9 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
                         .setMemberCachePolicy(MemberCachePolicy.ALL)
                         .build();
                 jda.awaitReady();
-                cmdHandler = new VecLinkCommand(
-                        new AddRole(),
-                        new RemRole()
-                        );
+                synchronized (obj){
+                    obj.notifyAll();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -89,7 +93,23 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
                                     true)
                     ).queue();
         }).start();
-
+        try {
+            synchronized (obj){
+                obj.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        cmdHandler = new VecLinkCommand(
+                new AddRole(),
+                new RemRole(),
+                new changeNick(),
+                new sendMsg()
+        );
+        Main.enable();
+        if(config.getBoolean("live_status.enabled")){
+            new LiveStatusHandler().init();
+        }
     }
 
 

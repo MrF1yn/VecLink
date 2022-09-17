@@ -1,6 +1,7 @@
 dev\mrflyn\veclink\ClientHandlers\ConnectionListener.class
 dev\mrflyn\veclink\ClientHandlers\ConnectionListener$1.class
 dev\mrflyn\veclink\ClientHandlers\ClientHandler$1.class
+dev\mrflyn\veclink\api\Monitor.class
 dev\mrflyn\veclink\PacketHandlerStandalone$1.class
 dev\mrflyn\veclink\ClientHandlers\ClientHandler.class
 dev\mrflyn\veclink\databases\PostgreSQL.class

@@ -1,0 +1,25 @@
+{
+  "title": "VecLink Server Status",
+  "url": "",
+  "color": 13632027,
+  "timestamp": "2022-08-06T09:40:17.047Z",
+  "footer": {
+    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png",
+    "text": "Vectlabs.xyz"
+  },
+  "thumbnail": {
+    "url": "https://cdn.discordapp.com/icons/928525879087362050/d348f37279e01d75cbb7c09bdf39242a.webp?size=100"
+  },
+  "author": {
+    "name": "MrFlyn",
+    "url": "https://discordapp.com",
+    "icon_url": "https://avatars.githubusercontent.com/u/86141373?s=400&u=4e96d77c5c1be977f132b53c75962c3f3f5d5223&v=4"
+  },
+  "fields": [
+    {
+      "name": "Server Offline :x:",
+      "value": "** **",
+      "inline": false
+    }
+  ]
+}

@@ -9,6 +9,7 @@ H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\Main.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\databases\PostgreSQL.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\databases\SQLite.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\ClientHandlers\VecLinkClient.java
+H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\api\Monitor.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\MainConfig.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\ClientHandlers\ConnectedVecLinkClient.java
 H:\VecLink\Client-Parent\src\main\java\dev\mrflyn\veclink\ClientHandlers\ClientInitializer.java

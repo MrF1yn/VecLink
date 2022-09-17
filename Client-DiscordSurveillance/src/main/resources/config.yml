@@ -1,11 +1,34 @@
 bot_token: 'test'
 guild_id: '980140597115514980'
 
+#Get Live RealTime Status of the connected clients in separate channels in form of embeds which are edited regularly.
+#The format is <guildID>:<channelID>
+live_status:
+  enabled: false
+  registered:
+    "980140597115514980:1020710167395966977":
+      client_name: 'eco'
+      status_embed: 'live_status_embed.json'
+      offline_embed: 'offline_embed.json'
+    "980140597115514980:1020710211171921991":
+      client_name: 'hub'
+      status_embed: 'live_status_embed.json'
+      offline_embed: 'offline_status_embed.json'
+
+
 verification_channel_id: ''
 on_verify_success:
-  - 'addRole <roleID> %user_id%'
-  - 'changeNick %user_id% %user_name% IGN: %player_name%'
+  - 'addRole <roleID> %userId%'
+  - 'changeNick %user_id% %user_name% IGN: %playerName%'
 on_verify_fail:
-  - 'remRole <roleID> %user_id%'
+  - 'remRole <roleID> %userId%'
+on_client_connect:
+  - 'sendMsg <guildID>:<channelID> %clientName% Successfully Connected to VecLinkServer.'
+on_client_disconnect:
+  - 'sendMsg <guildID>:<channelID> %clientName% Disconnected from VecLinkServer.'
+on_player_join:
+  - 'sendMsg <guildID>:<channelID> %playerName% Joined %clientName%!'
+on_player_leave:
+  - 'sendMsg <guildID>:<channelID> %playerName% Left %clientName%!'
 
 

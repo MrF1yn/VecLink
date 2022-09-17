@@ -1,0 +1,84 @@
+{
+  "title": "VecLink Server Status :white_check_mark:",
+  "description": "**Showing the status of** ```%clientName%```",
+  "url": "",
+  "color": 2937633,
+  "timestamp": "2022-08-06T09:40:17.047Z",
+  "footer": {
+    "icon_url": "https://cdn.discordapp.com/embed/avatars/0.png",
+    "text": "Vectlabs.xyz"
+  },
+  "thumbnail": {
+    "url": "https://cdn.discordapp.com/icons/928525879087362050/d348f37279e01d75cbb7c09bdf39242a.webp?size=100"
+  },
+  "image": {
+    "url": "https://cdn.discordapp.com/icons/928525879087362050/d348f37279e01d75cbb7c09bdf39242a.webp?size="
+  },
+  "author": {
+    "name": "MrFlyn",
+    "url": "https://discordapp.com",
+    "icon_url": "https://avatars.githubusercontent.com/u/86141373?s=400&u=4e96d77c5c1be977f132b53c75962c3f3f5d5223&v=4"
+  },
+  "fields": [
+    {
+      "name": "Client-Name",
+      "value": "%clientName%",
+      "inline": true
+    },
+    {
+      "name": "Client-Type",
+      "value": "%clientType%",
+      "inline": true
+    },
+    {
+      "name": "TPS",
+      "value": "```%clientTps%```",
+      "inline": true
+    },
+    {
+      "name": "MSPT",
+      "value": "```%clientMspt%```",
+      "inline": true
+    },
+    {
+      "name": "Total-Players",
+      "value": "```%totalPlayers%```",
+      "inline": true
+    },
+    {
+      "name": "Client-Groups",
+      "value": "%clientGroups%",
+      "inline": true
+    },
+    {
+      "name": "Backend-Servers",
+      "value": "%clientBackendServers%",
+      "inline": true
+    },
+    {
+      "name": "Cpu-Cores",
+      "value": "%clientCpuCores%",
+      "inline": true
+    },
+    {
+      "name": "Cpu-Usage",
+      "value": "%clientCpuUsage%",
+      "inline": true
+    },
+    {
+      "name": "Memory-Usage",
+      "value": "%clientMemUsage%",
+      "inline": true
+    },
+    {
+      "name": "Operating-System",
+      "value": "%clientOS%",
+      "inline": true
+    },
+    {
+      "name": "Is-Joinable",
+      "value": "%clientJoinable%",
+      "inline": true
+    }
+  ]
+}

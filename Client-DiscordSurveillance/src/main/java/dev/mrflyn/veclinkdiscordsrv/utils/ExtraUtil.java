@@ -3,12 +3,17 @@ package dev.mrflyn.veclinkdiscordsrv.utils;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import dev.mrflyn.veclink.ClientHandlers.ConnectedVecLinkClient;
+import dev.mrflyn.veclink.Main;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import org.apache.commons.lang3.Validate;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -96,5 +101,33 @@ public class ExtraUtil {
         }
 
         return embedBuilder.build();
+    }
+
+    public static MessageEmbed getStatusEmbed(ConnectedVecLinkClient client, String embedFile) {
+
+        try {
+            String json = JsonParser.parseReader(new FileReader(Main.gi.getConfigLocation()+embedFile)).toString();
+            if (client==null)return (jsonToEmbed( JsonParser.parseString(json).getAsJsonObject()));
+
+            json = json.replace("%clientName%", client.getName())
+                    .replace("%clientType%", client.getType())
+                    .replace("%clientTps%", client.getTps1min()+", "+client.getTps5min()+", "+client.getTps15min())
+                    .replace("%clientMspt%", client.getMspt()+"")
+                    .replace("%totalPlayers%", client.getOnlinePlayerCount()+"")
+                    .replace("%clientGroups%", client.getGroups().toString())
+                    .replace("%clientBackendServers%", client.getBackendServers().toString())
+                    .replace("%clientCpuCores%", client.getCpuCores()+"")
+                    .replace("%clientCpuUsage%", client.getCpuUsagePercent()+"%")
+                    .replace("%clientMemUsage%", client.getCurrentMemoryUsage()+"/"+client.getMaxMemory()+" ("+client.getMemoryUsagePercent()+"%"+")")
+                    .replace("%clientOS%", client.getOsName())
+                    .replace("%clientJoinable%", client.isCanJoin()+"");
+            return (jsonToEmbed( JsonParser.parseString(json).getAsJsonObject()));
+        } catch (Exception e) {
+            if (e instanceof NullPointerException){
+                return null;
+            }
+            e.printStackTrace();
+        }
+        return null;
     }
 }
