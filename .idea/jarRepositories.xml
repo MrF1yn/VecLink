@@ -17,6 +17,11 @@
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="AlessioDP" />
+      <option name="name" value="AlessioDP" />
+      <option name="url" value="https://repo.alessiodp.com/releases/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="velocity" />
       <option name="name" value="velocity" />
       <option name="url" value="https://repo.velocitypowered.com/snapshots/" />

@@ -118,7 +118,7 @@ public class ExtraUtil {
                     .replace("%clientBackendServers%", client.getBackendServers().toString())
                     .replace("%clientCpuCores%", client.getCpuCores()+"")
                     .replace("%clientCpuUsage%", client.getCpuUsagePercent()+"%")
-                    .replace("%clientMemUsage%", client.getCurrentMemoryUsage()+"/"+client.getMaxMemory()+" ("+client.getMemoryUsagePercent()+"%"+")")
+                    .replace("%clientMemUsage%", client.getAllocatedMemory()+"/"+client.getMaxMemory()+" ("+client.getMemoryUsagePercent()+"%"+")")
                     .replace("%clientOS%", client.getOsName())
                     .replace("%clientJoinable%", client.isCanJoin()+"");
             return (jsonToEmbed( JsonParser.parseString(json).getAsJsonObject()));

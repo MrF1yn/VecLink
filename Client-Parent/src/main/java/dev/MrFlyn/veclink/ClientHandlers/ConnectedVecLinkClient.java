@@ -16,6 +16,35 @@ public class ConnectedVecLinkClient {
         return false;
     }
 
+    public static List<String> getOnlinePlayerServers(UUID uuid){
+        List<String> servers = new ArrayList<>();
+        for(ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()){
+            if(!(c.getType().equals("SPIGOT")&&c.getType().equals("BUNGEE")&&c.getType().equals("VELOCITY")))continue;
+            if(c.playersByUuid.containsKey(uuid)) servers.add(c.getName());
+        }
+        return servers;
+    }
+
+    public static List<String> getOnlinePlayerServers(String name) {
+        List<String> servers = new ArrayList<>();
+        for (ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()) {
+            if (!(c.getType().equals("SPIGOT") && c.getType().equals("BUNGEE") && c.getType().equals("VELOCITY")))
+                continue;
+            if (c.playersByName.containsKey(name)) servers.add(c.getName());
+        }
+        return servers;
+    }
+
+    public static List<ConnectedVecLinkClient> getOnlinePlayerServers0(String name) {
+        List<ConnectedVecLinkClient> servers = new ArrayList<>();
+        for (ConnectedVecLinkClient c : ConnectedVecLinkClient.CFC.values()) {
+            if (!(c.getType().equals("SPIGOT") && c.getType().equals("BUNGEE") && c.getType().equals("VELOCITY")))
+                continue;
+            if (c.playersByName.containsKey(name)) servers.add(c);
+        }
+        return servers;
+    }
+
     public static List<String> clients = Collections.synchronizedList(new ArrayList<>());
     public static ConcurrentHashMap<String, ConnectedVecLinkClient> CFC = new ConcurrentHashMap<>();
     public static List<String> groups = Collections.synchronizedList(new ArrayList<>());
@@ -251,6 +280,8 @@ public class ConnectedVecLinkClient {
             lock.unlock();
         }
     }
+
+
 
 
 }

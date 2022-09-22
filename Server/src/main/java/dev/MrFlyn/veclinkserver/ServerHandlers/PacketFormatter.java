@@ -26,6 +26,15 @@ public class PacketFormatter {
         return packet.toArray();
     }
 
+    public static Object[] formatFindPlayerPacket(String targetPlayer, String player) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_FIND_PLAYER.ordinal(),
+                targetPlayer,
+                player
+        );
+        return packet.toArray();
+    }
+
     public static Object[] formatClientInfoPacket(String clientName, ClientType clientType, String action) {
         List<Object> packet = Arrays.asList(
                 PacketType.S2C_CLIENT_INFO.ordinal(),

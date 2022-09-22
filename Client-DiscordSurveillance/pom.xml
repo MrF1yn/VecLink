@@ -15,7 +15,18 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <repositories>
+        <repository>
+            <id>AlessioDP</id>
+            <url>https://repo.alessiodp.com/releases/</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <dependency>
+            <groupId>net.byteflux</groupId>
+            <artifactId>libby-core</artifactId> <!-- Replace bukkit if you're using another platform -->
+            <version>1.1.5</version>
+        </dependency>
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>

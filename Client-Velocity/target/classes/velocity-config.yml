@@ -15,6 +15,9 @@ placeholder-config:
     true: "<green>CONNECTED"
     false: "<red>NOT CONNECTED"
 
+#modify the server version in F3 menu. Keep it blank to ignore.
+modify-version: 'VecLinkCore 1.6.3'
+
 modify-player-count:
   enabled: false
   #set the value of the online player count.

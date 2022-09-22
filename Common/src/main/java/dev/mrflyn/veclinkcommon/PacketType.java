@@ -27,6 +27,8 @@ public enum PacketType {
             "This packet is sent when a player executes /veclink dcVerify command in game. It initiates the minecraft-discord linking process."),
     C2S_DC_VERIFY_REQ(null,
             "This packet is sent from veclink srv when the user inputs the received token for the final verification."),
+    C2S_FIND_PLAYER(null,
+            "This packet is sent from veclink client spigot containing the target player's connected server."),
 
 
     PC2S_PARTY_INVITE("Only for proxy clients, This packet is sent when someone invites someone to a party."),
@@ -58,6 +60,8 @@ public enum PacketType {
             "This packet is sent to the client and veclink srv after the token verification is complete and contains the status of the verification procedure."),
     S2C_DATABASE_INFO(null,
             "This packet is sent to all the clients and contains the database credentials for them to connect to."),
+    S2C_FIND_PLAYER(null,
+            "This packet is sent from veclink server to the target player's client for delayed teleport on join."),
 
     S2C_PARTY_INVITE("This packet is sent to the client which contains player who is invited to a party.")
 

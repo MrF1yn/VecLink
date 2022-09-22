@@ -12,6 +12,7 @@ import java.util.UUID;
 public class PingHandler {
     Random random;
     boolean modifyPlayerCount;
+    String versionName;
     boolean modifyMOTD;
     boolean modifySP;
     //-1 = random
@@ -27,6 +28,7 @@ public class PingHandler {
 
         this.random = new Random();
         this.modifyPlayerCount = VecLinkMainVelocity.plugin.config.getBoolean("modify-player-count.enabled");
+        this.versionName = VecLinkMainVelocity.plugin.config.getString("modify-version");
         this.modifyMOTD = VecLinkMainVelocity.plugin.config.getBoolean("modify-motd.enabled");
         this.modifySP = VecLinkMainVelocity.plugin.config.getBoolean("modify-sampleplayers.enabled");
         this.displayModeMOTD = VecLinkMainVelocity.plugin.config.getString("modify-motd.display-mode").equalsIgnoreCase("random")?-1:
@@ -47,6 +49,9 @@ public class PingHandler {
     public ServerPing handlePing(ServerPing serverPing){
         ServerPing.Builder builder = serverPing.asBuilder();
 
+        if(this.versionName != null&&!this.versionName.equals("")){
+            builder.version(new ServerPing.Version(serverPing.getVersion().getProtocol(), this.versionName));
+        }
         if(this.modifyPlayerCount){
             try {
                 builder.onlinePlayers(Integer.parseInt(PlaceholderAPI.setPlaceholdersIfAvailable(null,playerCount)));

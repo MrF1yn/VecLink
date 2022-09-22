@@ -2,7 +2,8 @@ package dev.mrflyn.veclink;
 
 public enum ConfigPath {
 
-    CORRECT_FORMAT_REMOTE_CMD("CORRECT_FORMAT_REMOTE_CMD", "§7[§bVec§fLink§7]§f➣ §cThe correct format is: veclink command [serverName|group:] [@c(console)|playerName] [command]."),
+    CORRECT_FORMAT_REMOTE_CMD("CORRECT_FORMAT_REMOTE_CMD", "§7[§bVec§fLink§7]§f➣ §cThe correct format is: veclink remoteCmd [serverName|group:] [@c(console)|playerName] [command]."),
+    CORRECT_FORMAT_FIND_CMD("CORRECT_FORMAT_FIND_CMD", "§7[§bVec§fLink§7]§f➣ §cThe correct format is: veclink find [playerName]."),
     CLIENT_NOT_CONNECTED("CLIENT_NOT_CONNECTED", "§7[§bVec§fLink§7]§f➣ §cThe Client is not connected to the VecLink Server."),
     CORRECT_FORMAT_CHATGROUP("CORRECT_FORMAT_CHATGROUP", "§7[§bVec§fLink§7]§f➣ §cThe correct format is: veclink chatGroup <groupName> <message>."),
     CORRECT_FORMAT_MUTECHAT("CORRECT_FORMAT_MUTECHAT", "§7[§bVec§fLink§7]§f➣ §cThe correct format is: veclink muteChat <groupName>."),

@@ -31,6 +31,17 @@ public class PacketFormatterSpigot {
         return packet.toArray();
     }
 
+    public static Object[] formatFindPlayerPacket(String targetPlayer, String player, String targetServer) {
+
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_FIND_PLAYER.ordinal(),
+                targetPlayer,
+                player,
+                targetServer
+                );
+        return packet.toArray();
+    }
+
     public static Object[] formatKeepAlivePacket(double[] tps, boolean isJoinable, long[] memory, double mspt, String osName) {
 
         List<Object> packet = Arrays.asList(

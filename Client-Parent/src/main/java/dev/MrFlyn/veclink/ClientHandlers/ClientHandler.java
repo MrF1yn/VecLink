@@ -109,6 +109,9 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         Main.gi.log("Channel Inactive. Communication dropped.");
         Main.pi.clearCaches();
         Main.gi.stopKeepAliveTask();
+        for(String s : ConnectedVecLinkClient.CFC.keySet()){
+            Main.client.callMonitors(s);
+        }
         final EventLoop eventLoop = ctx.channel().eventLoop();
         eventLoop.schedule(new Runnable() {
             @Override

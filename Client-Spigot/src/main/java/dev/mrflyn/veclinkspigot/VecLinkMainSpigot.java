@@ -1,5 +1,7 @@
 package dev.mrflyn.veclinkspigot;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import dev.mrflyn.veclinkspigot.chat.ChatHandler;
 import dev.mrflyn.veclinkspigot.chat.ChatListener;
 import dev.mrflyn.veclinkspigot.commands.*;
@@ -51,6 +53,7 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
 
     public void onEnable(){
         plugin = this;
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         this.adventure = BukkitAudiences.create(this);
         lcs = LegacyComponentSerializer.legacySection();
         miniMessage = MiniMessage.miniMessage();
@@ -106,7 +109,8 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
                 new ReloadCommand(),
                 new ListCommand(),
                 new PlayerInfoCommand(),
-                new DcVerifyCommand()
+                new DcVerifyCommand(),
+                new FindCommand()
         );
         getCommand("veclink").setExecutor(veclinkCommand);
         getCommand("veclink").setTabCompleter(veclinkCommand);
@@ -133,6 +137,7 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
     }
 
     public void onDisable(){
+        this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
         Main.gi.stopKeepAliveTask();
         chatHandler.stopChatSyncTask();
         if(this.adventure != null) {
@@ -199,5 +204,12 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
 
     public static LegacyComponentSerializer getLCS() {
         return VecLinkMainSpigot.plugin.lcs;
+    }
+
+    public void sendConnectPluginMessage(Player p, String server){
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Connect");
+        out.writeUTF(server);
+        p.sendPluginMessage(this, "BungeeCord", out.toByteArray());
     }
 }

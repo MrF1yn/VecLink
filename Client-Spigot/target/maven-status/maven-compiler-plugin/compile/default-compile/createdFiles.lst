@@ -18,6 +18,7 @@ dev\mrflyn\veclinkspigot\chat\ChatListener.class
 dev\mrflyn\veclinkspigot\commands\MuteChatCommand.class
 dev\mrflyn\veclinkspigot\utils\MemoryUtil.class
 dev\mrflyn\veclinkspigot\utils\SpigotReflection.class
+dev\mrflyn\veclinkspigot\commands\FindCommand.class
 dev\mrflyn\veclinkspigot\utils\Crafty.class
 dev\mrflyn\veclinkspigot\PacketHandlerSpigot.class
 dev\mrflyn\veclinkspigot\VecLinkMainSpigot.class

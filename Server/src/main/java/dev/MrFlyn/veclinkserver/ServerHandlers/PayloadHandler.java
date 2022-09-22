@@ -147,6 +147,13 @@ public class PayloadHandler {
                     fromClient.getChannel().writeAndFlush(PacketFormatter.formatDcVerifyAck(false,null,null,userID,userName));
                 }
                 break;
+            case C2S_FIND_PLAYER:
+                String targetPlayerName = (String) packet[1];
+                String playerName = (String) packet[2];
+                String targetServer = (String) packet[3];
+                if(!ServerHandler.ClientsByName.containsKey(targetServer))return;
+                ServerHandler.ClientsByName.get(targetServer).getChannel().writeAndFlush(PacketFormatter.formatFindPlayerPacket(targetPlayerName, playerName));
+                break;
         }
     }
 }

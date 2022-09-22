@@ -18,6 +18,7 @@ import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getLCS;
 import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getMiniMessage;
 
 public class PacketHandlerSpigot implements PacketHandler {
+    private ConcurrentHashMap<String, String> findPlayerCache = new ConcurrentHashMap<>();
 ReentrantLock lock = new ReentrantLock();
     @Override
     public void clearCaches(){
@@ -31,6 +32,10 @@ ReentrantLock lock = new ReentrantLock();
         }finally {
             lock.unlock();
         }
+    }
+
+    public ConcurrentHashMap<String, String> getFindPlayerCache(){
+        return this.findPlayerCache;
     }
 
 
@@ -231,6 +236,16 @@ ReentrantLock lock = new ReentrantLock();
                      .sendMessage(getLCS().deserialize(Main.config.getLanguageConfig().getString(ConfigPath.DC_VERIFY_SUCCESS.toString())
                              .replace("%userName%", iuserName)));
                 });
+                break;
+            case S2C_FIND_PLAYER:
+                String targetPlayerName = (String) packet[1];
+                String playerName = (String) packet[2];
+                this.findPlayerCache.put(playerName, targetPlayerName);
+                Bukkit.getScheduler().runTaskLaterAsynchronously(VecLinkMainSpigot.plugin, ()->{
+                        findPlayerCache.remove(playerName);
+                }, 300L);
+                break;
+
         }
     }
 

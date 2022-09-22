@@ -2,6 +2,7 @@ package dev.mrflyn.veclinkspigot;
 
 import dev.mrflyn.veclink.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -31,6 +32,11 @@ public class Listeners implements Listener {
             VecLinkMainSpigot.plugin.isJoinable()));
             Main.gi.debug("Sent player-info packet to VecLinkServer.");
         });
+        String targetPlayerName = ((PacketHandlerSpigot)Main.pi).getFindPlayerCache().get(name);
+        if (targetPlayerName==null)return;
+        Player tPlayer = Bukkit.getPlayer(targetPlayerName);
+        if (tPlayer==null)return;
+        e.getPlayer().teleport(tPlayer);
     }
 
     @EventHandler

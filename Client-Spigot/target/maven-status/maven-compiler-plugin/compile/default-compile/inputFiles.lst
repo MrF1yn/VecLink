@@ -16,6 +16,7 @@ H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\handler
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\ListCommand.java
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\utils\MemoryUtil.java
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\DisconnectCommand.java
+H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\FindCommand.java
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\MuteChatCommand.java
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\Listeners.java
 H:\VecLink\Client-Spigot\src\main\java\dev\mrflyn\veclinkspigot\commands\ReconnectCommand.java

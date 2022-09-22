@@ -41,12 +41,12 @@ public class MuteChatCommand implements SubCommand {
         }
         if(VecLinkMainSpigot.plugin.playerChatGroupStatus.get(p).remove(grp)){
             //MUTED
-            sender.sendMessage(ConfigPath.CHAT_GRP_MUTED.toString());
+            sender.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.CHAT_GRP_MUTED.toString()));
             return true;
         }
         VecLinkMainSpigot.plugin.playerChatGroupStatus.get(p).add(grp);
         //UNMUTED
-        sender.sendMessage(ConfigPath.CHAT_GRP_UNMUTED.toString());
+        sender.sendMessage(Main.config.getLanguageConfig().getString(ConfigPath.CHAT_GRP_UNMUTED.toString()));
         return true;
     }
 

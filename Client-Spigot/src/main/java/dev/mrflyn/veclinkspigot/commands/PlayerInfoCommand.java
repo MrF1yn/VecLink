@@ -10,12 +10,14 @@ import dev.mrflyn.veclinkspigot.VecLinkMainSpigot;
 import dev.mrflyn.veclinkspigot.commands.handler.SubCommand;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getLCS;
 import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getMiniMessage;
@@ -24,10 +26,12 @@ public class PlayerInfoCommand implements SubCommand {
     String format;
     public PlayerInfoCommand(){
         format = "<aqua>------------------</aqua>\n" +
-                "<green><hover:show_text:'<red>Shift-Click to Copy'>PlayerName</hover>: <gold><insert:%playerName%>%playerName%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Shift-Click to Copy'>PlayerUUID</hover>: <gold><insert:%playerUUID%>%playerUUID%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Shift-Click to Copy'>DiscordID</hover>: <gold><insert:%discordID%>%discordID%</insert></gold></green>\n" +
-                "<green><hover:show_text:'<red>Shift-Click to Copy'>DiscordName</hover>: <gold><insert:@%discordName%>%discordName%</insert></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'><insert:%playerName%>PlayerName: <gold>%playerName%</insert></hover></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'><insert:%playerUUID%>PlayerUUID: <gold>%playerUUID%</insert></hover></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'><insert:%discordID%>DiscordID: <gold>%discordID%</insert></hover></gold></green>\n" +
+                "<green><hover:show_text:'<red>Shift-Click to Copy'><insert:@%discordName%>DiscordName: <gold>%discordName%</insert></hover></gold></green>\n" +
+                "<green>Status: %status%</green>\n" +
+                "<green>ConnectedServers: %connectedServers%</green>\n" +
                 "<aqua>------------------</aqua>";
     }
 
@@ -47,15 +51,40 @@ public class PlayerInfoCommand implements SubCommand {
         }
         Bukkit.getScheduler().runTaskAsynchronously(VecLinkMainSpigot.plugin, ()->{
             VLPlayer p =  Main.db.getPlayerInfoFromMinecraftName(args[0]);
-            if(p==null){
-                sender.sendMessage("Player not Found");
-                return;
+            String status = "<red>OFFLINE</red>";
+            String servers = "";
+            if(Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[0]))){
+                status = "<green><hover:show_text:'<red>Click to Teleport'><click:run_command:/veclink:find "+args[0]+">ONLINE</click></hover></green>";
+            }else {
+                List<String> connectedServers = ConnectedVecLinkClient.getOnlinePlayerServers(args[0]);
+                if (!connectedServers.isEmpty()) {
+                    status = "<green><hover:show_text:'<red>Click to Teleport'><click:run_command:/veclink:find "+args[0]+">ONLINE</click></hover></green>";
+                    servers = StringUtils.join(connectedServers, " ,");
+                }
             }
-            String msg = format
-                    .replace("%playerName%", p.getName())
-                    .replace("%playerUUID%", p.getUUID().toString())
-                    .replace("%discordID%", p.getUserID()==null?"N/A":p.getUserID())
-                    .replace("%discordName%", p.getUserName()==null?"N/A":p.getUserName());
+
+            String msg = "";
+            if(p==null){
+                msg = format
+                        .replace("%playerName%", args[0])
+                        .replace("%playerUUID%", "N/A")
+                        .replace("%discordID%", "N/A")
+                        .replace("%discordName%", "N/A")
+                        .replace("%status%", status)
+                        .replace("%connectedServers%", "<gold>"+servers+"</gold>")
+                        ;
+            }
+            else {
+                msg = format
+                        .replace("%playerName%", p.getName())
+                        .replace("%playerUUID%", p.getUUID().toString())
+                        .replace("%discordID%", p.getUserID() == null ? "N/A" : p.getUserID())
+                        .replace("%discordName%", p.getUserName() == null ? "N/A" : p.getUserName())
+                        .replace("%status%", status)
+                        .replace("%connectedServers%", "<gold>" + servers + "</gold>")
+                ;
+            }
+
 
                 Audience audience = VecLinkMainSpigot.plugin.adventure().sender(sender);
                 audience.sendMessage(getMiniMessage().deserialize(msg));
