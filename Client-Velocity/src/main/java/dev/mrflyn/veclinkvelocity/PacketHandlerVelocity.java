@@ -155,6 +155,6 @@ public class PacketHandlerVelocity implements PacketHandler {
     }
 
     public void test(String test){
-        System.out.println("FALCON TEST");
+        Main.gi.debug("FALCON TEST");
     }
 }

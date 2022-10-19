@@ -16,7 +16,7 @@ public class MainConfig {
     public void init(){
         try {
             if (!mainConfig.exists()) {
-                System.out.println("New file has been created: " + mainConfig.getFilePath() + "\n");
+                Main.gi.debug("New file has been created: " + mainConfig.getFilePath() + "\n");
 
                 mainConfig.createNewFile(true);
                 mainConfig.addDefault("host", "0.0.0.0:8000");
@@ -27,7 +27,7 @@ public class MainConfig {
                 mainConfig.save();
 
             } else {
-                System.out.println(mainConfig.getFilePath() + " already exists, loading configurations...\n");
+                Main.gi.debug(mainConfig.getFilePath() + " already exists, loading configurations...\n");
             }
             mainConfig.load(); // Loads the entire file
             // If your file has comments inside you have to load it with yamlFile.loadWithComments()
@@ -36,7 +36,7 @@ public class MainConfig {
         }
         try {
             if (!languageConfig.exists()) {
-                System.out.println("New file has been created: " + languageConfig.getFilePath() + "\n");
+                Main.gi.debug("New file has been created: " + languageConfig.getFilePath() + "\n");
 
                 languageConfig.createNewFile(true);
 
@@ -47,7 +47,7 @@ public class MainConfig {
                 languageConfig.save();
 
             } else {
-                System.out.println(languageConfig.getFilePath() + " already exists, loading configurations...\n");
+                Main.gi.debug(languageConfig.getFilePath() + " already exists, loading configurations...\n");
             }
             languageConfig.load(); // Loads the entire file
             // If your file has comments inside you have to load it with yamlFile.loadWithComments()

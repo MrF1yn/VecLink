@@ -124,6 +124,7 @@ public class PayloadHandler {
                 String sender = (String) packet[1];
                 String grpName = (String) packet[2];
                 String msg1 = (String) packet[3];
+                Main.log(msg1, true);
                 ServerHandler.AuthorisedClients.writeAndFlush(PacketFormatter.formatChatGrpDisplay(msg1,fromClient.getName(),grpName, sender));
                 break;
             case C2S_DC_VERIFY_INIT:

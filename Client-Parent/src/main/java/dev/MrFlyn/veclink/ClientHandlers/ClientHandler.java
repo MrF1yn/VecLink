@@ -26,8 +26,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object s) throws Exception {
-        System.out.println("Received!");
-        System.out.println(s.toString());
+        Main.gi.debug("Received!");
+        Main.gi.debug(s.toString());
         if(!(s instanceof Object[])){
             Main.gi.log("Received bad data from: "+ctx.channel().remoteAddress());
             return;
@@ -84,7 +84,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("ReadComplete");
+        Main.gi.debug("ReadComplete");
 //        ctx.flush();
     }
 

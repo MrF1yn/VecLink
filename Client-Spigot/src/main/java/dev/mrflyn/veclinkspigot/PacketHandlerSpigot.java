@@ -188,6 +188,7 @@ ReentrantLock lock = new ReentrantLock();
                 String sender1 = (String) packet[2];
                 String grpName = (String) packet[3];
                 String msg1 = (String) packet[4];
+                Main.gi.log(msg1);
                 Bukkit.getScheduler().runTask(VecLinkMainSpigot.plugin, () -> {
                     for (Player p : Bukkit.getServer().getOnlinePlayers()) {
                         if(p.hasPermission("veclink.chatgroup."+grpName)){
@@ -250,6 +251,6 @@ ReentrantLock lock = new ReentrantLock();
     }
 
     public void test(String test){
-        System.out.println("FALCON TEST");
+        Main.gi.debug("FALCON TEST");
     }
 }

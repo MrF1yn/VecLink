@@ -38,14 +38,14 @@ public class Main implements GlobalInterface{
 
     @Override
     public <T> void log(T message) {
-        System.out.println("[VecLinkClient] "+message.toString());
+        Main.gi.debug("[VecLinkClient] "+message.toString());
     }
 
     @Override
     public <T> void debug(T message) {
 
         if (config.getMainConfig().getBoolean("debug"))
-            System.out.println("[VecLinkClient][Debug] "+message.toString());
+            Main.gi.debug("[VecLinkClient][Debug] "+message.toString());
 
     }
 

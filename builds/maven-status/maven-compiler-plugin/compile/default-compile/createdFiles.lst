@@ -13,4 +13,5 @@ dev\mrflyn\veclinkdiscordsrv\commands\AddRole.class
 dev\mrflyn\veclinkdiscordsrv\PacketHandlerDiscordSRV$1.class
 dev\mrflyn\veclinkdiscordsrv\commands\RemRole.class
 dev\mrflyn\veclinkdiscordsrv\commands\handler\VecLinkCommand.class
+dev\mrflyn\veclinkdiscordsrv\runtimedependancy\LibbyImpl.class
 dev\mrflyn\veclinkdiscordsrv\utils\ExtraUtil.class
