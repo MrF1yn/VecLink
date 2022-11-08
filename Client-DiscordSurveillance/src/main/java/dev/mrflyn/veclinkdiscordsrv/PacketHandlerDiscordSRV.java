@@ -163,6 +163,9 @@ public class PacketHandlerDiscordSRV implements PacketHandler {
                             .replace("%playerName%", iName));
                 }
                 break;
+            case S2C_DC_CHAT_MONITOR:
+                if (VecLinkMainDiscordSRV.plugin.chatMonitorHandler==null)return;
+                VecLinkMainDiscordSRV.plugin.chatMonitorHandler.onChatMonitorPacket(ConnectedVecLinkClient.CFC.get((String) packet[2]), (String) packet[1]);
         }
 //            case S2C_PARTY_INVITE:
 //                String targetPlayerName = json.get("invited").getAsString();

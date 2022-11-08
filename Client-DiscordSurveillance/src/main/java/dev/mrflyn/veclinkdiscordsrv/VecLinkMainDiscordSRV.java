@@ -3,6 +3,7 @@ package dev.mrflyn.veclinkdiscordsrv;
 import dev.mrflyn.veclink.GlobalInterface;
 
 import dev.mrflyn.veclink.Main;
+import dev.mrflyn.veclinkdiscordsrv.chatmonitoring.ChatMonitorHandler;
 import dev.mrflyn.veclinkdiscordsrv.commands.AddRole;
 import dev.mrflyn.veclinkdiscordsrv.commands.RemRole;
 import dev.mrflyn.veclinkdiscordsrv.commands.changeNick;
@@ -38,6 +39,7 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
     public static VecLinkMainDiscordSRV plugin;
     public static JDA jda;
     public VecLinkCommand cmdHandler;
+    public ChatMonitorHandler chatMonitorHandler;
 
     public static void main(String[] args){
         VecLinkMainDiscordSRV main = new VecLinkMainDiscordSRV();
@@ -109,6 +111,10 @@ public class VecLinkMainDiscordSRV implements GlobalInterface {
         Main.enable();
         if(config.getBoolean("live_status.enabled")){
             new LiveStatusHandler().init();
+        }
+        if (config.getBoolean("chat_monitor.enabled")) {
+            chatMonitorHandler = new ChatMonitorHandler();
+            chatMonitorHandler.init();
         }
     }
 

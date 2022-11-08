@@ -155,6 +155,15 @@ public class PayloadHandler {
                 if(!ServerHandler.ClientsByName.containsKey(targetServer))return;
                 ServerHandler.ClientsByName.get(targetServer).getChannel().writeAndFlush(PacketFormatter.formatFindPlayerPacket(targetPlayerName, playerName));
                 break;
+            case C2S_DC_CHAT_MONITOR_INIT:
+                VecLinkClient.dcChatMonitorFormat = (String) packet[1];
+                VecLinkClient.updateDiscordChatMonitoringFormat();
+                break;
+            case C2S_DC_CHAT_MONITOR:
+                for(VecLinkClient v : ServerHandler.ClientsByName.values()){
+                    if (v.getType()!=ClientType.DISCORD_SRV)continue;
+                    v.getChannel().writeAndFlush(PacketFormatter.formatDcChatMonitor((String) packet[1], fromClient.getName()));
+                }
         }
     }
 }

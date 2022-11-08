@@ -1,6 +1,6 @@
 package dev.mrflyn.veclinkdiscordsrv.commands.handler;
 
-import dev.mrflyn.veclink.ConfigPath;
+
 import dev.mrflyn.veclink.Main;
 
 

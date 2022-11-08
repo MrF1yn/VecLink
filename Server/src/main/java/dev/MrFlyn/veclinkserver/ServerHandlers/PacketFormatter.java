@@ -167,4 +167,21 @@ public class PacketFormatter {
         );
         return packet.toArray();
     }
+
+    public static Object[] formatDcChatMonitorInit(String format) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_DC_CHAT_MONITOR_INIT.ordinal(),
+                format
+        );
+        return packet.toArray();
+    }
+
+    public static Object[] formatDcChatMonitor(String msg, String clientName) {
+        List<Object> packet = Arrays.asList(
+                PacketType.S2C_DC_CHAT_MONITOR.ordinal(),
+                msg,
+                clientName
+        );
+        return packet.toArray();
+    }
 }

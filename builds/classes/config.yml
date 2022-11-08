@@ -15,6 +15,18 @@ live_status:
       status_embed: 'live_status_embed.json'
       offline_embed: 'offline_status_embed.json'
 
+chat_monitor:
+  enabled: false
+  incoming_format: "[%luckperms_prefix%][player]: [message]"
+  outgoing_format: "%user_tag%: [message]"
+  registered:
+    "980140597115514980:1020710167395966977":
+      client_name: 'eco'
+      chat_input: false
+    "980140597115514980:1020710211171921991":
+      client_name: 'hub'
+      chat_input: false
+
 
 verification_channel_id: ''
 on_verify_success:

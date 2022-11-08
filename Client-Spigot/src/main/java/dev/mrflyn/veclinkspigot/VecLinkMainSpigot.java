@@ -38,6 +38,7 @@ public class VecLinkMainSpigot extends JavaPlugin implements GlobalInterface{
     public FileConfiguration config;
     public ChatHandler chatHandler;
     public ConcurrentHashMap<String,String>chatGroups;
+    public String dcChatMonitorFormat = "";
     public ConcurrentHashMap<Player,List<String>>playerChatGroupStatus;
     public LegacyComponentSerializer lcs;
     public MiniMessage miniMessage;

@@ -13,6 +13,7 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent e){
+
         if(!VecLinkMainSpigot.plugin.config.getBoolean("chat-module.enabled"))return;
         Player p = e.getPlayer();
         if(VecLinkMainSpigot.plugin.config.getString("chat-module.regular-format")!=null&&

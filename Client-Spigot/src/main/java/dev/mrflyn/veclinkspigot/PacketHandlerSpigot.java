@@ -246,6 +246,9 @@ ReentrantLock lock = new ReentrantLock();
                         findPlayerCache.remove(playerName);
                 }, 300L);
                 break;
+            case S2C_DC_CHAT_MONITOR_INIT:
+                VecLinkMainSpigot.plugin.dcChatMonitorFormat = (String) packet[1];
+                break;
 
         }
     }

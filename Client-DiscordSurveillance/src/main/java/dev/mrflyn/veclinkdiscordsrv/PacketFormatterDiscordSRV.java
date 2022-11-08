@@ -81,5 +81,14 @@ public class PacketFormatterDiscordSRV {
         return packet.toArray();
     }
 
+    public static Object[] chatMonitorInit(String format) {
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_DC_CHAT_MONITOR_INIT.ordinal(),
+                format);
+        return packet.toArray();
+    }
+
+
+
 
 }

@@ -21,6 +21,7 @@ public class VecLinkClient {
 //    arr[4] = Long.parseLong(decimalFormat.format((l7 - l10) / 1024L / 1024L)); // current memory usage
 //    arr[5] = Long.parseLong(decimalFormat.format(l7 / 1024L / 1024L)); //max memory
 //    arr[6] = Long.parseLong(decimalFormat.format(l8 / 1024L / 1024L)); //allocated memory
+    public static String dcChatMonitorFormat = "";
     private String clientName;
     private Channel clientChannel;
     private ClientType clientType;
@@ -44,6 +45,13 @@ public class VecLinkClient {
 
     public int getOnlinePlayerCount() {
         return onlinePlayerCount;
+    }
+
+    public static void updateDiscordChatMonitoringFormat(){
+        for(VecLinkClient c : ServerHandler.ClientsByName.values()){
+            if (c.getType()==ClientType.DISCORD_SRV&&c.getType()==ClientType.SERVER)continue;
+            c.getChannel().writeAndFlush(PacketFormatter.formatDcChatMonitorInit(dcChatMonitorFormat));
+        }
     }
 
     private int onlinePlayerCount;

@@ -85,5 +85,12 @@ public class PacketFormatterSpigot {
         return packet.toArray();
     }
 
+    public static Object[] dcChatMonitor(String msg){
+        List<Object> packet = Arrays.asList(
+                PacketType.C2S_DC_CHAT_MONITOR.ordinal(),
+                msg);
+        return packet.toArray();
+    }
+
 
 }

@@ -5,13 +5,28 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
+import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getLCS;
+import static dev.mrflyn.veclinkspigot.VecLinkMainSpigot.getMiniMessage;
+
 public class Listeners implements Listener {
+
+    @EventHandler
+    public void onChat(AsyncPlayerChatEvent e){
+        if(Main.client.channel==null||!(Main.client.channel.isActive()))return;
+        Main.client.channel.writeAndFlush(PacketFormatterSpigot.dcChatMonitor(
+                getLCS().serialize(getMiniMessage().deserialize(VecLinkMainSpigot.PAPIparseIfAvailable(e.getPlayer(),
+                                VecLinkMainSpigot.plugin.dcChatMonitorFormat)))
+                        .replace("[message]",e.getMessage()).replace("[player]",e.getPlayer().getName())
+        ));
+    }
+
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
